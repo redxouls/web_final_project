@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, "../dist"); // NEW
 const HTML_FILE = path.join(DIST_DIR, "index.html"); // NEW
 
-const course_info = require("../course_info/parsed_cs_course.json");
+const course_info = require("../course_info/parsed_courses.json");
 const user_info = require("../user_info/user_info.json");
 
 const mockResponse = {
