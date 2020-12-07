@@ -37,7 +37,7 @@ app.get("/api/course", (req, res) => {
   const serial_number = req.query.serial_number.toString();
   console.log(serial_number);
   const info = course_info[serial_number];
-  console.log(course_info);
+  console.log(info);
 
   if (info === undefined) {
     res.status(404).send({});
