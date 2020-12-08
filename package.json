@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js",
-    "dev": "webpack --mode development && nodemon server/index.js",
+    "start": "nodemon server/app.js",
+    "dev": "webpack --mode development && nodemon server/app.js",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --mode development"
@@ -14,9 +14,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.5",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

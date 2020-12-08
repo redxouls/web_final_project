@@ -1,0 +1,12 @@
+{
+  "CJF": {
+    "username": "CJF",
+    "password": "lightening_five_whips",
+    "following": ["01001", "44345"]
+  },
+  "Lisa": {
+    "username": "Lisa",
+    "password": "lightening_five_whips",
+    "following": ["01001", "44345"]
+  }
+}
