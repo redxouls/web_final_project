@@ -16,25 +16,39 @@ const router = express.Router();
 //router.use(bodyParser.json());
 
 // For mainpage to fetch what courses the user followed
-router.get("/api/user", (req, res) => {
-  const username = req.query.username;
-  const mode = req.query.mode;
-  const following = accountInfo[username]["following"];
-  let followingDetails;
-  const courseList = getCourseTime(following);
+router.route("/api/user").get(
+  asyncHandler(async (req, res, next) => {
+    const username = req.query.username;
+    const mode = req.query.mode;
+    const following = accountInfo[username]["following"];
 
-  if (mode === "list") {
+    console.log(Object.keys(courseInfo).length);
     if (following === undefined) {
       res.status(404).send({ following: [] });
-    } else {
-      followingDetails = response = { following: following };
-      res.status(200).send(courseList);
+      return;
     }
-  }
-});
+    if (mode === "timeline_list") {
+      const courseList = getCourseTime(following);
+      res.status(200).send(courseList);
+      return;
+    }
+    if (mode === "simple_list") {
+      const courseList = following.map((serial_number) => {
+        if (courseInfo[serial_number] === undefined) {
+          return {};
+        }
+        const title = courseInfo[serial_number]["title"];
+        return { serial_number: serial_number, title: title };
+      });
+      res.status(200).send(courseList);
+      return;
+    }
+    res.status(404).send("Invalid query parameter");
+  })
+);
 
 // For fetching course infomations
-router.get("/api/course", (req, res) => {
+router.route("/api/course").get((req, res) => {
   const serial_number = req.query.serial_number.toString();
   console.log(serial_number);
   const info = courseInfo[serial_number];
