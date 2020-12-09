@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const http = require("http");
+
 //const https = require("https");
 
 const express = require("express");
@@ -13,6 +14,8 @@ const mongoose = require("mongoose");
 
 //const handleSocketEvents = require("./socket.js");
 const apiRouter = require("./api");
+const DIST_DIR = path.join(__dirname, "../dist"); // NEW
+const HTML_FILE = path.join(DIST_DIR, "index.html"); // NEW
 
 // ========================================
 
@@ -76,7 +79,15 @@ const sessionOptions = {
 const sessionMiddleware = session(sessionOptions);
 app.use(sessionMiddleware);
 
-app.use("/", apiRouter);
+app.use("/api", apiRouter);
+
+// Routing for react production and react routers
+app.get("/", (req, res) => {
+  req.session.username = "guest";
+  res.sendFile(HTML_FILE); // EDIT
+});
+
+app.use(express.static(DIST_DIR)); // NEW
 
 // db settings below
 

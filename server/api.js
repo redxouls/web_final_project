@@ -16,15 +16,19 @@ const router = express.Router();
 //router.use(bodyParser.json());
 
 // For mainpage to fetch what courses the user followed
-router.route("/api/user").get(
+router.route("/user").get(
   asyncHandler(async (req, res, next) => {
     const username = req.query.username;
     const mode = req.query.mode;
-    const following = accountInfo[username]["following"];
 
-    console.log(Object.keys(courseInfo).length);
+    if (!Object.keys(accountInfo).includes(username)) {
+      res.status(404).send({ error: "no user found" });
+      return;
+    }
+
+    const following = accountInfo[username]["following"];
     if (following === undefined) {
-      res.status(404).send({ following: [] });
+      res.status(404).send({ error: "failed to load following courses" });
       return;
     }
     if (mode === "timeline_list") {
@@ -48,14 +52,14 @@ router.route("/api/user").get(
 );
 
 // For fetching course infomations
-router.route("/api/course").get((req, res) => {
+router.route("/course").get((req, res) => {
   const serial_number = req.query.serial_number.toString();
   console.log(serial_number);
   const info = courseInfo[serial_number];
   console.log(info);
 
   if (info === undefined) {
-    res.status(404).send({});
+    res.status(404).send({ message: "No course is found !" });
   } else {
     response = info;
     res.status(200).send(response);
@@ -67,7 +71,6 @@ router.route("/login").post(
   express.urlencoded({ extended: false }),
   asyncHandler(async (req, res, next) => {
     const { username, password } = req.body;
-    let statusCode, response;
 
     if (!username || !password) {
       res.status(400).end();
@@ -86,14 +89,6 @@ router.route("/login").post(
     res.status(201).send({ username });
   })
 );
-
-// Routing for react production and react routers
-router.route("/").get((req, res) => {
-  req.session.username = "guest";
-  res.sendFile(HTML_FILE); // EDIT
-});
-
-router.use(express.static(DIST_DIR)); // NEW
 
 router.get("/session", (req, res) => {
   console.log(req.session.username);
