@@ -1,12 +1,1 @@
-{
-  "CJF": {
-    "username": "CJF",
-    "password": "lightening_five_whips",
-    "following": ["01001", "44345", "97007", "97045", "97110"]
-  },
-  "Lisa": {
-    "username": "Lisa",
-    "password": "lightening_five_whips",
-    "following": ["01001", "44345"]
-  }
-}
+{"CJF":{"username":"CJF","password":"lightening_five_whips","following":["01001","44345","97007","97045","97110","01003","01007","03014","01002"]},"Lisa":{"username":"Lisa","password":"lightening_five_whips","following":["01001","44345"]}}
