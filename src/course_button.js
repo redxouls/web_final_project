@@ -9,10 +9,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 const useStyles = makeStyles((theme) => ({
   root: {
+    flexGrow: 1,
+    flexShrink: 1,
     margin: 0,
-    padding: 0,
+    paddingLeft: 3,
+    paddingRight: 3,
     height: 45,
-    width: 50,
+    width: "10%",
   },
   paper: {
     margin: 3,
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "lightblue",
     color: theme.palette.text.secondary,
     height: 35,
-    width: 45,
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"

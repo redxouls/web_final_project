@@ -9,10 +9,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 const useStyles = makeStyles((theme) => ({
   root: {
+    flexShrink: 1,
     margin: 0,
-    padding: 0,
+    paddingLeft: 3,
+    paddingRight: 3,
     height: 45,
-    width: 50,
+    width: "10%",
   },
   paper: {
     margin: 3,
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     color: theme.palette.text.secondary,
     height: 35,
-    width: 45,
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
@@ -31,10 +33,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center"
   },
-  name: {
-    lineHeight: 1.1,
-    fontSize: 1,
-  }
 }));
 
 export default (props) => {
@@ -45,7 +43,7 @@ export default (props) => {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid item xs className={classes.grid}>
-          <div className={classes.name}>{name}</div>
+          <div>{name}</div>
         </Grid>
       </Paper>
     </div>

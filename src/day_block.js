@@ -15,27 +15,38 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 3,
     paddingRight: 3,
     height: 45,
-    width: "10%",
   },
   paper: {
     margin: 3,
     padding: 1.5,
     textAlign: 'center',
-    backgroundColor: "pink",
+    backgroundColor: "white",
     color: theme.palette.text.secondary,
     height: 35,
     width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  grid: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
 }));
 
-export default () => {
+export default (props) => {
+  const { name, click } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const handleclick = () => {
+    click(name);
+  }
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={handleclick}>
       <Paper className={classes.paper}>
-        <Grid item xs>
-          <div className={classes.name}></div>
+        <Grid item xs className={classes.grid}>
+          <div>{name}</div>
         </Grid>
       </Paper>
     </div>
