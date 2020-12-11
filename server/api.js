@@ -68,8 +68,8 @@ router
   .post(
     express.urlencoded({ extended: false }),
     asyncHandler((req, res, next) => {
-      const { username, method, serial_number } = req.body;
-      console.log(username, method, serial_number);
+      const { username, serial_number } = req.body;
+      console.log(username, serial_number);
       if (!Object.keys(courseInfo).includes(serial_number)) {
         res
           .status(403)
@@ -82,37 +82,51 @@ router
       }
       const following = accountInfo[username]["following"];
 
-      if (method === "follow") {
-        console.log("handle follow request", method);
-        if (following.includes(serial_number)) {
-          res.status(403).send({ message: "course already in list" });
-          return;
-        } else {
-          accountInfo[username]["following"].push(serial_number);
-          res.status(201).send({
-            message: "successfully follow " + serial_number,
-            following: accountInfo[username]["following"],
-          });
-          updateAccountInfo(accountInfo);
-          return;
-        }
+      console.log("handle follow request");
+      if (following.includes(serial_number)) {
+        res.status(403).send({ message: "course already in list" });
+        return;
+      } else {
+        accountInfo[username]["following"].push(serial_number);
+        res.status(200).send({
+          message: "successfully follow " + serial_number,
+          following: accountInfo[username]["following"],
+        });
+        updateAccountInfo(accountInfo);
+        return;
       }
-      if (method === "unfollow") {
-        if (!following.includes(serial_number)) {
-          res.status(403).send({ message: "course not in list" });
-          return;
-        } else {
-          accountInfo[username]["following"].splice(
-            accountInfo[username]["following"].indexOf(serial_number),
-            1
-          );
-          res.status(201).send({
-            message: "successfully unfollow " + serial_number,
-            following: accountInfo[username]["following"],
-          });
-          updateAccountInfo(accountInfo);
-          return;
-        }
+    })
+  )
+  .delete(
+    express.urlencoded({ extended: false }),
+    asyncHandler((req, res, next) => {
+      const { username, serial_number } = req.body;
+      console.log(username, serial_number);
+      if (!Object.keys(courseInfo).includes(serial_number)) {
+        res
+          .status(403)
+          .send({ message: "course not found, please check serial_number" });
+        return;
+      }
+      if (!Object.keys(accountInfo).includes(username)) {
+        res.status(403).send({ message: "user not found" });
+        return;
+      }
+      const following = accountInfo[username]["following"];
+      if (!following.includes(serial_number)) {
+        res.status(403).send({ message: "course not in list" });
+        return;
+      } else {
+        accountInfo[username]["following"].splice(
+          accountInfo[username]["following"].indexOf(serial_number),
+          1
+        );
+        res.status(200).send({
+          message: "successfully unfollow " + serial_number,
+          following: accountInfo[username]["following"],
+        });
+        updateAccountInfo(accountInfo);
+        return;
       }
     })
   );
@@ -211,6 +225,17 @@ async function updateAccountInfo(updatedInfo) {
       console.log("Write file complete.");
     }
   });
+}
+
+function checkValid(username, serial_numbers) {
+  if (!Object.keys(courseInfo).includes(serial_number)) {
+    return [false, "course not found, please check serial_number"];
+  }
+
+  if (!Object.keys(accountInfo).includes(username)) {
+    return [false, "course not found, please check serial_number"];
+  }
+  return [true, ""];
 }
 
 module.exports = router;
