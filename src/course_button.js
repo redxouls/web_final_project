@@ -1,12 +1,12 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import Grid from '@material-ui/core/Grid';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
+import Grid from "@material-ui/core/Grid";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -20,25 +20,25 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     margin: 3,
     padding: 1.5,
-    textAlign: 'center',
-    alignItems: 'center',
+    textAlign: "center",
+    alignItems: "center",
     backgroundColor: "lightblue",
     color: theme.palette.text.secondary,
     height: 35,
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   grid: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   name: {
     lineHeight: 1.1,
-    fontSize: 1,
-  }
+    //fontSize: 1,
+  },
 }));
 
 export default (props) => {
@@ -57,26 +57,33 @@ export default (props) => {
   const handleSure = () => {
     setOpen(false);
     onDel();
-  }
+  };
 
-  let timeOutEvent = 0
+  let timeOutEvent = 0;
   const handleStart = () => {
-    timeOutEvent = setTimeout(() => {longPress()},1000);  // 一秒內算click
+    timeOutEvent = setTimeout(() => {
+      longPress();
+    }, 1000); // 一秒內算click
   };
   const handleEnd = () => {
     clearTimeout(timeOutEvent);
-    if(timeOutEvent != 0)
-      handleGotoCourse();
+    if (timeOutEvent != 0) handleGotoCourse();
   };
   const longPress = () => {
     timeOutEvent = 0;
     setOpen(true);
-  }
-      // onMouseDown={handleStart}  onMouseUp={handleEnd}>
+  };
+  // onMouseDown={handleStart}  onMouseUp={handleEnd}>
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid item xs onTouchStart={handleStart}  onTouchEnd={handleEnd} className={classes.grid}>
+        <Grid
+          item
+          xs
+          onTouchStart={handleStart}
+          onTouchEnd={handleEnd}
+          className={classes.grid}
+        >
           <div className={classes.name}>{name}</div>
         </Grid>
       </Paper>
@@ -90,10 +97,16 @@ export default (props) => {
         <DialogTitle id="confirmation-dialog-title">test</DialogTitle>
         <DialogContent> 確定要刪除？ </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleCancel} color="primary"> Cancel </Button>
-          <Button onClick={handleSure} color="primary"> Sure </Button>
+          <Button autoFocus onClick={handleCancel} color="primary">
+            {" "}
+            Cancel{" "}
+          </Button>
+          <Button onClick={handleSure} color="primary">
+            {" "}
+            Sure{" "}
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+};
