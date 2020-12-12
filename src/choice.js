@@ -8,19 +8,23 @@ import Dialog from '@material-ui/core/Dialog';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ReactApexChart from "react-apexcharts";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-const options = ['None', 'test1', 'test2'];
+const options = ['第 1 節', '第 2 節', '第 3 節'];
 
 export default function choice(props) {
   const { onClose, value: valueProp, open, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
+  const [rate, setRate] = React.useState([]);
   const radioGroupRef = React.useRef(null);
 
   React.useEffect(() => {
     if (!open) {
       setValue(valueProp);
     }
-  }, [valueProp, open]);
+    setRate([60, 50, 30]);
+  }, [valueProp, open, rate]);
 
   const handleEntering = () => {
     if (radioGroupRef.current != null)
@@ -38,7 +42,7 @@ export default function choice(props) {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
+  const progress = 70;
   return (
     <Dialog
       disableBackdropClick
@@ -58,9 +62,13 @@ export default function choice(props) {
           value={value}
           onChange={handleChange}
         >
-          {options.map((option) => (
-            <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
-          ))}
+          {options.map((option, index) => {
+            return(
+            <>
+              <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
+              <LinearProgress variant="determinate" value={rate[index]}/>
+            </>)
+          })}
         </RadioGroup>
       </DialogContent>
       <DialogActions>
