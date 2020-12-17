@@ -76,7 +76,7 @@ export default function choice(props) {
           Cancel
         </Button>
         <Button onClick={handleOk} color="primary">
-          Ok
+          Submit
         </Button>
       </DialogActions>
     </Dialog>

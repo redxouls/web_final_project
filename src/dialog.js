@@ -3,12 +3,23 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Choice from "./choice";
+import title from "./title";
+import LinearProgress from '@material-ui/core/LinearProgress';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles((theme) => ({  // 改css
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+  },
+  button: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+    width: "100%",
+  },
+  name: {
+    width: "65%",
   },
   paper: {
     width: '80%',
@@ -39,8 +50,16 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open responsive dialog
+      <Button
+        variant="contained"
+        color="default"
+        className={classes.button}
+        startIcon={<CloudUploadIcon />}
+        onClick={handleClickOpen}
+      >
+      <div className={classes.name}>
+        hi
+      </div>
       </Button>
       <Choice
         classes={{
@@ -51,6 +70,22 @@ export default () => {
         open={open}
         onClose={handleClose}
         value={value}
-      />    </div>
+      />
+    </div>
   );
 }
+
+
+/*<DialogContent dividers>
+  <RadioGroup
+    ref={radioGroupRef}
+    aria-label="test"
+    name="test"
+    value={value}
+    onChange={handleChange}
+  >
+    {options.map((option) => (
+      <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
+    ))}
+  </RadioGroup>
+</DialogContent>*/

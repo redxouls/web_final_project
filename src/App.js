@@ -5,7 +5,7 @@ import Timetable from "./timetable"
 import Startable from "./Startable"
 import Bottom from "./bottom"
 import Course_list from "./course_list"
-import SignIn from "./login"
+import Main from "./main_table"
 
 const useStyles = makeStyles((theme) => ({
 }));
@@ -16,14 +16,14 @@ const mode = (value) => {
   else if (value == "star")
     return <Startable />;
   else if(value == "login")
-    return <SignIn />;
+    return <Main />;
   else
     return <Course_list />;
 }
 
 export default () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("star");
+  const [value, setValue] = React.useState("login");
   return (
     <div>
       {mode(value)}
