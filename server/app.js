@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 //const connectRedis = require("connect-redis");
 
 //const handleSocketEvents = require("./socket.js");
-const apiRouter = require("./api");
+const apiRouter = require("./routes");
 const DIST_DIR = path.join(__dirname, "../dist"); // NEW
 const HTML_FILE = path.join(DIST_DIR, "index.html"); // NEW
 
