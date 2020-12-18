@@ -9,8 +9,8 @@ const express = require("express");
 //const logger = require("morgan");
 const session = require("express-session");
 const mongoose = require("mongoose");
-//const redis = require("redis");
-//const connectRedis = require("connect-redis");
+const redis = require("redis");
+const connectRedis = require("connect-redis");
 
 //const handleSocketEvents = require("./socket.js");
 const apiRouter = require("./routes");
@@ -29,8 +29,8 @@ const {
   NODE_ENV,
   HTTPS,
   PORT,
-  //REDIS_HOST,
-  //SESSION_PREFIX,
+  REDIS_HOST,
+  SESSION_PREFIX,
   MONGO_URL,
   //MONGO_DB_NAME,
 } = process.env;
@@ -55,6 +55,16 @@ if (NODE_ENV === "development" && protocal === "https") {
   console.log("Using http protocol !!!");
 }
 
+const redisClient = redis.createClient({
+  host: REDIS_HOST,
+  port: 6379,
+  password: "LighteningFiveWhips",
+});
+
+redisClient.on("error", console.error);
+
+const RedisStore = connectRedis(session);
+
 // express app settings below
 
 const sessionOptions = {
@@ -68,12 +78,11 @@ const sessionOptions = {
   saveUninitialized: false,
   secret: uuidv4(),
   unset: "destroy",
-  /*
+
   store: new RedisStore({
     client: redisClient,
     prefix: SESSION_PREFIX,
   }),
-  */
 };
 
 const sessionMiddleware = session(sessionOptions);
@@ -106,7 +115,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
-
+  sessionOptions.store.clear();
   server.listen(port, () =>
     console.log(`App listening at ${protocal}://localhost:${port}`)
   );

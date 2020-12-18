@@ -19,57 +19,57 @@ fs.readFile(accountFilePath, (err, data) => {
 const router = express.Router();
 
 // For mainpage to fetch what courses the user followed
-router
-  .route("/:mode")
-  .get(
-    asyncHandler(async (req, res, next) => {
-      const mode = req.params.mode;
-      console.log("session name: ", req.session.username);
+router.route("/:mode").get(
+  asyncHandler(async (req, res, next) => {
+    const mode = req.params.mode;
+    console.log("session name: ", req.session.username);
 
-      if (req.session.username === undefined) {
-        res.status(401).send({ message: "Not authorized request" });
-        return;
-      }
-      const username = req.session.username;
-
-      if (!Object.keys(accountInfo).includes(username)) {
-        res.status(404).send({ error: "no user found" });
-        return;
-      }
-
-      const following = accountInfo[username]["following"];
-      if (following === undefined) {
-        res.status(500).send({ error: "failed to load following courses" });
-        return;
-      }
-      if (mode === "timeline") {
-        const courseList = getCourseTime(following);
-        if (courseList === undefined) {
-          res.status(500).send({ error: "failed to generate course list" });
-          return;
-        }
-        res.status(200).send(courseList);
-        return;
-      }
-      if (mode === "list") {
-        const courseList = following.map((serial_number) => {
-          if (courseInfo[serial_number] === undefined) {
-            return {};
-          }
-          const title = courseInfo[serial_number]["title"];
-          return { serial_number: serial_number, title: title };
-        });
-        if (courseList === undefined) {
-          res.status(500).send({ error: "failed to generate course list" });
-          return;
-        }
-        res.status(200).send(courseList);
-        return;
-      }
-      res.status(404).send("Invalid query parameter");
+    if (req.session.username === undefined) {
+      res.status(401).send({ message: "Not authorized request" });
       return;
-    })
-  )
+    }
+    const username = req.session.username;
+
+    if (!Object.keys(accountInfo).includes(username)) {
+      res.status(404).send({ error: "no user found" });
+      return;
+    }
+
+    const following = accountInfo[username]["following"];
+    if (following === undefined) {
+      res.status(500).send({ error: "failed to load following courses" });
+      return;
+    }
+    if (mode === "timeline") {
+      const courseList = getCourseTime(following);
+      if (courseList === undefined) {
+        res.status(500).send({ error: "failed to generate course list" });
+        return;
+      }
+      res.status(200).send(courseList);
+      return;
+    }
+    if (mode === "list") {
+      const courseList = following.map((serial_number) => {
+        if (courseInfo[serial_number] === undefined) {
+          return {};
+        }
+        const title = courseInfo[serial_number]["title"];
+        return { serial_number: serial_number, title: title };
+      });
+      if (courseList === undefined) {
+        res.status(500).send({ error: "failed to generate course list" });
+        return;
+      }
+      res.status(200).send(courseList);
+      return;
+    }
+    res.status(404).send("Invalid query parameter");
+    return;
+  })
+);
+router
+  .route("/")
   .post(
     express.urlencoded({ extended: false }),
     asyncHandler((req, res, next) => {
