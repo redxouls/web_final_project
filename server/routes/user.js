@@ -20,10 +20,10 @@ const router = express.Router();
 
 // For mainpage to fetch what courses the user followed
 router
-  .route("/")
+  .route("/:mode")
   .get(
     asyncHandler(async (req, res, next) => {
-      const mode = req.query.mode;
+      const mode = req.params.mode;
       console.log("session name: ", req.session.username);
 
       if (req.session.username === undefined) {
@@ -42,7 +42,7 @@ router
         res.status(500).send({ error: "failed to load following courses" });
         return;
       }
-      if (mode === "timeline_list") {
+      if (mode === "timeline") {
         const courseList = getCourseTime(following);
         if (courseList === undefined) {
           res.status(500).send({ error: "failed to generate course list" });
@@ -51,7 +51,7 @@ router
         res.status(200).send(courseList);
         return;
       }
-      if (mode === "simple_list") {
+      if (mode === "list") {
         const courseList = following.map((serial_number) => {
           if (courseInfo[serial_number] === undefined) {
             return {};
