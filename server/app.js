@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
 
-//const handleSocketEvents = require("./socket.js");
+const handleSocketEvents = require("./socket");
 const apiRouter = require("./routes");
 const DIST_DIR = path.join(__dirname, "../dist"); // NEW
 const HTML_FILE = path.join(DIST_DIR, "index.html"); // NEW
@@ -55,6 +55,8 @@ if (NODE_ENV === "development" && protocal === "https") {
   console.log("Using http protocol !!!");
 }
 
+const io = require("socket.io")(server);
+
 const redisClient = redis.createClient({
   host: REDIS_HOST,
   port: 6379,
@@ -84,6 +86,9 @@ const sessionOptions = {
     prefix: SESSION_PREFIX,
   }),
 };
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, socket.request.res || {}, next);
+});
 
 const sessionMiddleware = session(sessionOptions);
 app.use(sessionMiddleware);
@@ -115,7 +120,11 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
+
   sessionOptions.store.clear();
+
+  //handleSocketEvents(io);
+
   server.listen(port, () =>
     console.log(`App listening at ${protocal}://localhost:${port}`)
   );
