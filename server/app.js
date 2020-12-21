@@ -123,7 +123,7 @@ db.once("open", () => {
 
   sessionOptions.store.clear();
 
-  //handleSocketEvents(io);
+  handleSocketEvents(io);
 
   server.listen(port, () =>
     console.log(`App listening at ${protocal}://localhost:${port}`)

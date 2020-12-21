@@ -3,6 +3,8 @@ function updateSession(socket) {
   if (!session.name) {
     session.name = "guest";
   }
+  let token = socket.handshake.query.token;
+  console.log("token name: ", token);
   const { name } = session;
   socket.emit("UPDATE_SESSION", { name });
 }
@@ -26,7 +28,7 @@ function updateComment(socket) {
 module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log(`A user connected, id = ${socket.id}`);
-    //    updateSession(socket);
+    updateSession(socket);
     //    updatePlayers(socket);
     //    updateSpaces(socket);
     //    updateNotifications(socket);
