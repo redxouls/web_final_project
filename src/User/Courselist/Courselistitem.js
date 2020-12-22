@@ -19,14 +19,14 @@ export default () => {
   return (
     <div className={classes.root}>
       <List component="nav" aria-label="main mailbox folders">
-        <ListItem button>
+        <Link to="/about"><ListItem button>
           <ListItemText primary="Inbox" />
           <ListItemSecondaryAction>
             <IconButton edge="end" aria-label="delete">
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
-        </ListItem>
+        </ListItem></Link>
         <ListItem button>
           <ListItemText primary="Drafts" />
           <ListItemSecondaryAction>

@@ -28,7 +28,7 @@ export default (props) => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        showLabels
+
         className={classes.root}
       >
         <BottomNavigationAction value="star" icon={<Star />} />
