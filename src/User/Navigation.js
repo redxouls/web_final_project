@@ -28,11 +28,10 @@ export default (props) => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-
         className={classes.root}
       >
-        <BottomNavigationAction value="star" icon={<Star />} />
         <BottomNavigationAction value="table" icon={<Table />} />
+        <BottomNavigationAction value="star" icon={<Star />} />
         <BottomNavigationAction value="list" icon={<List />} />
       </BottomNavigation>
       <div className={classes.block} />

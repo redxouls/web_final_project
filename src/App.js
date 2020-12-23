@@ -82,6 +82,9 @@ export default () => {
         <Route path="/Login">
           <Login />
         </Route>
+        <Route path="/Main/:serial_number" >
+          <Main />
+        </Route>
         <Route path="/Reference">
           <Reference />
         </Route>

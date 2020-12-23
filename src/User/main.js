@@ -25,7 +25,7 @@ const mode = (value) => {
 
 export default () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("Courselist");
+  const [value, setValue] = React.useState("star");
   return (
     <div>
       {mode(value)}
