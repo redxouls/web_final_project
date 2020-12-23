@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Courselistitem from './Courselistitem';
+import Addcourse from './Addcourse'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ export default () => {
           console.log("fetch", result);
         }
         else
-          alert("fetch", result["message"]);
+          console.log(result["message"]);
       })
       .catch((error) => console.log("error", error));
   };
@@ -51,7 +52,6 @@ export default () => {
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("serial_number", serial_number);
-
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
@@ -60,17 +60,18 @@ export default () => {
     };
 
     fetch("./api/user", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
         if (result["following"] != undefined)
           setCourses(result["following"])
         else
-          alert("follow", result["message"]);
+          alert(result["message"]);
       })
       .catch((error) => console.log("error", error));
   };
 
   const unfollowCourse = (serial_number) => {
+    console.log(serial_number)
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");
@@ -86,12 +87,12 @@ export default () => {
     };
 
     fetch("./api/user", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
         if (result["following"] != undefined)
           setCourses(result["following"])
         else
-          alert("unfollow", result["message"]);
+          alert(result["message"]);
       })
       .catch((error) => console.log("error", error));
   };
@@ -101,11 +102,11 @@ export default () => {
     key={c.serial_number}
     serial_number={c.serial_number}
     title={c.title}
-    follow={followCourse}
     unfollow={unfollowCourse} />
   }
   return (
     <div className={classes.root}>
+      <Addcourse follow={followCourse} />
       <List className={classes.list}>
       {courses.map(genCourse)}
       </List>
