@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import User from "./User/main";
 import clsx from 'clsx';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +15,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Button from "@material-ui/core/Button";
 import Main from "./User/Mainpage/main"
+import Login from "./User/Login/main"
+import Reference from "./reference"
 import AppBar from '@material-ui/core/AppBar';
 
 const useStyles = makeStyles((theme) => ({
@@ -65,27 +67,25 @@ export default () => {
         </div>
         <Divider />
         <List>
-          {['about', 'dashboard', 'test'].map((text, index) => (
+          {['User', 'Login', 'Reference'].map((text, index) => (
             <ListItem button key={text}>
-              <Link to={'/'+text} className={classes.link}>{text}</Link>
+              <Link to={'/'+text} className={classes.link} onClick={handleDrawerClose}>{text}</Link>
             </ListItem>
           ))}
         </List>
       </Drawer>
       <div className={classes.top} />
       <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route path="/about">
+        <Route path="/User">
           <User />
         </Route>
-        <Route path="/dashboard">
-          <User />
+        <Route path="/Login">
+          <Login />
         </Route>
-        <Route path="/test">
-          <User />
+        <Route path="/Reference">
+          <Reference />
         </Route>
+        <Redirect exact to="/Login" from='/' />
       </Switch>
     </Router></>
   );
