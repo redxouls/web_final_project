@@ -103,7 +103,7 @@ export default (props) => {
     const item = courses[day][row][id];
     if (item === undefined)
       return <Blankbutton />;
-    return <Coursebutton onDel={onDel} name={item.title} />;
+    return <Coursebutton onDel={onDel} name={item.title} num={item.serial_number} />;
   }
   const generateDays = (e) => {
     return <Dayblock key={e} name={e} click={handleClick} />

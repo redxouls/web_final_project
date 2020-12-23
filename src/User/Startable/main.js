@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 const daysIdx = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const timeIdx = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "B", "C", "D"]
 export default (props) => {
-  const { onDel } = props;
   const classes = useStyles();
   const [day, setDay] = useState(0);  // 0代表全部
   const fetchFollowedTimeline = () => {
@@ -48,7 +47,7 @@ export default (props) => {
         if (result["message"] == undefined)
           setCourses(result)
         else
-          alert("fetchStars", result["message"]);
+          console.log("fetchStars", result["message"]);
       })
       .catch((error) => console.log("error", error));
   };
@@ -62,6 +61,34 @@ export default (props) => {
     fetchFollowedTimeline();
     return init;
   });
+
+  const unfollowCourse = (serial_number) => {
+    console.log(serial_number)
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("credentials", "include");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("serial_number", serial_number);
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "manual",
+    };
+
+    fetch("./api/user", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        // if (result["following"] != undefined)
+        //   setCourses(result["following"])
+        // else
+        //   alert(result["message"]);
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
+  };
   const handleClick = () => {}  // donothing
   let row;
   const generateRow = (time) => {
@@ -76,7 +103,7 @@ export default (props) => {
     const list = courses[day][row];
     if (list.length === 0)
       return <Blankbutton />;
-    return <Coursebutton onDel={onDel} name={list[0].title} />;
+    return <Coursebutton onDel={unfollowCourse} name={list[0].title} num={list[0].serial_number} />;
   }
   const generateDays = (e) => {
     return <Dayblock key={e} name={e} click={handleClick} />
