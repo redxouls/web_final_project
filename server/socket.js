@@ -1,12 +1,15 @@
+const Constants = require("./constants");
+
+// check session
 function updateSession(socket) {
   const { session } = socket.request;
-  if (!session.name) {
-    session.name = "guest";
-  }
-  let token = socket.handshake.query.token;
+
+  const token = socket.handshake.query.token;
+  console.log("username", session.username);
   console.log("token name: ", token);
-  const { name } = session;
-  socket.emit("UPDATE_SESSION", { name });
+
+  const { username } = session;
+  socket.emit("UPDATE_SESSION", { username });
 }
 
 function iniateVote(socket) {
