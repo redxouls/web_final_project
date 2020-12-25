@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import io from "socket.io-client";
 
-const Index = () => {
+export default () => {
   const socket = io({
     // path: "/mypath",
     query: {
@@ -56,7 +56,7 @@ const Index = () => {
     myHeaders.append("credentials", "include");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("serial_number", "01005");
+    urlencoded.append("serial_number", "01004");
 
     var requestOptions = {
       method: "POST",
@@ -144,4 +144,4 @@ const Index = () => {
     </div>
   );
 };
-ReactDOM.render(<Index />, document.getElementById("root"));
+// ReactDOM.render(<Index />, document.getElementById("root"));
