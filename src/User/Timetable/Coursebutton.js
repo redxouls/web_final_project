@@ -47,7 +47,7 @@ export default (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleGotoCourse = () => {
-    history.pushState('', '', '/#/Main/' + {num});
+    history.pushState('', '', '/#/Main/' + num);
     history.go(0);
   };
 

@@ -49,7 +49,7 @@ export default (props) => {
   const handleGotoCourse = () => {
     if (num === undefined)
       return;
-    history.pushState('', '', '/#/Main/' + {num});
+    history.pushState('', '', '/#/Main/' + num);
     history.go(0);
   };
 
