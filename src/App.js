@@ -65,7 +65,8 @@ export default () => {
         const socket = io({
           // path: "/mypath",
           query: {
-            token: "CJF",
+            username: "CJF",
+            serial_number: "01003",
           },
         });
         socket.on("connect", function () {
