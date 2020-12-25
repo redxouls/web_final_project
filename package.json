@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/app.js --ext js",
-    "dev": "webpack --mode development && nodemon server/app.js",
+    "dev": "webpack --mode development && nodemon server/app.js --ext js",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --mode development"
