@@ -58,9 +58,11 @@ export default (props) => {
       for (var j = 0; j < 14; j++)
         init[daysIdx[i]][timeIdx[j]] = [];
     }
-    fetchFollowedTimeline();
     return init;
   });
+  useEffect(() => {
+    fetchFollowedTimeline();
+  },[])
 
   const unfollowCourse = (serial_number) => {
     console.log(serial_number)
@@ -81,29 +83,26 @@ export default (props) => {
     fetch("./api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // if (result["following"] != undefined)
-        //   setCourses(result["following"])
-        // else
-        //   alert(result["message"]);
         console.log(result);
       })
       .catch((error) => console.log("error", error));
+    fetchFollowedTimeline();
   };
   const handleClick = () => {}  // donothing
   let row;
   const generateRow = (time) => {
     row = time;
-    return (<><Divider className={classes.divider} />
-      <Grid container spacing={0} direction="row" justify="center" alignItems="center">
+    return ([<Divider className={classes.divider} key={row+'d'} />,
+      <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
         <Timenum name={time} />
         {daysIdx.map(generateBlock)}
-      </Grid></>)
+      </Grid>])
   }
   const generateBlock = (day) => {
     const list = courses[day][row];
     if (list.length === 0)
-      return <Blankbutton />;
-    return <Coursebutton onDel={unfollowCourse} name={list[0].title} num={list[0].serial_number} />;
+      return <Blankbutton key={day} />;
+    return <Coursebutton onDel={unfollowCourse} name={list[0].title} num={list[0].serial_number} key={day} />;
   }
   const generateDays = (e) => {
     return <Dayblock key={e} name={e} click={handleClick} />

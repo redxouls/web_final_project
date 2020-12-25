@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -59,9 +59,36 @@ export default (props) => {
       for (var j = 0; j < 14; j++)
         init[daysIdx[i]][timeIdx[j]] = [];
     }
-    fetchFollowedTimeline();
     return init;
   });
+  useEffect(() => {
+    fetchFollowedTimeline();
+  },[])
+
+  const unfollowCourse = (serial_number) => {
+    console.log(serial_number)
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("credentials", "include");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("serial_number", serial_number);
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "manual",
+    };
+
+    fetch("./api/user", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
+    fetchFollowedTimeline();
+  };
 
   const handleClick = (e) => {  // 哪天被點
     if (day === 0)
@@ -73,24 +100,24 @@ export default (props) => {
   const generateRow = (time) => {
     row = time;
     if (day === 0) {
-      return (<><Divider className={classes.divider} />
-        <Grid container spacing={0} direction="row" justify="center" alignItems="center">
+      return ([<Divider className={classes.divider} key={row+'d'} />,
+        <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {daysIdx.map(generateNum)}
-        </Grid></>)
+        </Grid>])
     } else {
-      return (<><Divider className={classes.divider} />
-        <Grid container spacing={0} direction="row" justify="center" alignItems="center">
+      return ([<Divider className={classes.divider} key={row} />,
+        <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {generateList()}
-        </Grid></>)
+        </Grid>])
     }
   }
   const generateNum = (day) => {
     const list = courses[day][row];
     if (list.length === 0)
-      return <Blankbutton />;
-    return <Coursebutton onDel={onDel} name={list.length} />;
+      return <Blankbutton key={day} />;
+    return <Coursebutton onDel={onDel} name={list.length} key={day} />;
   }
   const generateList = () => {
     const list = courses[day][row];
@@ -102,8 +129,8 @@ export default (props) => {
   const generateBlock = (day, id) => {
     const item = courses[day][row][id];
     if (item === undefined)
-      return <Blankbutton />;
-    return <Coursebutton onDel={onDel} name={item.title} num={item.serial_number} />;
+      return <Blankbutton key={id} />;
+    return <Coursebutton onDel={unfollowCourse} name={item.title} num={item.serial_number} key={id} />;
   }
   const generateDays = (e) => {
     return <Dayblock key={e} name={e} click={handleClick} />

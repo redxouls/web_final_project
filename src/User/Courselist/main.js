@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Courselistitem from './Courselistitem';
@@ -40,10 +40,10 @@ export default () => {
       })
       .catch((error) => console.log("error", error));
   };
-  const [courses, setCourses] = useState(() => {
+  const [courses, setCourses] = useState([])
+  useEffect(() => {
     fetchFollowedList();
-    return [];
-  })
+  },[])
 
   const followCourse = (serial_number) => {
     var myHeaders = new Headers();
@@ -62,12 +62,11 @@ export default () => {
     fetch("./api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result["following"] != undefined)
-          setCourses(result["following"])
-        else
+        if (result["following"] == undefined)
           alert(result["message"]);
       })
       .catch((error) => console.log("error", error));
+    fetchFollowedList();
   };
 
   const unfollowCourse = (serial_number) => {
@@ -89,12 +88,11 @@ export default () => {
     fetch("./api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result["following"] != undefined)
-          setCourses(result["following"])
-        else
+        if (result["following"] == undefined)
           alert(result["message"]);
       })
       .catch((error) => console.log("error", error));
+    fetchFollowedList();
   };
 
   const genCourse = (c) => {
