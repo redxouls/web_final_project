@@ -110,11 +110,7 @@ app.use("/api", apiRouter);
 
 // Routing for react production and react routers
 app.get("/", (req, res) => {
-<<<<<<< HEAD
-  //req.session.username = "guest";
-=======
   // req.session.username = "guest";
->>>>>>> frontendmerge
   res.sendFile(HTML_FILE); // EDIT
 });
 
