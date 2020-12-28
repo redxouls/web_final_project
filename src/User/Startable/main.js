@@ -30,31 +30,79 @@ const useStyles = makeStyles((theme) => ({
 const daysIdx = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const timeIdx = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "B", "C", "D"]
 export default (props) => {
-  const { onDel } = props;
   const classes = useStyles();
   const [day, setDay] = useState(0);  // 0代表全部
-  const [courses, setCourses] = useState({ 
-    "Mon": {"1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [], "9": [], "10": [{"serial_number": "44345", "title": " 微積分2"}], "A": [], "B": [], "C": [], "D": []},
-    "Tue": {"1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [], "9": [], "10": [], "A": [], "B": [], "C": [], "D": []},
-    "Wed": {"1": [], "2": [], "3": [], "4": [], "5": [], "6": [{"serial_number": "44345", "title": " 微積分2"}], "7": [{"serial_number": "44345", "title": " 微積分2"}], "8": [], "9": [], "10": [], "A": [], "B": [], "C": [], "D": []},
-    "Thu": {"1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [], "9": [], "10": [], "A": [], "B": [], "C": [], "D": []},
-    "Fri": {"1": [], "2": [], "3": [], "4": [], "5": [], "6": [{"serial_number": "44345","title": " 微積分2"}], "7": [{"serial_number": "01001","title": " 大學國文：文學鑑賞與寫作（一）"},{"serial_number": "44345","title": " 微積分2"}], "8": [{"serial_number": "01001","title": " 大學國文：文學鑑賞與寫作（一）"}], "9": [{"serial_number": "01001","title": " 大學國文：文學鑑賞與寫作（一）"}], "10": [], "A": [], "B": [], "C": [], "D": []},
-    "Sat": {"1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [], "9": [], "10": [], "A": [], "B": [], "C": [], "D": []}})
+  const fetchFollowedTimeline = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("credentials", "include");
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "manual",
+    };
+    fetch("./api/user/timeline", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["message"] == undefined)
+          setCourses(result)
+        else
+          console.log("fetchStars", result["message"]);
+      })
+      .catch((error) => console.log("error", error));
+  };
+  const [courses, setCourses] = useState(() => {
+    let init = {};
+    for (var i = 0; i < 7; i++) {
+      init[daysIdx[i]] = {};
+      for (var j = 0; j < 14; j++)
+        init[daysIdx[i]][timeIdx[j]] = [];
+    }
+    return init;
+  });
+  useEffect(() => {
+    fetchFollowedTimeline();
+  },[])
+
+  const unfollowCourse = (serial_number) => {
+    console.log(serial_number)
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("credentials", "include");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("serial_number", serial_number);
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "manual",
+    };
+
+    fetch("./api/user", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
+    fetchFollowedTimeline();
+  };
   const handleClick = () => {}  // donothing
   let row;
   const generateRow = (time) => {
     row = time;
-    return (<><Divider className={classes.divider} />
-      <Grid container spacing={0} direction="row" justify="center" alignItems="center">
+    return ([<Divider className={classes.divider} key={row+'d'} />,
+      <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
         <Timenum name={time} />
         {daysIdx.map(generateBlock)}
-      </Grid></>)
+      </Grid>])
   }
   const generateBlock = (day) => {
     const list = courses[day][row];
     if (list.length === 0)
-      return <Blankbutton />;
-    return <Coursebutton onDel={onDel} name={list[0].title} />;
+      return <Blankbutton key={day} />;
+    return <Coursebutton onDel={unfollowCourse} name={list[0].title} num={list[0].serial_number} key={day} />;
   }
   const generateDays = (e) => {
     return <Dayblock key={e} name={e} click={handleClick} />

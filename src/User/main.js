@@ -10,22 +10,18 @@ import Navigation from "./Navigation"
 const useStyles = makeStyles((theme) => ({
 }));
 
-const onDel = () => {
-  console.log("delete!");
-}
-
 const mode = (value) => {
   if (value == "table")
-    return <Timetable onDel={onDel} />;
+    return <Timetable />;
   else if (value == "star")
-    return <Startable onDel={onDel} />;
+    return <Startable />;
   else
-    return <Courselist onDel={onDel} />;
+    return <Courselist />;
 }
 
 export default () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("Courselist");
+  const [value, setValue] = React.useState("star");
   return (
     <div>
       {mode(value)}

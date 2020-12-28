@@ -8,7 +8,10 @@ import Submit from "./submit";
 import AddIcon from '@material-ui/icons/Add';
 import Button from "@material-ui/core/Button"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { useParams } from 'react-router-dom';
 export default () => {
+    const { serial_number } = useParams();
+    console.log(serial_number);
     const [checked, set_checked] = useState(true);
     const handleChange = () => {
         set_checked((prev) => !prev);

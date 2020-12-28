@@ -80,12 +80,11 @@ const sessionOptions = {
   saveUninitialized: false,
   secret: uuidv4(),
   unset: "destroy",
-  /*
-  store: new RedisStore({
-    client: redisClient,
-    prefix: SESSION_PREFIX,
-  }),
-  */
+
+  // store: new RedisStore({
+  //   client: redisClient,
+  //   prefix: SESSION_PREFIX,
+  // }),
 };
 
 io.use((socket, next) => {
@@ -111,7 +110,11 @@ app.use("/api", apiRouter);
 
 // Routing for react production and react routers
 app.get("/", (req, res) => {
+<<<<<<< HEAD
   //req.session.username = "guest";
+=======
+  // req.session.username = "guest";
+>>>>>>> frontendmerge
   res.sendFile(HTML_FILE); // EDIT
 });
 
@@ -135,7 +138,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
 
-  //sessionOptions.store.clear();
+  // sessionOptions.store.clear();
 
   handleSocketEvents(io);
 

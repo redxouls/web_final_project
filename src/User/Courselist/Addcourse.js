@@ -8,6 +8,9 @@ import AddIcon from '@material-ui/icons/Add';;
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    // marginTop: 55,
+  },
   Add: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -33,22 +36,25 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   block: {
+    backgroundColor: "yellow",
+    width: "100%",
     height: 45,
   },
 }));
 
-const handleEnter = (e) => {
-  if(e.keyCode === 13 && e.target.value !== '') {
-      console.log(e.target.value);
-      e.target.value = '';
-  }
-}
-
-export default () => {
+export default (props) => {
+  const { follow } = props;
   const classes = useStyles();
+  const handleEnter = (e) => {
+    if(e.keyCode === 13 && e.target.value !== '') {
+        console.log(e.target.value);
+        follow(e.target.value);
+        e.target.value = '';
+    }
+  }
   return (
     <div>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <div className={classes.Add}>
             <div className={classes.AddIcon}>

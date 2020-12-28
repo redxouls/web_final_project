@@ -46,8 +46,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default () => {
   const classes = useStyles();
+
+  const loginButton = (e) => {
+    e.preventDefault();
+    const username = e.target[0].value;
+    const password = e.target[2].value;
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("credentials", "include");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("username", username);
+    urlencoded.append("password", password);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "manual",
+    };
+    let user;
+    fetch("./api/login", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        if (result === "")
+          alert("wrong username or password!");
+        else
+          history.pushState('', '', '/#/User');
+        history.go(0);
+      })
+      .catch((error) => {
+        alert("error");
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,16 +92,16 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={loginButton}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="studentID"
+            id="username"
             label="student ID"
-            name="studentID"
-            autoComplete="studentID"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField

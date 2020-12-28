@@ -42,12 +42,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default (props) => {
-  const { onDel, name } = props;
+  const { onDel, name, num } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleGotoCourse = () => {
-    console.log("go to course");
+    history.pushState('', '', '/#/Main/' + num);
+    history.go(0);
   };
 
   const handleCancel = () => {
