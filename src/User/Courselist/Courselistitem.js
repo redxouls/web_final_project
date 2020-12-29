@@ -1,17 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Divider from '@material-ui/core/Divider';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import ListItem from "@material-ui/core/ListItem";
+import IconButton from "@material-ui/core/IconButton";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
   listitem: {
     backgroundColor: "lightblue",
     borderRadius: "10px",
-    '&:hover': {
+    "&:hover": {
       backgroundColor: "pink",
     },
   },
@@ -21,21 +21,23 @@ export default (props) => {
   const { title, serial_number, unfollow } = props;
   const classes = useStyles();
   const handlego = () => {
-    history.pushState('', '', '/#/Main/' + {serial_number});
+    history.pushState("", "", "/#/Main/" + serial_number);
     history.go(0);
-  }
+  };
   const handleunfollow = () => {
     unfollow(serial_number);
-  }
-  return (<>
-    <ListItem button className={classes.listitem} onClick={handlego}>
-      <ListItemText primary={title} />
-      <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="delete" onClick={handleunfollow}>
-          <DeleteIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
-    <Divider /></>
+  };
+  return (
+    <>
+      <ListItem button className={classes.listitem} onClick={handlego}>
+        <ListItemText primary={title} />
+        <ListItemSecondaryAction>
+          <IconButton edge="end" aria-label="delete" onClick={handleunfollow}>
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <Divider />
+    </>
   );
-}
+};
