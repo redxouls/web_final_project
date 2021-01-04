@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-import User from "./User/main";
 import clsx from 'clsx';
-import Toolbar from '@material-ui/core/Toolbar';
-import Drawer from '@material-ui/core/Drawer';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Button from "@material-ui/core/Button";
+import { Toolbar, Drawer, List, ListItem, ListItemIcon, ListItemText,
+        Divider, IconButton, Button, AppBar } from '@material-ui/core';
+import { KeyboardArrowUp, Menu } from '@material-ui/icons';
+import User from "./User/main";
 import Main from "./User/Mainpage/main"
 import Login from "./User/Login/main"
 import Reference from "./reference"
-import AppBar from '@material-ui/core/AppBar';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -54,7 +45,7 @@ export default () => {
       <Toolbar>
         <div className={classes.title}>test</div>
         <IconButton color="inherit" edge="end" onClick={handleDrawerOpen}>
-          <MenuIcon />
+          <Menu />
         </IconButton>
       </Toolbar>
     </AppBar>
@@ -62,7 +53,7 @@ export default () => {
       <Drawer className={classes.drawer} anchor="top" open={open}>
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            <KeyboardArrowUpIcon />
+            <KeyboardArrowUp />
           </IconButton>
         </div>
         <Divider />

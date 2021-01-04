@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Fade, BottomNavigation, Button, FormControlLabel } from '@material-ui/core';
 import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
-import Fade from '@material-ui/core/Fade';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Submit from "./submit";
 import AddIcon from '@material-ui/icons/Add';
-import Button from "@material-ui/core/Button"
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useParams } from 'react-router-dom';
 import io from "socket.io-client";
 export default () => {

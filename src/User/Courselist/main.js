@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
+import { List } from '@material-ui/core';
 import Courselistitem from './Courselistitem';
 import Addcourse from './Addcourse'
 

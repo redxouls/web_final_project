@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, LinearProgress } from '@material-ui/core';
 import Choice from "./choice";
-import LinearProgress from '@material-ui/core/LinearProgress';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles((theme) => ({  // 改css

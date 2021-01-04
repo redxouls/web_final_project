@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { Button, DialogTitle, DialogContent,
+        DialogActions, Dialog, RadioGroup, Radio,
+        FormControlLabel, LinearProgress } from '@material-ui/core';
 
 const options = ['第 1 節', '第 2 節', '第 3 節'];
 

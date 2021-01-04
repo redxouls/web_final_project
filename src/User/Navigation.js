@@ -1,10 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Table from '@material-ui/icons/Apps';
-import Star from '@material-ui/icons/Star';
-import List from '@material-ui/icons/List';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { Apps, Star, List } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +27,7 @@ export default (props) => {
         }}
         className={classes.root}
       >
-        <BottomNavigationAction value="table" icon={<Table />} />
+        <BottomNavigationAction value="Apps" icon={<Apps />} />
         <BottomNavigationAction value="star" icon={<Star />} />
         <BottomNavigationAction value="list" icon={<List />} />
       </BottomNavigation>
