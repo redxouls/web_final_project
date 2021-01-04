@@ -15,7 +15,7 @@ const options = ['第 1 節', '第 2 節', '第 3 節'];
 export default function choice(props) {
   const { onClose, value: valueProp, open, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
-  const [rate, setRate] = React.useState([60, 50, 30]);
+  const [rate, setRate] = React.useState(["time", "rule", "people"]);
   const radioGroupRef = React.useRef(null);
 
 
@@ -29,11 +29,16 @@ export default function choice(props) {
     onClose();
   };
 
+
+
   const handleOk = () => {
+    console.log("ok");
     onClose(value);
   };
 
   const handleChange = (event) => {
+    console.log("change")
+    console.log(event.target);
     setValue(event.target.value);
   };
   const progress = 70;

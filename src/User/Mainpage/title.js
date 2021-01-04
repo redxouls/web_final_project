@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const { infor } = props;
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -44,7 +44,8 @@ export default () => {
             <ExpandMoreIcon />
           </IconButton>
         }
-        title="微積分"
+        title={infor.title}
+        //title="123"
         // subheader="流水號：12345"
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>

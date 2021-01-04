@@ -32,21 +32,48 @@ Choice.propTypes = {  // 檢查用法是否符合，可以刪掉
   value: PropTypes.string.isRequired,
 };
 
-export default () => {
+export default (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('Dione');
-
+  const {serial_number, question} = props;
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  const handleClose = (newValue) => {
+   const handleClose = ({option, newValue}) => {
+    console.log("here");
+     console.log(serial_number);
+     console.log(question);
     setOpen(false);
-    if (newValue)
-      setValue(newValue);
-  };
 
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("option", "1");
+    urlencoded.append("serial_number", serial_number);
+    urlencoded.append("question", question);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'manual'
+    };
+    console.log(newValue)
+    if (newValue)
+    {
+      fetch("http://localhost:3000/api/vote", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result.message!="vote too often")
+          console.log(newValue)
+        else
+          console.log("please wait 1 mins.")
+      })
+      .catch(error => console.log('error', error));
+    }
+  }
   return (
     <div className={classes.root}>
       <Button
@@ -75,16 +102,3 @@ export default () => {
 }
 
 
-/*<DialogContent dividers>
-  <RadioGroup
-    ref={radioGroupRef}
-    aria-label="test"
-    name="test"
-    value={value}
-    onChange={handleChange}
-  >
-    {options.map((option) => (
-      <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
-    ))}
-  </RadioGroup>
-</DialogContent>*/

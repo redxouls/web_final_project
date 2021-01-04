@@ -9,20 +9,42 @@ import AddIcon from '@material-ui/icons/Add';
 import Button from "@material-ui/core/Button"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useParams } from 'react-router-dom';
+import io from "socket.io-client";
 export default () => {
     const { serial_number } = useParams();
-    console.log(serial_number);
     const [checked, set_checked] = useState(true);
+    const [course, set_course] = useState({});
+
     const handleChange = () => {
         set_checked((prev) => !prev);
     };
+    const fetchCourse = () => {
+        const myHeaders = new Headers();
+        myHeaders.append("credentials", "include");
 
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "manual",
+        };
+
+        fetch("./api/course?serial_number=" + serial_number, requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            set_course(result);
+          })
+          .catch((error) => console.log("error", error));
+
+    };
+    useEffect(() =>{
+        fetchCourse();
+    }, []);
     return(
         <>
-        <Title />
-        <Dialog />
-        <Dialog />
-        <Dialog />
+        <Title infor={course}/>
+        <Dialog serial_number={serial_number} question={"time"}/>
+        <Dialog serial_number={serial_number} question={"people"}/>
+        <Dialog serial_number={serial_number} question={"rule"}/>
         <Fade in={checked}>
             <Comment />
         </Fade>

@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import io from "socket.io-client";
 
 export default () => {
-  const socket = io({
+const socket = io({
     // path: "/mypath",
     query: {
       token: "CJF",
@@ -123,6 +123,29 @@ export default () => {
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
+
+  const fetchvote = () =>{
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("option", "3");
+    urlencoded.append("serial_number", "01005");
+    urlencoded.append("question", "time");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:3000/api/vote", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
 
   socket.on("connect", function () {
     console.log();
