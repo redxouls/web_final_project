@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, LinearProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Choice from "./choice";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
@@ -39,11 +39,14 @@ export default (props) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-   const handleClose = ({option, newValue}) => {
+   const handleClose = (props) => {
     console.log("here");
      console.log(serial_number);
      console.log(question);
     setOpen(false);
+    if (props === undefined)
+      return;
+    const {option, newValue} = props;
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Fade, BottomNavigation, Button, FormControlLabel } from '@material-ui/core';
+import { Fade, Button, FormControlLabel } from '@material-ui/core';
 import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";

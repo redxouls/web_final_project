@@ -22,9 +22,7 @@ export default function choice(props) {
   const handleCancel = () => {
     onClose();
   };
-
-
-
+  
   const handleOk = () => {
     console.log("ok");
     onClose(value);
@@ -56,11 +54,10 @@ export default function choice(props) {
           onChange={handleChange}
         >
           {options.map((option, index) => {
-            return(
-            <>
-              <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
-              <LinearProgress variant="determinate" value={rate[index]}/>
-            </>)
+            return([
+              <FormControlLabel value={option} key={option} control={<Radio />} label={option} key={option} />,
+              <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
+              ])
           })}
         </RadioGroup>
       </DialogContent>

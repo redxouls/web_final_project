@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const classes = useStyles();
   return (
-      <BottomNavigation className={classes.bottom}>
-        <form className={classes.root} noValidate autoComplete="off">
+      <BottomNavigation className={classes.bottom} >
+        <form className={classes.root} noValidate autoComplete="off" >
             <TextField id="standard-basic" label="Standard" />
         </form>
       </BottomNavigation>
