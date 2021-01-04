@@ -13,7 +13,7 @@ const socket = io({
 
   const loginButton = () => {
     const username = "Lisa";
-    const password = "lightening_five_whips";
+    const password = "l";
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");

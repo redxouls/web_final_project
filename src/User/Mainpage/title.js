@@ -21,10 +21,14 @@ export default (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const { infor } = props;
+  const infoList = Object.entries(infor);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const genInfo = (props) => {
+    if (typeof props[1] == "string")
+      return <div key={props[0]}>{props[0]} : {props[1]}</div>
+  }
 
   return (
     <Card className={classes.root}>
@@ -41,12 +45,10 @@ export default (props) => {
           </IconButton>
         }
         title={infor.title}
-        //title="123"
-        // subheader="流水號：12345"
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          hi
+        {infoList.map(genInfo)}
         </CardContent>
       </Collapse>
     </Card>
