@@ -1,38 +1,44 @@
-function updateSession(socket) {
+const { SportsHockey } = require("@material-ui/icons");
+const Constants = require("./constants");
+
+// check session
+const joinRoom = (socket) => {
   const { session } = socket.request;
-  if (!session.name) {
-    session.name = "guest";
-  }
-  let token = socket.handshake.query.token;
-  console.log("token name: ", token);
-  const { name } = session;
-  socket.emit("UPDATE_SESSION", { name });
-}
+  const serial_number = socket.handshake.query.serial_number;
+  console.log("serial_number: ", serial_number);
 
-function iniateVote(socket) {
-  return;
-}
+  const { username } = session;
 
-function iniateComment(socket) {
-  return;
-}
+  socket.join(serial_number);
+  socket.emit("JOIN_ROOM", { username, status: "success" });
+};
 
-function updateVote(socket) {
-  return;
-}
+const initialize = (socket) => {
+  socket.emit("INITIALIZE", { vote: { test: "test" }, comment: ["test"] });
+};
 
-function updateComment(socket) {
+const updateComment = (socket) => {
+  data = { vote: {}, comment: [] };
+  socket.emit("UPDATE_COMMENT", data);
   return;
-}
+};
+
+const updateVote = (socket) => {
+  comment = {};
+  socket.emit("UPDATE_VOTE", { comment });
+  return;
+};
 
 module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log(`A user connected, id = ${socket.id}`);
-    updateSession(socket);
-    //    updatePlayers(socket);
-    //    updateSpaces(socket);
-    //    updateNotifications(socket);
+    joinRoom(socket);
+    initialize(socket);
+    //updateVote(socket);
+    //updateComment(socket);
+
     socket.on("disconnect", () => {
+      console.log(socket.rooms);
       console.log(`A user disconnected, id = ${socket.id}`);
     });
   });

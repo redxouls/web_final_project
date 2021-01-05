@@ -86,8 +86,21 @@ const sessionOptions = {
   //   prefix: SESSION_PREFIX,
   // }),
 };
+
 io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res || {}, next);
+});
+
+io.use((socket, next) => {
+  const { session } = socket.request;
+
+  console.log("session:", session);
+
+  if (session.username === undefined) {
+    return next(new Error("authentication error"));
+  }
+
+  return next();
 });
 
 const sessionMiddleware = session(sessionOptions);
