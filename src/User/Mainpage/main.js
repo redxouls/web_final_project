@@ -45,20 +45,19 @@ export default () => {
       },
     });
     socket.on("connect", (data) => {
-      data;
-      console.log();
+      console.log("connect", data);
     });
     socket.on("JOIN_ROOM", (data) => {
-      console.log(data);
+      console.log("JOIN_ROOM", data);
     });
     socket.on("INITIALIZE", (data) => {
-      console.log(data);
+      console.log("INITIALIZE", data);
     });
     socket.on("UPDATE_VOTE", (data) => {
-      console.log(data);
+      console.log("UPDATE_VOTE", data);
     });
     socket.on("UPDATE_COMMENT", (data) => {
-      console.log(data);
+      console.log("UPDATE_COMMENT", data);
     });
     socket.on("disconnect", () => {});
   }, []);
