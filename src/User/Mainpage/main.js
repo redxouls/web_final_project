@@ -11,7 +11,8 @@ export default () => {
   const { serial_number } = useParams();
   const [checked, set_checked] = useState(true);
   const [course, set_course] = useState({});
-
+  const [comment, set_comment] = useState([]);
+  const [vote, set_vote] = useState([]);
   const handleChange = () => {
     set_checked((prev) => !prev);
   };
@@ -53,6 +54,7 @@ export default () => {
     });
     socket.on("INITIALIZE", (data) => {
       console.log(data);
+
     });
     socket.on("UPDATE_VOTE", (data) => {
       console.log(data);
@@ -70,7 +72,7 @@ export default () => {
       <Dialog serial_number={serial_number} question={"people"} />
       <Dialog serial_number={serial_number} question={"rule"} />
       <Fade in={checked}>
-        <Comment />
+        <Comment comment={comment}/>
       </Fade>
       <FormControlLabel
         control={

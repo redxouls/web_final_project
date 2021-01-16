@@ -22,7 +22,7 @@ export default function choice(props) {
   const handleCancel = () => {
     onClose();
   };
-  
+
   const handleOk = () => {
     console.log("ok");
     onClose(value);
