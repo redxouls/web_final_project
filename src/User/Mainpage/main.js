@@ -3,7 +3,7 @@ import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
 import Submit from "./submit";
-import AddIcon from "@material-ui/icons/Add";
+import { Schedule, People, BarChart } from "@material-ui/icons";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 export default () => {
@@ -63,9 +63,9 @@ export default () => {
   return (
     <>
       <Title infor={course} />
-      <Dialog serial_number={serial_number} question={Vote.time} title="time"/>
-      <Dialog serial_number={serial_number} question={Vote.priority} title="priority"/>
-      <Dialog serial_number={serial_number} question={Vote.people} title="people"/>
+      <Dialog serial_number={serial_number} question={Vote.time} title="time" icon={<Schedule/>}/>
+      <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart/>}/>
+      <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People />}/>
       <Comment comment={comment}/>
       <Submit />
     </>

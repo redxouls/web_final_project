@@ -35,7 +35,7 @@ export default (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('Dione');
-  const {serial_number, question, title} = props;
+  const {serial_number, question, title, icon} = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,10 +46,11 @@ export default (props) => {
       return;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("credentials", "include");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("option", newValue);
     urlencoded.append("serial_number", serial_number);
+    urlencoded.append("option", newValue);
     urlencoded.append("question", title);
 
     var requestOptions = {
@@ -78,7 +79,7 @@ export default (props) => {
         variant="contained"
         color="default"
         className={classes.button}
-        startIcon={<CloudUploadIcon />}
+        startIcon={icon}
         onClick={handleClickOpen}
       >
       <div className={classes.name}>
@@ -96,6 +97,7 @@ export default (props) => {
         onClose={handleClose}
         value={value}
         question={question}
+        icon={icon}
       />
     </div>
   );

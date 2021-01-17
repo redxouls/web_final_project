@@ -6,7 +6,7 @@ import { Button, DialogTitle, DialogContent,
 
 
 export default function choice(props) {
-  const { onClose, value: valueProp, open, question, title, ...other } = props;
+  const { onClose, value: valueProp, open, question, title, icon, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
   const [rate, setRate] = React.useState(["time", "rule", "people"]);
   const radioGroupRef = React.useRef(null);
