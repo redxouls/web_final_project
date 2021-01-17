@@ -82,7 +82,7 @@ export default (props) => {
         onClick={handleClickOpen}
       >
       <div className={classes.name}>
-        hi
+        {question == undefined? "waiting..." : Object.keys(question)[0]}
       </div>
       </Button>
       <Choice
