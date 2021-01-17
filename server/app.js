@@ -23,6 +23,8 @@ const Comment = require("./models/comment");
 
 const DIST_DIR = path.join(__dirname, "../dist"); // NEW
 const HTML_FILE = path.join(DIST_DIR, "index.html"); // NEW
+const courseInfo = require("../course_info/parsed_courses.json");
+const { deleteOne } = require("./models/following");
 
 // ========================================
 
@@ -200,29 +202,23 @@ db.once("open", () => {
     console.log("saved");
     // saved!
   });
-
-  const newCourse = Course({
-    serial_number: "01004",
-    department: " ",
-    number: "CHIN8012",
-    class: "04",
-    title: " 大學國文：文學鑑賞與寫作（一）",
-    credits: "3.0",
-    id: "10180110",
-    full_half: "半年",
-    required: "必修",
-    teacher: "蔡璧名",
-    rule: " ",
-    stu_limit: "35",
-    limit: "本校修課人數上限：35人",
-    note: " ",
-    location_time: "請洽系所辦",
-  });
-  newCourse.save(function (err) {
-    if (err) return console.log(err);
-    console.log("saved");
-    // saved!
-  });
+  // 
+  // Course.remove({}, () => {
+  //   console.log("cleared!!!");
+  // });
+  // Object.values(courseInfo).forEach((course, i) => {
+  //   const temp = course;
+  //   temp["time"] = JSON.stringify(temp.time);
+  //   temp["full_half"] = temp["full/half"];
+  //   delete temp["full/half"];
+  //   delete temp["week"];
+  //   const newTemp = Course(temp);
+  //   newTemp.save(function (err) {
+  //     if (err) return console.log(err);
+  //     console.log(i.toString() + " saved");
+  //     // saved!
+  //   });
+  // });
   */
   handleSocketEvents(io);
 

@@ -4,7 +4,7 @@ const fs = require("fs");
 const asyncHandler = require("express-async-handler");
 const Following = require("../models/following");
 const UserVote = require("../models/user_vote");
-const CourseVote = require("../models/course_vote");
+//const CourseVote = require("../models/course_vote");
 let courseInfo = require("../../course_info/parsed_courses.json");
 const Constants = require("../constants");
 
@@ -56,7 +56,7 @@ router.route("/").post(
         return;
       }
       UserVote.findOne(
-        { username, serial_number, question },
+        { username, serial_number, question, option },
         (err, response) => {
           if (err) {
             res.status(400).end();
