@@ -2,7 +2,9 @@ const path = require("path"); // NEW
 const express = require("express");
 const fs = require("fs");
 const asyncHandler = require("express-async-handler");
-
+const Following = require("../models/following");
+const UserVote = require("../models/user_vote");
+const CourseVote = require("../models/course_vote");
 let courseInfo = require("../../course_info/parsed_courses.json");
 const Constants = require("../constants");
 
@@ -43,36 +45,82 @@ router.route("/").post(
       res.status(404).send({ message: "Course not found!!!" });
       return;
     }
+    Following.find({ username }, (err, response) => {
+      if (err) {
+        res.status(400).end();
+        return;
+      }
+      const following = response.map((data) => data["serial_number"]);
+      if (!following.includes(serial_number)) {
+        res.status(403).send({ message: "course not in list" });
+        return;
+      }
+      UserVote.findOne(
+        { username, serial_number, question },
+        (err, response) => {
+          if (err) {
+            res.status(400).end();
+          }
+          if (!response) {
+            const newUserVote = UserVote({
+              username,
+              serial_number,
+              question,
+              option,
+              time: Date.now().toString(),
+            });
+            newUserVote.save((err) => {
+              if (err) {
+                res.status(400).end();
+                return;
+              }
+              console.log("saved");
+              res.status(200).send({
+                message:
+                  "Successfully vote for " +
+                  serial_number +
+                  " question " +
+                  question +
+                  " option " +
+                  option,
+                response,
+              });
+            });
+          } else {
+            const currentTime = Date.now();
 
-    const following = accountInfo[username]["following"];
-    if (!following.includes(serial_number)) {
-      res.status(403).send({ message: "course not in list" });
-      return;
-    }
-    const lastVote = parseInt(
-      accountInfo[username]["vote"][serial_number][question][1]
-    );
-    const currentTime = Date.now();
-
-    if (currentTime - lastVote < 1000 * 60) {
-      res.status(403).send({ message: "vote too often" });
-      return;
-    }
-
-    accountInfo[username]["vote"][serial_number][question][0] = option;
-    accountInfo[username]["vote"][serial_number][
-      question
-    ][1] = currentTime.toString();
-
-    updateAccountInfo(accountFilePath, accountInfo);
-    res.status(200).send({
-      message: "vote requsest",
-      title: courseInfo[serial_number].title,
-      username: username,
-      following: accountInfo[username]["following"],
-      vote_status: accountInfo[username]["vote"],
+            if (currentTime - response["time"] < 1000 * 60) {
+              res.status(403).send({ message: "vote too often" });
+              return;
+            }
+            response.overwrite({
+              username,
+              serial_number,
+              question,
+              option,
+              time: Date.now().toString(),
+            });
+            response.save((err) => {
+              if (err) {
+                res.status(400).end();
+                return;
+              }
+              console.log("saved");
+              res.status(200).send({
+                message:
+                  "Successfully vote for " +
+                  serial_number +
+                  " question " +
+                  question +
+                  " option " +
+                  option,
+                response,
+              });
+            });
+          }
+        }
+      );
     });
-    return;
   })
 );
 

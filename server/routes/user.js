@@ -4,6 +4,9 @@ const fs = require("fs");
 const asyncHandler = require("express-async-handler");
 const courseInfo = require("../../course_info/parsed_courses.json");
 const Constants = require("../constants");
+const Following = require("../models/following");
+const Account = require("../models/account");
+const { FORMERR } = require("dns");
 
 const accountFilePath = path.join(
   __dirname,
@@ -30,42 +33,46 @@ router.route("/:mode").get(
     }
     const username = req.session.username;
 
-    if (!Object.keys(accountInfo).includes(username)) {
-      res.status(404).send({ error: "no user found" });
-      return;
-    }
+    Following.find({ username }, (err, response) => {
+      if (err) {
+        res.status(404).send({ error: "db error" });
+        return;
+      }
+      if (response.length === 0) {
+        res.status(500).send({ error: "failed to load following courses" });
+        return;
+      }
 
-    const following = accountInfo[username]["following"];
-    if (following === undefined) {
-      res.status(500).send({ error: "failed to load following courses" });
-      return;
-    }
-    if (mode === "timeline") {
-      const courseList = getCourseTime(following);
-      if (courseList === undefined) {
-        res.status(500).send({ error: "failed to generate course list" });
-        return;
-      }
-      res.status(200).send(courseList);
-      return;
-    }
-    if (mode === "list") {
-      const courseList = following.map((serial_number) => {
-        if (courseInfo[serial_number] === undefined) {
-          return {};
+      console.log(response);
+      const following = response.map((data) => data["serial_number"]);
+      console.log(following);
+      if (mode === "timeline") {
+        const courseList = getCourseTime(following);
+        if (courseList === undefined) {
+          res.status(500).send({ error: "failed to generate course list" });
+          return;
         }
-        const title = courseInfo[serial_number]["title"];
-        return { serial_number: serial_number, title: title };
-      });
-      if (courseList === undefined) {
-        res.status(500).send({ error: "failed to generate course list" });
+        res.status(200).send(courseList);
         return;
       }
-      res.status(200).send(courseList);
+      if (mode === "list") {
+        const courseList = following.map((serial_number) => {
+          if (courseInfo[serial_number] === undefined) {
+            return {};
+          }
+          const title = courseInfo[serial_number]["title"];
+          return { serial_number: serial_number, title: title };
+        });
+        if (courseList === undefined) {
+          res.status(500).send({ error: "failed to generate course list" });
+          return;
+        }
+        res.status(200).send(courseList);
+        return;
+      }
+      res.status(404).send("Invalid query parameter");
       return;
-    }
-    res.status(404).send("Invalid query parameter");
-    return;
+    });
   })
 );
 router
@@ -84,45 +91,40 @@ router
         return;
       }
 
+      // Need to update course
       if (!Object.keys(courseInfo).includes(serial_number)) {
         res
           .status(403)
           .send({ message: "course not found, please check serial_number" });
         return;
       }
-      if (!Object.keys(accountInfo).includes(username)) {
-        res.status(403).send({ message: "user not found" });
-        return;
-      }
-      const following = accountInfo[username]["following"];
-      const currentTime = Date.now().toString();
-      console.log("handle follow request");
-      if (following.includes(serial_number)) {
-        res.status(403).send({ message: "course already in list" });
-        return;
-      } else {
-        accountInfo[username]["following"].push(serial_number);
-        if (!accountInfo[username]["vote"]) {
-          accountInfo[username]["vote"] = {};
-          accountInfo[username]["vote"][serial_number] = {
-            time: ["", currentTime],
-            people: ["", currentTime],
-            rule: ["", currentTime],
-          };
-        } else {
-          accountInfo[username]["vote"][serial_number] = {
-            time: ["", currentTime],
-            people: ["", currentTime],
-            rule: ["", currentTime],
-          };
+      Following.find({ username }, (err, response) => {
+        if (err) {
+          res.status(400).end();
         }
-        res.status(200).send({
-          message: "successfully follow " + serial_number,
-          following: accountInfo[username]["following"],
-        });
-        updateAccountInfo(accountFilePath, accountInfo);
-        return;
-      }
+
+        const following = response.map((data) => data["serial_number"]);
+        if (following.includes(serial_number)) {
+          res.status(403).send({ message: "course already in list" });
+          return;
+        } else {
+          const newFollowing = Following({
+            username: username,
+            serial_number: serial_number,
+          });
+          following.push(serial_number);
+          newFollowing.save(function (err) {
+            if (err) {
+              res.status(400).end();
+            }
+            res.status(200).send({
+              message: "succeddfully followed: " + serial_number,
+              following,
+            });
+            console.log("saved");
+          });
+        }
+      });
     })
   )
   .delete(
@@ -147,36 +149,40 @@ router
           .send({ message: "course not found, please check serial_number" });
         return;
       }
-      if (!Object.keys(accountInfo).includes(username)) {
-        res.status(403).send({ message: "user not found" });
-        return;
-      }
-      if (serial_number === "all") {
-        accountInfo[username]["following"] = [];
-        accountInfo[username]["vote"] = {};
-        updateAccountInfo(accountFilePath, accountInfo);
-        res.status(200).send({
-          message: "successfully unfollow all course",
-          following: accountInfo[username]["following"],
-        });
-        return;
-      }
-      const following = accountInfo[username]["following"];
-      if (!following.includes(serial_number)) {
-        res.status(403).send({ message: "course not in list" });
-        return;
-      } else {
-        accountInfo[username]["following"].splice(
-          accountInfo[username]["following"].indexOf(serial_number),
-          1
-        );
-        res.status(200).send({
-          message: "successfully unfollow " + serial_number,
-          following: accountInfo[username]["following"],
-        });
-        updateAccountInfo(accountFilePath, accountInfo);
-        return;
-      }
+      Following.find({ username }, (err, response) => {
+        if (err) {
+          res.status(400).end();
+          return;
+        }
+
+        const following = response.map((data) => data["serial_number"]);
+        if (serial_number === "all") {
+          Following.deleteMany({ username });
+          res.status(200).send({
+            message: "successfully unfollow all course",
+            following: [],
+          });
+          return;
+        }
+        if (!following.includes(serial_number)) {
+          res.status(403).send({ message: "course not in list" });
+          return;
+        } else {
+          console.log(following);
+          following.splice(following.indexOf(serial_number), 1);
+          Following.deleteOne({ username, serial_number }, (err) => {
+            if (err) res.status(400).end();
+            else {
+              console.log(following);
+              console.log(following.indexOf(serial_number), 1);
+              res.status(200).send({
+                message: "successfully unfollow " + serial_number,
+                following: following,
+              });
+            }
+          });
+        }
+      });
     })
   );
 

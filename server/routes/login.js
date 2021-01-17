@@ -2,16 +2,7 @@ const path = require("path"); // NEW
 const express = require("express");
 const fs = require("fs");
 const asyncHandler = require("express-async-handler");
-
-const accountFilePath = path.join(
-  __dirname,
-  "../../account_info/account_info.json"
-);
-let accountInfo;
-fs.readFile(accountFilePath, (err, data) => {
-  if (err) throw err;
-  accountInfo = JSON.parse(data.toString());
-});
+const Account = require("../models/account");
 
 const router = express.Router();
 
@@ -27,18 +18,24 @@ router
         res.status(400).end();
         return;
       }
-      if (!Object.keys(accountInfo).includes(username)) {
-        res.status(400).end();
+
+      Account.find({ username }, (err, user) => {
+        if (err) {
+          res.status(400).end();
+        }
+        if (user.length === 0) {
+          res.status(400).end();
+          return;
+        }
+        if (user[0]["password"] !== password) {
+          res.status(401).end();
+          return;
+        }
+        response = { status: "Successfully logined" };
+        req.session.username = username;
+        res.status(201).send({ username });
         return;
-      }
-      if (accountInfo[username]["password"] !== password) {
-        res.status(401).end();
-        return;
-      }
-      response = { status: "Successfully logined" };
-      req.session.username = username;
-      res.status(201).send({ username });
-      return;
+      });
     })
   )
   .delete(
