@@ -24,6 +24,7 @@ export default function choice(props) {
 
   const handleOk = () => {
     console.log("ok");
+    console.log(value);
     onClose(value);
   };
 
@@ -60,11 +61,6 @@ export default function choice(props) {
                   <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
                 ]
               ))
-            //
-            //Object.keys(question).map((option, index) => (
-              //<>
-              //</>
-            //))
           }
         </RadioGroup>
       </DialogContent>
