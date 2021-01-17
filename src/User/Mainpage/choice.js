@@ -4,10 +4,9 @@ import { Button, DialogTitle, DialogContent,
         DialogActions, Dialog, RadioGroup, Radio,
         FormControlLabel, LinearProgress } from '@material-ui/core';
 
-const options = ['第 1 節', '第 2 節', '第 3 節'];
 
 export default function choice(props) {
-  const { onClose, value: valueProp, open, question, ...other } = props;
+  const { onClose, value: valueProp, open, question, title, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
   const [rate, setRate] = React.useState(["time", "rule", "people"]);
   const radioGroupRef = React.useRef(null);
@@ -44,25 +43,28 @@ export default function choice(props) {
       open={open}
       {...other}
     >
-      <DialogTitle id="confirmation-dialog-title">test</DialogTitle>
+      <DialogTitle id="confirmation-dialog-title">{title}</DialogTitle>
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef}
-          aria-label="test"
-          name="test"
+          name={title}
           value={value}
           onChange={handleChange}
         >
           {
-            //console.log(Object.keys(question))
-            Object.keys(question).map((option, index) => {
-
-              return([
-                <FormControlLabel value={option} key={option} control={<Radio />} label={option} key={option} />,
-                <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
-                ])
-            }
-            )
+            //console.log(question)
+            question==undefined ? <></> :
+            Object.keys(question).map((option, index) => (
+                [
+                  <FormControlLabel value={option} key={option} control={<Radio />} label={option} key={option} />,
+                  <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
+                ]
+              ))
+            //
+            //Object.keys(question).map((option, index) => (
+              //<>
+              //</>
+            //))
           }
         </RadioGroup>
       </DialogContent>

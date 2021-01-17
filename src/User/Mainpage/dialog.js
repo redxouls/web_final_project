@@ -35,7 +35,7 @@ export default (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('Dione');
-  const {serial_number, question} = props;
+  const {serial_number, question, title} = props;
   useEffect(() => {
     console.log(question);
   }, []);
@@ -99,6 +99,7 @@ export default (props) => {
         }}
         id="test-menu"
         keepMounted
+        title={title}
         open={open}
         onClose={handleClose}
         value={value}

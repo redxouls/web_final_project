@@ -69,9 +69,9 @@ export default () => {
   return (
     <>
       <Title infor={course} />
-      <Dialog serial_number={serial_number} question={Vote.time} />
-      <Dialog serial_number={serial_number} question={Vote.priority} />
-      <Dialog serial_number={serial_number} question={Vote.people} />
+      <Dialog serial_number={serial_number} question={Vote.time} title="time"/>
+      <Dialog serial_number={serial_number} question={Vote.priority} title="priority"/>
+      <Dialog serial_number={serial_number} question={Vote.people} title="people"/>
       <Fade in={checked}>
         <Comment comment={comment}/>
       </Fade>
