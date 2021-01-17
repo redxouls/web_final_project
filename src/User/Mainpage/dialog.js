@@ -36,29 +36,21 @@ export default (props) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('Dione');
   const {serial_number, question, title} = props;
-  useEffect(() => {
-    console.log(question);
-  }, []);
+
   const handleClickOpen = () => {
     setOpen(true);
-    console.log(question);
   };
-   const handleClose = (props) => {
-    console.log("here");
-     console.log(serial_number);
-     console.log(question);
+  const handleClose = (newValue) => {
     setOpen(false);
     if (props === undefined)
       return;
-    const {option, newValue} = props;
-
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("option", "1");
+    urlencoded.append("option", newValue);
     urlencoded.append("serial_number", serial_number);
-    urlencoded.append("question", question);
+    urlencoded.append("question", title);
 
     var requestOptions = {
       method: 'POST',
@@ -90,7 +82,7 @@ export default (props) => {
         onClick={handleClickOpen}
       >
       <div className={classes.name}>
-        hi
+        {question == undefined? "waiting..." : Object.keys(question)[0]}
       </div>
       </Button>
       <Choice

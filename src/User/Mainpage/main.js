@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Fade, Button, FormControlLabel } from "@material-ui/core";
 import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
@@ -9,13 +8,9 @@ import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 export default () => {
   const { serial_number } = useParams();
-  const [checked, set_checked] = useState(true);
   const [course, set_course] = useState({});
   const [comment, set_comment] = useState([]);
-  const [Vote, set_vote] = useState([]);
-  const handleChange = () => {
-    set_checked((prev) => !prev);
-  };
+  const [Vote, set_vote] = useState({});
   const fetchCourse = () => {
     const myHeaders = new Headers();
     myHeaders.append("credentials", "include");
@@ -53,7 +48,6 @@ export default () => {
       console.log(data);
     });
     socket.on("INITIALIZE", (data) => {
-      console.log(data);
       set_comment(data.comment);
       set_vote(data.vote);
     });

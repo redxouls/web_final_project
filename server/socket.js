@@ -14,10 +14,10 @@ const joinRoom = (socket) => {
 };
 
 const initialize = (socket) => {
-  socket.emit("INITIALIZE", { 
-    vote: { 
-      time: { "第一節": 100, "第二節": 1, "第三節": 0 },
-      priority: { "本系優先": 80, "高年級優先": 10, "抽籤": 0 },
+  socket.emit("INITIALIZE", {
+    vote: {
+      time: { "第二節": 1, "第一節": 100, "第三節": 0 },
+      priority: { "第一節": 80, "第二節": 10, "第三節": 0 },
       people: { "1~5": 87, "6~10": 59, "全簽": 0 }
      },
     comment: [
