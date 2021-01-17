@@ -36,8 +36,12 @@ export default (props) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('Dione');
   const {serial_number, question} = props;
+  useEffect(() => {
+    console.log(question);
+  }, []);
   const handleClickOpen = () => {
     setOpen(true);
+    console.log(question);
   };
    const handleClose = (props) => {
     console.log("here");
@@ -98,6 +102,7 @@ export default (props) => {
         open={open}
         onClose={handleClose}
         value={value}
+        question={question}
       />
     </div>
   );

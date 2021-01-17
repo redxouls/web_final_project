@@ -16,14 +16,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default () => {
+export default (props) => {
   const classes = useStyles();
-  const [comments, set_comments] = useState(["123"]);
-
+  const {comment} = props;
+  useEffect(() => {
+    console.log(comment);
+  });
   return (
     <div className={classes.root}>
         {
-            comments.map((com, index) =>{
+            comment.map((com, index) =>{
                 return(
                 <Paper className={classes.paper} key={index}>
                     <Grid container wrap="nowrap" spacing={2}>
@@ -31,7 +33,10 @@ export default () => {
                         <Avatar>W</Avatar>
                     </Grid>
                     <Grid item xs>
-                        <Typography>{com}</Typography>
+                      <Typography gutterBottom variant="h10" component="h3">
+                        {com.username}
+                      </Typography>
+                      <Typography>{com.body}</Typography>
                     </Grid>
                     </Grid>
                 </Paper>

@@ -12,7 +12,7 @@ export default () => {
   const [checked, set_checked] = useState(true);
   const [course, set_course] = useState({});
   const [comment, set_comment] = useState([]);
-  const [vote, set_vote] = useState([]);
+  const [Vote, set_vote] = useState([]);
   const handleChange = () => {
     set_checked((prev) => !prev);
   };
@@ -54,7 +54,8 @@ export default () => {
     });
     socket.on("INITIALIZE", (data) => {
       console.log(data);
-
+      set_comment(data.comment);
+      set_vote(data.vote);
     });
     socket.on("UPDATE_VOTE", (data) => {
       console.log(data);
@@ -68,9 +69,9 @@ export default () => {
   return (
     <>
       <Title infor={course} />
-      <Dialog serial_number={serial_number} question={"time"} />
-      <Dialog serial_number={serial_number} question={"people"} />
-      <Dialog serial_number={serial_number} question={"rule"} />
+      <Dialog serial_number={serial_number} question={Vote.time} />
+      <Dialog serial_number={serial_number} question={Vote.priority} />
+      <Dialog serial_number={serial_number} question={Vote.people} />
       <Fade in={checked}>
         <Comment comment={comment}/>
       </Fade>

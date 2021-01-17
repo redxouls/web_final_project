@@ -7,7 +7,7 @@ import { Button, DialogTitle, DialogContent,
 const options = ['第 1 節', '第 2 節', '第 3 節'];
 
 export default function choice(props) {
-  const { onClose, value: valueProp, open, ...other } = props;
+  const { onClose, value: valueProp, open, question, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
   const [rate, setRate] = React.useState(["time", "rule", "people"]);
   const radioGroupRef = React.useRef(null);
@@ -53,12 +53,17 @@ export default function choice(props) {
           value={value}
           onChange={handleChange}
         >
-          {options.map((option, index) => {
-            return([
-              <FormControlLabel value={option} key={option} control={<Radio />} label={option} key={option} />,
-              <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
-              ])
-          })}
+          {
+            //console.log(Object.keys(question))
+            Object.keys(question).map((option, index) => {
+
+              return([
+                <FormControlLabel value={option} key={option} control={<Radio />} label={option} key={option} />,
+                <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
+                ])
+            }
+            )
+          }
         </RadioGroup>
       </DialogContent>
       <DialogActions>
