@@ -7,23 +7,25 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     position: "fixed",
     bottom: 0,
+    paddingBottom: 20,
+    width: "100%",
+    // marginBottom: 20,
+  },
+  formBox: {
+    width: "80%",
+  },
+  text: {
     width: "100%",
   },
-  submit: {
-    '& > *': {
-        margin: theme.spacing(1),
-        width: "75%",
-    },
-  }
 }));
 
 export default () => {
   const classes = useStyles();
   return (
-      <BottomNavigation className={classes.bottom} >
-        <form className={classes.root} noValidate autoComplete="off" >
-            <TextField id="standard-basic" label="Standard" />
-        </form>
-      </BottomNavigation>
+    <BottomNavigation className={classes.bottom} >
+      <form className={classes.formBox} noValidate autoComplete="off" >
+          <TextField className={classes.text} id="standard-basic" label="Standard" />
+      </form>
+    </BottomNavigation>
   );
 }
