@@ -72,16 +72,7 @@ export default () => {
       <Dialog serial_number={serial_number} question={Vote.time} title="time"/>
       <Dialog serial_number={serial_number} question={Vote.priority} title="priority"/>
       <Dialog serial_number={serial_number} question={Vote.people} title="people"/>
-      <Fade in={checked}>
-        <Comment comment={comment}/>
-      </Fade>
-      <FormControlLabel
-        control={
-          <Button onClick={handleChange}>
-            <AddIcon />
-          </Button>
-        }
-      />
+      <Comment comment={comment}/>
       <Submit />
     </>
   );
