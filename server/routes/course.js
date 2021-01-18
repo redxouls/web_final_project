@@ -1,7 +1,6 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Course = require("../models/course");
-
 const router = express.Router();
 
 // For fetching course infomations

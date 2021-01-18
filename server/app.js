@@ -12,14 +12,9 @@ const mongoose = require("mongoose");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
 
-const handleSocketEvents = require("./socket");
+const { handleSocketEvents } = require("./socket");
 const apiRouter = require("./routes");
-const Account = require("./models/account");
-const UserVote = require("./models/user_vote");
-const CourseVote = require("./models/course_vote");
 const Course = require("./models/course");
-const Following = require("./models/following");
-const Comment = require("./models/comment");
 
 const DIST_DIR = path.join(__dirname, "../dist"); // NEW
 const HTML_FILE = path.join(DIST_DIR, "index.html"); // NEW
@@ -111,6 +106,7 @@ io.use((socket, next) => {
 
   return next();
 });
+app.set("io", io);
 
 const sessionMiddleware = session(sessionOptions);
 app.use(sessionMiddleware);
@@ -144,65 +140,7 @@ db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
 
   // sessionOptions.store.clear();
-  /*
-  const newUser = Account({
-    username: "Lisa",
-    password: "lightening_five_whips",
-  });
-  newUser.save(function (err) {
-    if (err) return handleError(err);
-    console.log("saved");
-    // saved!
-  });
-  
-  const newUserVote = UserVote({
-    username: "Lisa",
-    serial_number: "01002",
-    question: "rule",
-    option: "1",
-    time: Date.now().toString(),
-  });
-  newUserVote.save(function (err) {
-    if (err) return handleError(err);
-    console.log("saved");
-    // saved!
-  });
-  
-  const newFollowing = Following({
-    username: "Lisa",
-    serial_number: "97007",
-  });
-  newFollowing.save(function (err) {
-    if (err) return handleError(err);
-    console.log("saved");
-    // saved!
-  });
-  
-  const newComment = Comment({
-    serial_number: "10010",
-    username: "CJF",
-    body: "test comment",
-    like: 0,
-    unlike: 1,
-  });
-  newComment.save(function (err) {
-    if (err) return handleError(err);
-    console.log("saved");
-    // saved!
-  });
-  
-  const newCourseVote = CourseVote({
-    serial_number: "10010",
-    question: "rule",
-    option: "1",
-    count: 1,
-  });
-  newCourseVote.save(function (err) {
-    if (err) return console.log(err);
-    console.log("saved");
-    // saved!
-  });
-  // 
+  //
   // Course.remove({}, () => {
   //   console.log("cleared!!!");
   // });
@@ -219,7 +157,6 @@ db.once("open", () => {
   //     // saved!
   //   });
   // });
-  */
   handleSocketEvents(io);
 
   server.listen(port, () =>

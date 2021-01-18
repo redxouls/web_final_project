@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Comment = require("../models/comment");
 const Following = require("../models/following");
-
+const { updateComment } = require("../socket");
 const router = express.Router();
 
 // For fetching course infomations
@@ -11,6 +11,8 @@ router.route("/").post(
   asyncHandler(async (req, res, next) => {
     const username = req.session.username;
     const { serial_number, body } = req.body;
+    const io = req.app.get("io");
+
     if (
       req.session.username === undefined ||
       req.session.username === "guest"
@@ -32,14 +34,15 @@ router.route("/").post(
       res.status(400).send({ message: "Course not followed" });
       return;
     }
-
-    const newComment = Comment({
+    const commentToAdd = {
       serial_number,
       username,
       body,
       like: 0,
       unlike: 0,
-    });
+    };
+
+    const newComment = Comment(commentToAdd);
     await newComment.save((err) => {
       if (err) {
         console.log("error");
@@ -47,7 +50,7 @@ router.route("/").post(
       }
       console.log("Comment saved");
     });
-
+    updateComment(io, serial_number, commentToAdd);
     console.log(newComment);
     res
       .status(200)

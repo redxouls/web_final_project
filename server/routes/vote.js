@@ -4,6 +4,7 @@ const Following = require("../models/following");
 const UserVote = require("../models/user_vote");
 const Course = require("../models/course");
 const Constants = require("../constants");
+const { updateVote } = require("../socket");
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.route("/").post(
     }
     const username = req.session.username;
     const { serial_number, option, question } = req.body;
+    const io = req.app.get("io");
 
     if (!serial_number || !option || !Constants.RULES.includes(question)) {
       res.status(404).send({ message: "Invalid request body" });
@@ -50,12 +52,13 @@ router.route("/").post(
               option,
               time: Date.now().toString(),
             });
-            newUserVote.save((err) => {
+            newUserVote.save(async (err) => {
               if (err) {
                 res.status(400).end();
                 return;
               }
-              console.log("saved");
+              console.log("saved for new record");
+              updateVote(io, serial_number);
               res.status(200).send({
                 message:
                   "Successfully vote for " +
@@ -81,12 +84,13 @@ router.route("/").post(
               option,
               time: Date.now().toString(),
             });
-            response.save((err) => {
+            response.save(async (err) => {
               if (err) {
                 res.status(400).end();
                 return;
               }
-              console.log("saved");
+              console.log("saved for overwite");
+              updateVote(io, serial_number);
               res.status(200).send({
                 message:
                   "Successfully vote for " +

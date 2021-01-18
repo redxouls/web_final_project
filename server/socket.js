@@ -45,14 +45,14 @@ const initialize = async (socket) => {
   });
 };
 
-const updateComment = (socket) => {
-  data = { comment: [] };
-  socket.emit("UPDATE_COMMENT", data);
+const updateComment = (io, serial_number, newComment) => {
+  io.to(serial_number).emit("UPDATE_COMMENT", { comment: newComment });
   return;
 };
 
-const updateVote = (socket) => {
-  socket.emit("UPDATE_VOTE", { comment });
+const updateVote = async (io, serial_number) => {
+  const vote = await getVoteInfo(serial_number);
+  io.to(serial_number).emit("UPDATE_VOTE", { vote });
   return;
 };
 
@@ -104,17 +104,30 @@ const getComment = async (serial_number) => {
   );
   return comment;
 };
-module.exports = (io) => {
-  io.on("connection", (socket) => {
-    console.log(`A user connected, id = ${socket.id}`);
-    joinRoom(socket);
-    initialize(socket);
-    //updateVote(socket);
-    //updateComment(socket);
 
-    socket.on("disconnect", () => {
-      console.log(socket.rooms);
-      console.log(`A user disconnected, id = ${socket.id}`);
+module.exports = {
+  handleSocketEvents: (io) => {
+    io.on("connection", (socket) => {
+      console.log(`A user connected, id = ${socket.id}`);
+      joinRoom(socket);
+      initialize(socket);
+      //updateVote(socket);
+      //updateComment(socket);
+
+      socket.on("disconnect", () => {
+        console.log(socket.rooms);
+        console.log(`A user disconnected, id = ${socket.id}`);
+      });
     });
-  });
+  },
+  updateComment: async (io, serial_number, newComment) => {
+    io.to(serial_number).emit("UPDATE_COMMENT", { comment: newComment });
+    return;
+  },
+  updateVote: async (io, serial_number) => {
+    const vote = await getVoteInfo(serial_number);
+    io.to(serial_number).emit("UPDATE_VOTE", { vote });
+    console.log("UPDATE_VOTE", { vote });
+    return;
+  },
 };
