@@ -52,8 +52,9 @@ export default (props) => {
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("serial_number", serial_number);
-    urlencoded.append("option", newValue);
+    urlencoded.append("option", "2");
     urlencoded.append("question", title);
+    console.log(typeof serial_number)
 
     var requestOptions = {
       method: 'POST',
