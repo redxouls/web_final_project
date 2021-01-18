@@ -40,14 +40,16 @@ router.route("/:mode").get(
         return;
       }
       if (mode === "list") {
-        const courseList = following.map(async (serial_number) => {
+        const courseList = [];
+        for (const serial_number of following) {
           const exisist = await checkCourse(serial_number);
+          console.log(exisist);
           if (!exisist) {
             return {};
           }
           const title = exisist["title"];
-          return { serial_number: serial_number, title: title };
-        });
+          courseList.push({ serial_number, title });
+        }
         if (courseList === undefined) {
           res.status(500).send({ error: "failed to generate course list" });
           return;

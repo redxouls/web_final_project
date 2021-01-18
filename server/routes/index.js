@@ -3,6 +3,7 @@ const userRouter = require("./user");
 const courseRouter = require("./course");
 const loginRouter = require("./login");
 const voteRouter = require("./vote");
+const commentRouter = require("./comment");
 
 const router = express.Router();
 
@@ -17,5 +18,8 @@ router.use("/login", loginRouter);
 
 // Handle Vote
 router.use("/vote", voteRouter);
+
+//Handle comment
+router.use("/comment", commentRouter);
 
 module.exports = router;
