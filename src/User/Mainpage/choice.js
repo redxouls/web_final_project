@@ -33,7 +33,6 @@ export default function choice(props) {
     console.log(event.target);
     setValue(event.target.value);
   };
-  const progress = 70;
   return (
     <Dialog
       disableBackdropClick
@@ -58,7 +57,7 @@ export default function choice(props) {
             Object.keys(question).map((option, index) => (
                 [
                   <FormControlLabel value={option} key={option} control={<Radio />} label={option} key={option} />,
-                  <LinearProgress variant="determinate" value={parseInt(rate[index])} key={rate[index]} />
+                  <LinearProgress variant="determinate" value={question[option]/Object.values(question)[0]*100} key={rate[index]} />
                 ]
               ))
           }
