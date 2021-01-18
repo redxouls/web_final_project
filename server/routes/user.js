@@ -25,7 +25,6 @@ router.route("/:mode").get(
       }
 
       const following = response.map((data) => data["serial_number"]);
-      console.log(following);
       if (mode === "timeline") {
         const courseList = await getCoursesTime(following);
         if (courseList === undefined) {
@@ -39,7 +38,6 @@ router.route("/:mode").get(
         const courseList = [];
         for (const serial_number of following) {
           const exisist = await checkCourse(serial_number);
-          console.log(exisist);
           if (!exisist) {
             return {};
           }
@@ -149,7 +147,6 @@ router
           res.status(403).send({ message: "course not in list" });
           return;
         } else {
-          console.log(following);
           following.splice(following.indexOf(serial_number), 1);
           Following.deleteOne({ username, serial_number }, (err) => {
             if (err) res.status(400).end();
