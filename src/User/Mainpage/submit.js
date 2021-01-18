@@ -18,18 +18,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default (serial_number) => {
   const classes = useStyles();
   const handleEnter = (e) => {
     if(e.keyCode === 13 && e.target.value !== '') {
-        console.log(e.target.value);
-        e.target.value = '';
+        console.log();
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        myHeaders.append("credentials", "include");
+
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("serial_number", serial_number);
+        urlencoded.append("body", e.target.value);
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: urlencoded,
+          redirect: 'follow'
+        };
+
+        fetch("./api/comment", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            e.target.value = '';
+          })
+          .catch(error => console.log('error', error));
     }
   }
   return (
     <BottomNavigation className={classes.bottom} >
       <div className={classes.formBox}>
-      <TextField className={classes.text} id="standard-basic" 
+      <TextField className={classes.text} id="standard-basic"
         label="Standard" onKeyDown={handleEnter} />
       </div>
     </BottomNavigation>

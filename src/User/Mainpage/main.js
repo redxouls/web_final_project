@@ -86,7 +86,7 @@ export default () => {
       <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart style={{ fontSize: 30 }}/>}/>
       <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People style={{ fontSize: 30 }}/>}/>
       <Comment comment={comment}/>
-      <Submit />
+      <Submit serial_number={serial_number}/>
     </div>
   );
 };
