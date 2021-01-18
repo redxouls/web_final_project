@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  img: {
+    marginTop: 100,
+    marginRight: 30,
+    width: '100%',
+  },
 }));
 
 export default () => {
@@ -131,6 +136,9 @@ export default () => {
       <List className={classes.list}>
       {courses.map(genCourse)}
       </List>
+      {courses.length === 0 ? 
+        <img src="https://i.imgur.com/Lir5FIw.png" className={classes.img} />
+        : []}
       <Dialog
         disableBackdropClick
         disableEscapeKeyDown
