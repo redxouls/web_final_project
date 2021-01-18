@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   block: {
-    height: 40,
+    height: 70,
   },
 }));
 
