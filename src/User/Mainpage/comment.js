@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 3),
   },
   paper: {
-    maxWidth: 400,
     margin: `${theme.spacing(1)}px auto`,
     padding: theme.spacing(2),
   },
@@ -32,7 +31,7 @@ export default (props) => {
     <div className={classes.root}>
       {
       }
-      { expand ? 
+      { expand ?
         comment.map((com, index) =>{
           return(
           <Paper className={classes.paper} key={index}>
@@ -44,7 +43,7 @@ export default (props) => {
                 <Typography gutterBottom variant="h10" component="h3">
                   {com.username}
                 </Typography>
-                <Typography>{com.body}</Typography>
+                <Typography color="textSecondary" component="p">{com.body}</Typography>
               </Grid>
               </Grid>
           </Paper>
@@ -60,13 +59,13 @@ export default (props) => {
                 <Typography gutterBottom variant="h10" component="h3">
                   {com.username}
                 </Typography>
-                <Typography>{com.body}</Typography>
+                <Typography color="textSecondary" component="p">{com.body}</Typography>
               </Grid>
               </Grid>
           </Paper>
         )}).slice(0, 3)
       }
-      { expand ? [] : 
+      { expand ? [] :
         <Button onClick={handleEx} >
           <AddIcon />
         </Button>

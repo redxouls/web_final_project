@@ -3,10 +3,23 @@ import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
 import Submit from "./submit";
+import Box from '@material-ui/core/Box';
 import { Schedule, People, BarChart } from "@material-ui/icons";
 import { useParams } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { palette } from '@material-ui/system';
 import io from "socket.io-client";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+}))
+
 export default () => {
+  const classes = useStyles();
   const { serial_number } = useParams();
   const [course, set_course] = useState({});
   const [comment, set_comment] = useState([]);
@@ -61,13 +74,15 @@ export default () => {
   }, []);
 
   return (
-    <>
-      <Title infor={course} />
-      <Dialog serial_number={serial_number} question={Vote.time} title="time" icon={<Schedule/>}/>
-      <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart/>}/>
-      <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People />}/>
+    <div className={classes.root}>
+      <Title infor={course}/>
+      <Box borderColor="primary.main">
+        <Dialog serial_number={serial_number} question={Vote.time} title="time" icon={<Schedule style={{ fontSize: 30 }}/> }/>
+        <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart style={{ fontSize: 30 }}/>}/>
+        <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People style={{ fontSize: 30 }}/>}/>
+      </Box>
       <Comment comment={comment}/>
       <Submit />
-    </>
+    </div>
   );
 };

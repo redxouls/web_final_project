@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    marginBottom: 20,
   },
   expand: {
     transform: 'rotate(0deg)',

@@ -7,17 +7,19 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles((theme) => ({  // 改css
   root: {
-    width: '100%',
-    maxWidth: 360,
+    margin: 'auto',
+    width: '85%',
     backgroundColor: theme.palette.background.paper,
   },
   button: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    fontSize : '20px',
     width: "100%",
+    backgroundColor: '#D1C4E9',
   },
   name: {
-    width: "65%",
+    margin: 'auto',
+    width: "100%",
   },
   paper: {
     width: '80%',
@@ -76,7 +78,7 @@ export default (props) => {
   return (
     <div className={classes.root}>
       <Button
-        variant="contained"
+        variant='contained'
         color="default"
         className={classes.button}
         startIcon={icon}
