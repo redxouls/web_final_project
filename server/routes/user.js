@@ -24,7 +24,7 @@ router.route("/:mode").get(
         return;
       }
       if (response.length === 0) {
-        res.status(500).send({ error: "failed to load following courses" });
+        res.status(500).send([]);
         return;
       }
 

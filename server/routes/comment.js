@@ -18,11 +18,14 @@ router.route("/").post(
       res.status(401).send({ message: "Not authorized request" });
       return;
     }
-    const response = await Following.find({ username }).select("serial_number");
+    console.log(username);
+    const response = await Following.find({ username });
+    console.log(response);
     if (response.length === 0) {
       res.status(400).send({ message: "DB BAOLA" });
       return;
     }
+
     const following = response.map((data) => data["serial_number"]);
 
     if (!following.includes(serial_number)) {
