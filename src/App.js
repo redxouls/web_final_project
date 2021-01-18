@@ -8,7 +8,6 @@ import { KeyboardArrowUp, Menu } from '@material-ui/icons';
 import User from "./User/main";
 import Main from "./User/Mainpage/main"
 import Login from "./User/Login/main"
-import Reference from "./reference"
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -23,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontSize: 25,
   },
   top: {
     height: 50,
@@ -43,28 +43,10 @@ export default () => {
   return (<>
     <AppBar position="fixed">
       <Toolbar>
-        <div className={classes.title}>test</div>
-        <IconButton color="inherit" edge="end" onClick={handleDrawerOpen}>
-          <Menu />
-        </IconButton>
+        <div className={classes.title}>加簽資訊論壇</div>
       </Toolbar>
     </AppBar>
     <Router>
-      <Drawer className={classes.drawer} anchor="top" open={open}>
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            <KeyboardArrowUp />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {['User', 'Login', 'Reference'].map((text, index) => (
-            <ListItem button key={text}>
-              <Link to={'/'+text} className={classes.link} onClick={handleDrawerClose}>{text}</Link>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
       <div className={classes.top} />
       <Switch>
         <Route path="/User">
@@ -75,9 +57,6 @@ export default () => {
         </Route>
         <Route path="/Main/:serial_number" >
           <Main />
-        </Route>
-        <Route path="/Reference">
-          <Reference />
         </Route>
         <Redirect exact to="/Login" from='/' />
       </Switch>

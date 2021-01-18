@@ -27,7 +27,7 @@ export default (props) => {
         }}
         className={classes.root}
       >
-        <BottomNavigationAction value="Apps" icon={<Apps />} />
+        <BottomNavigationAction value="table" icon={<Apps />} />
         <BottomNavigationAction value="star" icon={<Star />} />
         <BottomNavigationAction value="list" icon={<List />} />
       </BottomNavigation>
