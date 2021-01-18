@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Button, CssBaseline, TextField,
         FormControlLabel, Checkbox, Link, Grid,
         Box, Typography, Container } from '@material-ui/core';
@@ -38,9 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default (props) => {
+  const { setLogin } = props;
   const classes = useStyles();
-
+  useEffect(() => {
+    setLogin(false);
+  }, [])
   const loginButton = (e) => {
     e.preventDefault();
     const username = e.target[0].value;
@@ -67,6 +70,7 @@ export default () => {
           alert("wrong username or password!");
         else
           history.pushState('', '', '/#/User');
+        setLogin(true);
         history.go(0);
       })
       .catch((error) => {
