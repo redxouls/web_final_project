@@ -37,7 +37,13 @@ export default () => {
     fetch("./api/course?serial_number=" + serial_number, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        set_course(result);
+        if(result.message == "Not authorized request"){
+          history.replaceState('', '', '/');
+          history.go(0);
+        }
+        else{
+          set_course(result);
+        }
       })
       .catch((error) => console.log("error", error));
   };
@@ -76,11 +82,9 @@ export default () => {
   return (
     <div className={classes.root}>
       <Title infor={course}/>
-      <Box borderColor="primary.main">
-        <Dialog serial_number={serial_number} question={Vote.time} title="time" icon={<Schedule style={{ fontSize: 30 }}/> }/>
-        <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart style={{ fontSize: 30 }}/>}/>
-        <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People style={{ fontSize: 30 }}/>}/>
-      </Box>
+      <Dialog serial_number={serial_number} question={Vote.time} title="time" icon={<Schedule style={{ fontSize: 30 }}/> }/>
+      <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart style={{ fontSize: 30 }}/>}/>
+      <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People style={{ fontSize: 30 }}/>}/>
       <Comment comment={comment}/>
       <Submit />
     </div>

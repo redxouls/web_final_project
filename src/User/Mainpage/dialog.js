@@ -48,44 +48,14 @@ export default (props) => {
     setOpen(false);
     if (props === undefined) return;
 
-    /*
-    myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    myHeaders.append(
-      "Cookie",
-      "connect.sid=s%3ACez8WZPX_XqmNFJo7yvPTPYljVCU7iU1.IgCXaGdlkl2MTca4iOB7nAfQvIQIt8YVo0IAzOK2UPQ"
-    );
-
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("serial_number", "01004");
-    urlencoded.append("option", "2");
-    urlencoded.append("question", "rule");
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:3000/api/vote", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-    */
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");
 
     const urlencoded = new URLSearchParams();
-    // urlencoded.append("serial_number", serial_number);
-    // urlencoded.append("option", newValue);
-    // urlencoded.append("question", title);
-
-    // var urlencoded = new URLSearchParams();
-    urlencoded.append("serial_number", "01004");
-    urlencoded.append("option", "2");
-    urlencoded.append("question", "rule");
+    urlencoded.append("serial_number", serial_number);
+    urlencoded.append("option", newValue);
+    urlencoded.append("question", title);
 
     const requestOptions = {
       method: "POST",

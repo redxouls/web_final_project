@@ -42,7 +42,11 @@ export default (props) => {
     fetch("./api/user/timeline", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result["message"] == undefined)
+        if(result.message == "Not authorized request"){
+          history.replaceState('', '', '/');
+          history.go(0);
+        }
+        else if (result["message"] == undefined)
           setCourses(result)
         else
           console.log("fetchStars", result["message"]);

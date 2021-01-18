@@ -4,7 +4,7 @@ import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-route
 import clsx from 'clsx';
 import { Toolbar, Drawer, List, ListItem, ListItemIcon, ListItemText,
         Divider, IconButton, Button, AppBar } from '@material-ui/core';
-import { KeyboardArrowUp, Menu } from '@material-ui/icons';
+import { KeyboardArrowUp, ArrowBack } from '@material-ui/icons';
 import User from "./User/main";
 import Main from "./User/Mainpage/main"
 import Login from "./User/Login/main"
@@ -21,8 +21,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   title: {
-    flexGrow: 1,
+    margin: 'auto',
     fontSize: 25,
+  },
+  icon: {
+    position: 'fixed',
   },
   top: {
     height: 50,
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [login, setLogin] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -40,9 +43,21 @@ export default () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const goBack = () => {
+    history.go(-1);
+  }
+
   return (<>
     <AppBar position="fixed">
       <Toolbar>
+        {
+          login ?
+          <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
+            <ArrowBack />
+          </IconButton>
+          : []
+        }
         <div className={classes.title}>加簽資訊論壇</div>
       </Toolbar>
     </AppBar>
@@ -53,7 +68,7 @@ export default () => {
           <User />
         </Route>
         <Route path="/Login">
-          <Login />
+          <Login setLogin={setLogin} />
         </Route>
         <Route path="/Main/:serial_number" >
           <Main />

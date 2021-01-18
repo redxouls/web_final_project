@@ -31,7 +31,11 @@ export default () => {
     fetch("./api/user/list", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result["message"] == undefined) {
+        if(result.message == "Not authorized request"){
+          history.replaceState('', '', '/');
+          history.go(0);
+        }
+        else if (result["message"] == undefined) {
           setCourses(result);
           console.log("fetch", result);
         }
@@ -96,7 +100,7 @@ export default () => {
   };
 
   const genCourse = (c) => {
-    return <Courselistitem 
+    return <Courselistitem
     key={c.serial_number}
     serial_number={c.serial_number}
     title={c.title}
