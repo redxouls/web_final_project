@@ -1,24 +1,8 @@
-const path = require("path"); // NEW
 const express = require("express");
-const fs = require("fs");
 const asyncHandler = require("express-async-handler");
 const Following = require("../models/following");
 const UserVote = require("../models/user_vote");
-//const CourseVote = require("../models/course_vote");
-let courseInfo = require("../../course_info/parsed_courses.json");
-const Constants = require("../constants");
-
-const accountFilePath = path.join(
-  __dirname,
-  "../../account_info/account_info.json"
-);
-const voteFilePath = path.join(__dirname, "../../vote_info/parsed_courses.js");
-
-let accountInfo;
-fs.readFile(accountFilePath, (err, data) => {
-  if (err) throw err;
-  accountInfo = JSON.parse(data.toString());
-});
+const Course = require("../models/course");
 
 const router = express.Router();
 
@@ -40,8 +24,8 @@ router.route("/").post(
       res.status(404).send({ message: "Invalid request body" });
       return;
     }
-
-    if (!Object.keys(courseInfo).includes(serial_number)) {
+    const exisist = await checkCourse(serial_number);
+    if (!exisist) {
       res.status(404).send({ message: "Course not found!!!" });
       return;
     }
@@ -124,14 +108,9 @@ router.route("/").post(
   })
 );
 
-async function updateAccountInfo(path, updatedInfo) {
-  fs.writeFileSync(path, JSON.stringify(updatedInfo), (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Write file complete.");
-    }
-  });
-}
+const checkCourse = async (serial_number) => {
+  const response = await Course.findOne({ serial_number });
+  return response;
+};
 
 module.exports = router;

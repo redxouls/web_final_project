@@ -1,23 +1,10 @@
 const path = require("path"); // NEW
 const express = require("express");
-const fs = require("fs");
 const asyncHandler = require("express-async-handler");
 const courseInfo = require("../../course_info/parsed_courses.json");
 const Constants = require("../constants");
 const Following = require("../models/following");
-const Account = require("../models/account");
-const { FORMERR } = require("dns");
-
-const accountFilePath = path.join(
-  __dirname,
-  "../../account_info/account_info.json"
-);
-
-let accountInfo;
-fs.readFile(accountFilePath, (err, data) => {
-  if (err) throw err;
-  accountInfo = JSON.parse(data.toString());
-});
+const Course = require("../models/course");
 
 const router = express.Router();
 
@@ -33,7 +20,7 @@ router.route("/:mode").get(
     }
     const username = req.session.username;
 
-    Following.find({ username }, (err, response) => {
+    Following.find({ username }, async (err, response) => {
       if (err) {
         res.status(404).send({ error: "db error" });
         return;
@@ -43,11 +30,10 @@ router.route("/:mode").get(
         return;
       }
 
-      console.log(response);
       const following = response.map((data) => data["serial_number"]);
       console.log(following);
       if (mode === "timeline") {
-        const courseList = getCourseTime(following);
+        const courseList = await getCoursesTime(following);
         if (courseList === undefined) {
           res.status(500).send({ error: "failed to generate course list" });
           return;
@@ -56,11 +42,12 @@ router.route("/:mode").get(
         return;
       }
       if (mode === "list") {
-        const courseList = following.map((serial_number) => {
-          if (courseInfo[serial_number] === undefined) {
+        const courseList = following.map(async (serial_number) => {
+          const exisist = await checkCourse(serial_number);
+          if (!exisist) {
             return {};
           }
-          const title = courseInfo[serial_number]["title"];
+          const title = exisist["title"];
           return { serial_number: serial_number, title: title };
         });
         if (courseList === undefined) {
@@ -79,7 +66,7 @@ router
   .route("/")
   .post(
     express.urlencoded({ extended: false }),
-    asyncHandler((req, res, next) => {
+    asyncHandler(async (req, res, next) => {
       const { serial_number } = req.body;
       const username = req.session.username;
 
@@ -92,7 +79,8 @@ router
       }
 
       // Need to update course
-      if (!Object.keys(courseInfo).includes(serial_number)) {
+      const exisist = await checkCourse(serial_number);
+      if (!exisist) {
         res
           .status(403)
           .send({ message: "course not found, please check serial_number" });
@@ -129,21 +117,18 @@ router
   )
   .delete(
     express.urlencoded({ extended: false }),
-    asyncHandler((req, res, next) => {
+    asyncHandler(async (req, res, next) => {
       const { serial_number } = req.body;
       const username = req.session.username;
 
       console.log(username, serial_number);
       console.log("session name: ", req.session.username);
-
+      const exisist = await checkCourse(serial_number);
       if (req.session.username === undefined) {
         res.status(401).send({ message: "Not authorized request" });
         return;
       }
-      if (
-        !Object.keys(courseInfo).includes(serial_number) &&
-        serial_number !== "all"
-      ) {
+      if (!exisist && serial_number !== "all") {
         res
           .status(403)
           .send({ message: "course not found, please check serial_number" });
@@ -173,8 +158,6 @@ router
           Following.deleteOne({ username, serial_number }, (err) => {
             if (err) res.status(400).end();
             else {
-              console.log(following);
-              console.log(following.indexOf(serial_number), 1);
               res.status(200).send({
                 message: "successfully unfollow " + serial_number,
                 following: following,
@@ -186,7 +169,12 @@ router
     })
   );
 
-function getCourseTime(serial_numbers) {
+const getCourse = async (serial_number) => {
+  const response = await Course.findOne({ serial_number }).select("time title");
+  return response;
+};
+
+async function getCoursesTime(serial_numbers) {
   const CourseList = {};
   const classInDay = {};
   Constants.CLASS_IN_DAY.forEach((time) => {
@@ -195,9 +183,10 @@ function getCourseTime(serial_numbers) {
   Constants.DAY_IN_WEEK.forEach((day) => {
     CourseList[day] = JSON.parse(JSON.stringify(classInDay));
   });
-  serial_numbers.forEach((serial_number) => {
-    const title = courseInfo[serial_number]["title"];
-    const time = courseInfo[serial_number]["time"];
+  for (const serial_number of serial_numbers) {
+    const singleCourseInfo = await getCourse(serial_number);
+    const title = singleCourseInfo["title"];
+    const time = JSON.parse(singleCourseInfo["time"]);
     time.forEach((day) => {
       const specificDay = Object.keys(day)[0];
       Object.values(day)[0].forEach((specificTime) => {
@@ -207,18 +196,13 @@ function getCourseTime(serial_numbers) {
         });
       });
     });
-  });
+  }
   return CourseList;
 }
 
-async function updateAccountInfo(path, updatedInfo) {
-  fs.writeFileSync(path, JSON.stringify(updatedInfo), (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Write file complete.");
-    }
-  });
-}
+const checkCourse = async (serial_number) => {
+  const response = await Course.findOne({ serial_number });
+  return response;
+};
 
 module.exports = router;
