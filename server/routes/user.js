@@ -23,10 +23,6 @@ router.route("/:mode").get(
         res.status(404).send({ error: "db error" });
         return;
       }
-      if (response.length === 0) {
-        res.status(500).send([]);
-        return;
-      }
 
       const following = response.map((data) => data["serial_number"]);
       console.log(following);
