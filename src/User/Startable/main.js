@@ -85,10 +85,9 @@ export default (props) => {
     fetch("./api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        fetchFollowedTimeline();
       })
       .catch((error) => console.log("error", error));
-    fetchFollowedTimeline();
   };
   const handleClick = () => {}  // donothing
   let row;
