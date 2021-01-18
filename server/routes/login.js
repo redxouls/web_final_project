@@ -1,6 +1,4 @@
-const path = require("path"); // NEW
 const express = require("express");
-const fs = require("fs");
 const asyncHandler = require("express-async-handler");
 const Account = require("../models/account");
 

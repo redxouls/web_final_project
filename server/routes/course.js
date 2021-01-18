@@ -1,6 +1,4 @@
-const path = require("path"); // NEW
 const express = require("express");
-const fs = require("fs");
 const asyncHandler = require("express-async-handler");
 const Course = require("../models/course");
 
@@ -18,7 +16,6 @@ router.route("/").get(
     }
 
     const serial_number = req.query.serial_number.toString();
-    //console.log(serial_number);
     Course.findOne({ serial_number }, (err, courseRes) => {
       if (!courseRes) {
         res.status(404).send({ message: "No course is found !" });

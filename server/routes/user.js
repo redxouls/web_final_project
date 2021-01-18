@@ -1,7 +1,5 @@
-const path = require("path"); // NEW
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const courseInfo = require("../../course_info/parsed_courses.json");
 const Constants = require("../constants");
 const Following = require("../models/following");
 const Course = require("../models/course");
