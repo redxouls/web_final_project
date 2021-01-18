@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
+import { Card, CardHeader, CardContent, CardActions,
+        Collapse, IconButton } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    marginBottom: 20,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -21,16 +18,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+const headingFont = createMuiTheme({
+  typography: {
+    fontFamily: [
+    'Coda Caption',
+    'sans-serif',
+    ].join(','),
+  },
+});
+
+export default (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const { infor } = props;
+  const infoList = Object.entries(infor);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const genInfo = (props) => {
+    if (typeof props[1] == "string")
+      return <div key={props[0]}>{props[0]} : {props[1]}</div>
+  }
 
   return (
+    <ThemeProvider theme={headingFont}>
     <Card className={classes.root}>
       <CardHeader
         action={
@@ -44,14 +55,14 @@ export default () => {
             <ExpandMoreIcon />
           </IconButton>
         }
-        title="微積分"
-        // subheader="流水號：12345"
+        title={infor.title}
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          hi
+        {infoList.map(genInfo)}
         </CardContent>
       </Collapse>
     </Card>
+    </ThemeProvider>
   );
 }

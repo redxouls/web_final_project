@@ -14,7 +14,19 @@ const joinRoom = (socket) => {
 };
 
 const initialize = (socket) => {
-  socket.emit("INITIALIZE", { vote: { test: "test" }, comment: ["test"] });
+  socket.emit("INITIALIZE", {
+    vote: {
+      time: { "第二節": 100, "第一節": 10, "第三節": 0 },
+      priority: { "第一節": 80, "第二節": 10, "第三節": 0 },
+      people: { "1~5": 87, "6~10": 59, "全簽": 0 }
+     },
+    comment: [
+    {username: "KFC", body: "hihi", like: 14, unlike: 2},
+    {username: "KFC2", body: "haha", like: 14, unlike: 2},
+    {username: "KFC3", body: "I have no girlfriend", like: 50, unlike: 0},
+    {username: "KFC4", body: "我也是苗栗人ㄟ", like: 59, unlike: 1},
+    {username: "KFC5", body: "煙火真好看", like: 14, unlike: 2},
+    {username: "KFC6", body: "想不到ㄌ", like: 87, unlike: 0}]});
 };
 
 const updateComment = (socket) => {

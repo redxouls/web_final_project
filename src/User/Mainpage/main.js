@@ -2,22 +2,49 @@ import React, { useEffect, useState } from "react";
 import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
-import Fade from "@material-ui/core/Fade";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
 import Submit from "./submit";
-import AddIcon from "@material-ui/icons/Add";
-import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Box from '@material-ui/core/Box';
+import { Schedule, People, BarChart } from "@material-ui/icons";
 import { useParams } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { palette } from '@material-ui/system';
 import io from "socket.io-client";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+}))
+
 export default () => {
+  const classes = useStyles();
   const { serial_number } = useParams();
-  console.log(serial_number);
-  const [checked, set_checked] = useState(true);
-  const handleChange = () => {
-    set_checked((prev) => !prev);
+  const [course, set_course] = useState({});
+  const [comment, set_comment] = useState([]);
+  const [Vote, set_vote] = useState({});
+  const fetchCourse = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("credentials", "include");
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "manual",
+    };
+
+    fetch("./api/course?serial_number=" + serial_number, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        set_course(result);
+      })
+      .catch((error) => console.log("error", error));
   };
+
+  useEffect(() => {
+    fetchCourse();
+  }, []);
 
   useEffect(() => {
     const socket = io({
@@ -34,7 +61,8 @@ export default () => {
       console.log(data);
     });
     socket.on("INITIALIZE", (data) => {
-      console.log(data);
+      set_comment(data.comment);
+      set_vote(data.vote);
     });
     socket.on("UPDATE_VOTE", (data) => {
       console.log(data);
@@ -44,23 +72,17 @@ export default () => {
     });
     socket.on("disconnect", () => {});
   }, []);
+
   return (
-    <>
-      <Title />
-      <Dialog />
-      <Dialog />
-      <Dialog />
-      <Fade in={checked}>
-        <Comment />
-      </Fade>
-      <FormControlLabel
-        control={
-          <Button onClick={handleChange}>
-            <AddIcon />
-          </Button>
-        }
-      />
+    <div className={classes.root}>
+      <Title infor={course}/>
+      <Box borderColor="primary.main">
+        <Dialog serial_number={serial_number} question={Vote.time} title="time" icon={<Schedule style={{ fontSize: 30 }}/> }/>
+        <Dialog serial_number={serial_number} question={Vote.priority} title="priority" icon={<BarChart style={{ fontSize: 30 }}/>}/>
+        <Dialog serial_number={serial_number} question={Vote.people} title="people" icon={<People style={{ fontSize: 30 }}/>}/>
+      </Box>
+      <Comment comment={comment}/>
       <Submit />
-    </>
+    </div>
   );
 };
