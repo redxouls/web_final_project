@@ -141,8 +141,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
 
-  sessionOptions.store.clear();
-
+  //sessionOptions.store.clear();
   //
   // Course.remove({}, () => {
   //   console.log("cleared!!!");
