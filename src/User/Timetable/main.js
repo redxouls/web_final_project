@@ -100,13 +100,13 @@ export default (props) => {
   const generateRow = (time) => {
     row = time;
     if (day === 0) {
-      return ([<Divider className={classes.divider} key={row+'d'} />,
+      return ([//<Divider className={classes.divider} key={row+'d'} />,
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {daysIdx.map(generateNum)}
         </Grid>])
     } else {
-      return ([<Divider className={classes.divider} key={row+'d'} />,
+      return ([//<Divider className={classes.divider} key={row+'d'} />,
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {generateList()}
@@ -116,8 +116,8 @@ export default (props) => {
   const generateNum = (day) => {
     const list = courses[day][row];
     if (list.length === 0)
-      return <Blankbutton key={day} />;
-    return <Coursebutton onDel={onDel} name={list.length} key={day} />;
+      return <Blankbutton key={day} css_setting={day}/>;
+    return <Coursebutton onDel={onDel} name={list.length} key={day} css_setting={day}/>;
   }
   const generateList = () => {
     const list = courses[day][row];
@@ -129,11 +129,11 @@ export default (props) => {
   const generateBlock = (day, id) => {
     const item = courses[day][row][id];
     if (item === undefined)
-      return <Blankbutton key={id} />;
-    return <Coursebutton onDel={unfollowCourse} name={item.title} num={item.serial_number} key={id} />;
+      return <Blankbutton key={id} css_setting={day}/>;
+    return <Coursebutton onDel={unfollowCourse} name={item.title} num={item.serial_number} key={id} css_setting={day}/>;
   }
   const generateDays = (e) => {
-    return <Dayblock key={e} name={e} click={handleClick} />
+    return <Dayblock key={e} name={e} click={handleClick} css_setting={e}/>
   }
   return (
     <div className={classes.root}>
