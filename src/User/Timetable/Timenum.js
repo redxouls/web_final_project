@@ -36,7 +36,7 @@ export default (props) => {
   const [open, setOpen] = React.useState(false);
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={0}>
         <Grid item xs className={classes.grid}>
           <div>{name}</div>
         </Grid>

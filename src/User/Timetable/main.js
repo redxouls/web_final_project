@@ -9,6 +9,7 @@ import Timenum from "./Timenum";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: 10,
     marginRight: 5,
     flexGrow: 1,
     border: 5,
