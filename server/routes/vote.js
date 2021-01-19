@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Following = require("../models/following");
 const UserVote = require("../models/user_vote");
 const Course = require("../models/course");
+const Constants = require("../constants");
 
 const router = express.Router();
 
@@ -16,11 +17,7 @@ router.route("/").post(
     const username = req.session.username;
     const { serial_number, option, question } = req.body;
 
-    if (
-      !serial_number ||
-      !option ||
-      !["time", "people", "rule"].includes(question)
-    ) {
+    if (!serial_number || !option || !Constants.RULES.includes(question)) {
       res.status(404).send({ message: "Invalid request body" });
       return;
     }
@@ -40,7 +37,7 @@ router.route("/").post(
         return;
       }
       UserVote.findOne(
-        { username, serial_number, question, option },
+        { username, serial_number, question },
         (err, response) => {
           if (err) {
             res.status(400).end();

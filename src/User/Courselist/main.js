@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { List } from '@material-ui/core';
+import { List, Dialog, DialogTitle, DialogContent, DialogActions,
+          Button } from '@material-ui/core';
 import Courselistitem from './Courselistitem';
 import Addcourse from './Addcourse'
 
@@ -15,10 +16,17 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  img: {
+    marginTop: 100,
+    marginRight: 30,
+    width: '100%',
+  },
 }));
 
 export default () => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [dealnum, setDealnum] = React.useState();
 
   const fetchFollowedList = () => {
     const myHeaders = new Headers();
@@ -68,9 +76,10 @@ export default () => {
       .then((result) => {
         if (result["following"] == undefined)
           alert(result["message"]);
+        else
+          fetchFollowedList();
       })
       .catch((error) => console.log("error", error));
-    fetchFollowedList();
   };
 
   const unfollowCourse = (serial_number) => {
@@ -94,17 +103,32 @@ export default () => {
       .then((result) => {
         if (result["following"] == undefined)
           alert(result["message"]);
+        else
+          fetchFollowedList();
       })
       .catch((error) => console.log("error", error));
-    fetchFollowedList();
   };
+
+  const openDia = (num) => {    
+    setOpen(true);
+    setDealnum(num);
+  }
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  const handleSure = () => {
+    setOpen(false);
+    unfollowCourse(dealnum);
+  }
 
   const genCourse = (c) => {
     return <Courselistitem
     key={c.serial_number}
     serial_number={c.serial_number}
     title={c.title}
-    unfollow={unfollowCourse} />
+    unfollow={openDia} />
   }
   return (
     <div className={classes.root}>
@@ -112,6 +136,23 @@ export default () => {
       <List className={classes.list}>
       {courses.map(genCourse)}
       </List>
+      {courses.length === 0 ? 
+        <img src="https://i.imgur.com/Lir5FIw.png" className={classes.img} />
+        : []}
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        maxWidth="xs"
+        aria-labelledby="confirmation-dialog-title"
+        open={open}
+      >
+        <DialogTitle id="confirmation-dialog-title">test</DialogTitle>
+        <DialogContent> 確定要刪除？ </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCancel} color="primary"> Cancel </Button>
+          <Button onClick={handleSure} color="primary"> Sure </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
