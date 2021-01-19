@@ -72,7 +72,7 @@ export default (props) => {
         <CardContent className={classes.table}>
           {//console.log(infor)
             (typeof infor === typeof [])?
-            <Table aria-label="simple table" style={{width: '60%', alignItems: 'center'}}>
+            <Table aria-label="simple table" style={{width: '80%', alignItems: 'center'}}>
               <TableBody>
                 {infor.map(geninfor)}
               </TableBody>

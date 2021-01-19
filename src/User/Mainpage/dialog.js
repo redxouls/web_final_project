@@ -39,7 +39,7 @@ export default (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("Dione");
-  const { serial_number, question, title, icon } = props;
+  const { serial_number, question, title, icon, setopen } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,7 +69,7 @@ export default (props) => {
         .then((response) => response.json())
         .then((result) => {
           if (result.message != "vote too often") console.log(newValue);
-          else console.log("please wait 1 mins.");
+          else setopen(true);
         })
         .catch((error) => console.log("error", error));
     }

@@ -70,11 +70,11 @@ export default (props) => {
     timeOutEvent = 0;
     setOpen(true);
   }
-      // onMouseDown={handleStart}  onMouseUp={handleEnd}>
+      // onMouseDown={handleStart} onMouseUp={handleEnd}>
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid item xs onTouchStart={handleStart}  onTouchEnd={handleEnd} className={classes.grid}>
+        <Grid item xs onTouchStart={handleStart}  onTouchEnd={handleEnd} onMouseDown={handleStart} onMouseUp={handleEnd} className={classes.grid}>
           <div className={classes.name}>{name}</div>
         </Grid>
       </Paper>

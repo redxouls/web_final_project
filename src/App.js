@@ -8,6 +8,7 @@ import { KeyboardArrowUp, ArrowBack } from '@material-ui/icons';
 import User from "./User/main";
 import Main from "./User/Mainpage/main"
 import Login from "./User/Login/main"
+import Tutorial from "./User/Tutorial/main"
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -73,7 +74,10 @@ export default () => {
         <Route path="/Main/:serial_number" >
           <Main />
         </Route>
-        <Redirect exact to="/Login" from='/' />
+        <Route path="/Tutorial" >
+          <Tutorial />
+        </Route>
+        <Redirect exact to="/Tutorial" from='/' />
       </Switch>
     </Router></>
   );
