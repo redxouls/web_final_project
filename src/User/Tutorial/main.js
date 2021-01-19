@@ -35,6 +35,10 @@ const useStyles = makeStyles({
 
 const tutorialSteps = [
   {
+    text: "",
+    imgPath: "/asset/img/firstpage.jpg",
+  },
+  {
     text: "登入畫面",
     imgPath: "/asset/img/login.gif",
   },
