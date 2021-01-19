@@ -69,12 +69,13 @@ const redisClient = redis.createClient({
   password: "LighteningFiveWhips",
 });
 
-redisClient.on("error", console.error);
+redisClient.on("connect", () => {
+  console.log("Successfully connected to redis store !!!");
+});
 
 const RedisStore = connectRedis(session);
 
 // express app settings below
-
 const sessionOptions = {
   cookie: {
     path: "/",
@@ -84,7 +85,7 @@ const sessionOptions = {
   },
   resave: false,
   saveUninitialized: false,
-  secret: uuidv4(),
+  secret: "3%.#Bjj,/Qgt6'X?j'*>",
   unset: "destroy",
 
   store: new RedisStore({
@@ -141,7 +142,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
 
-  //sessionOptions.store.clear();
+  // sessionOptions.store.clear();
   //
   // Course.remove({}, () => {
   //   console.log("cleared!!!");
