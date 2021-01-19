@@ -81,12 +81,14 @@ export default () => {
     socket.on("INITIALIZE", (data) => {
       set_comment(data.comment);
       set_vote(data.vote);
+      socket["comment"] = data.comment;
     });
     socket.on("UPDATE_VOTE", (data) => {
-      console.log(data);
+      set_vote(data.vote);
     });
     socket.on("UPDATE_COMMENT", (data) => {
-      console.log(data);
+      socket["comment"] = [...socket["comment"], data.comment];
+      set_comment(socket["comment"]);
     });
     socket.on("disconnect", () => {});
   }, []);
