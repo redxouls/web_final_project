@@ -75,7 +75,7 @@ export default function choice(props) {
                 :[
                   <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={option}>
                     <FormControlLabel value={option} key={option} control={<Radio />} label={option} className={classes.option} />
-                    <div>{Math.round(question[option]/Object.values(question).reduce(reducer)*100)}%</div>
+                    <div>{question[option]} / {Object.values(question).reduce(reducer)}</div>
                   </Grid>,
                   <LinearProgress variant="determinate" value={question[option]/Object.values(question)[0]*100} key={rate[index]} />
                 ]
