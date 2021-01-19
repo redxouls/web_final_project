@@ -52,7 +52,7 @@ export default () => {
       })
       .catch((error) => console.log("error", error));
   };
-  const [courses, setCourses] = useState([])
+  const [courses, setCourses] = useState(undefined)
   useEffect(() => {
     fetchFollowedList();
   },[])
@@ -133,12 +133,12 @@ export default () => {
   return (
     <div className={classes.root}>
       <Addcourse follow={followCourse} />
-      <List className={classes.list}>
-      {courses.map(genCourse)}
-      </List>
-      {courses.length === 0 ? 
+      
+      {courses === undefined ? [] : courses.length === 0 ? 
         <img src="https://i.imgur.com/Lir5FIw.png" className={classes.img} />
-        : []}
+        : <List className={classes.list}>
+          {courses.map(genCourse)}
+        </List>}
       <Dialog
         disableBackdropClick
         disableEscapeKeyDown
