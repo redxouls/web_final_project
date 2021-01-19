@@ -51,7 +51,7 @@ for i in range(50):
 # for account in all_accounts:
 #     pprint.pprint(account)
 
-with open("./accountInfo.txt","w") as f:
+with open("./accountInfo.json","w") as f:
     json.dump(accounts_for_test,f)
 
 print(accounts_for_test)

@@ -44,6 +44,8 @@ const port = PORT || 3000;
 
 const app = express();
 
+app.use("/asset", express.static("asset"));
+
 let server;
 let protocal = "http";
 

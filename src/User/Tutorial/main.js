@@ -1,12 +1,12 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   button: {
     bottom: 50,
     right: 30,
-    position: 'fixed',
+    position: "fixed",
   },
 }));
 
@@ -18,10 +18,16 @@ export default (props) => {
   };
   return (
     <div>
-      <Button onClick={handlego} className={classes.button}
-       variant="contained" color="primary">skip&login</Button>
-      <img src="https://i.imgur.com/v30wq5J.gif" width='60%' />
-      <img src="https://i.imgur.com/MdFCWCQ.gif" width='60%' />
+      <Button
+        onClick={handlego}
+        className={classes.button}
+        variant="contained"
+        color="primary"
+      >
+        skip&login
+      </Button>
+      <img src="/asset/img/login.gif" width="60%" />
+      <img src="/asset/img/comment.gif" width="60%" />
     </div>
   );
-}
+};
