@@ -21,9 +21,18 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const classes = useStyles();
   const { serial_number } = useParams();
-  const [course, set_course] = useState({});
+  const [course, set_course] = useState([]);
   const [comment, set_comment] = useState([]);
   const [Vote, set_vote] = useState({});
+  const [title, set_title] = useState("");
+  const words = [
+    "Department",
+    "Credits",
+    "Required",
+    "Teacher",
+    "Stu_limit",
+    "Location",
+  ];
   const fetchCourse = () => {
     const myHeaders = new Headers();
     myHeaders.append("credentials", "include");
@@ -41,7 +50,11 @@ export default () => {
           history.replaceState("", "", "/");
           history.go(0);
         } else {
-          set_course(result);
+          console.log(result);
+          set_title(result.title);
+          var infor = words.map((word) => [word, result[word.toLowerCase()]]);
+          console.log(infor[0][1]);
+          set_course(infor.filter((info) => info[1] != " " && info[1] != ""));
         }
       })
       .catch((error) => console.log("error", error));
@@ -80,7 +93,7 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <Title infor={course} />
+      <Title infor={course} title={title} />
       <Dialog
         serial_number={serial_number}
         question={Vote.time}
@@ -100,7 +113,7 @@ export default () => {
         icon={<People style={{ fontSize: 30 }} />}
       />
       <Comment comment={comment} />
-      <Submit />
+      <Submit serial_number={serial_number} />
     </div>
   );
 };

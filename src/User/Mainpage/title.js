@@ -2,19 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { Card, CardHeader, CardContent, CardActions,
-        Collapse, IconButton } from '@material-ui/core';
+        Collapse, IconButton, Divider, Table, TableRow , TableBody, TableCell} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 7,
   },
   expand: {
     transform: 'rotate(0deg)',
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  table: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
 }));
 
@@ -30,14 +35,19 @@ const headingFont = createMuiTheme({
 export default (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const { infor } = props;
-  const infoList = Object.entries(infor);
+  const { infor, title} = props;
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const genInfo = (props) => {
-    if (typeof props[1] == "string")
-      return <div key={props[0]}>{props[0]} : {props[1]}</div>
+
+  const geninfor = (k) => {
+    if(k[1]=="" || k[1]==" ") return
+    return(
+    <TableRow key={k[0]} style={{padding: 5}}>
+      <TableCell  style={{padding: 5}} component="th" scope="row">{k[0]}</TableCell>
+      <TableCell style={{padding: 5}} align="right">{k[1]}</TableCell>
+    </TableRow>
+    );
   }
 
   return (
@@ -55,11 +65,20 @@ export default (props) => {
             <ExpandMoreIcon />
           </IconButton>
         }
-        title={infor.title}
+        title={title}
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-        {infoList.map(genInfo)}
+        <Divider />
+        <CardContent className={classes.table}>
+          {//console.log(infor)
+            (typeof infor === typeof [])?
+            <Table aria-label="simple table" style={{width: '60%', alignItems: 'center'}}>
+              <TableBody>
+                {infor.map(geninfor)}
+              </TableBody>
+            </Table>
+            : <></>
+          }
         </CardContent>
       </Collapse>
     </Card>

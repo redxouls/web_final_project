@@ -64,7 +64,7 @@ export default (props) => {
     };
     let user;
     fetch("./api/login", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
         if (result === "")
           alert("wrong username or password!");

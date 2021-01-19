@@ -75,13 +75,16 @@ const getVoteInfo = async (serial_number) => {
     });
   });
 
-  vote["people"] = Constants.PEOPLE;
-  vote["priority"] = Constants.PRIORITY;
+  vote["people"] = JSON.parse(JSON.stringify(Constants.PEOPLE));
+  vote["priority"] = JSON.parse(JSON.stringify(Constants.PRIORITY));
+  console.log(Constants.PEOPLE);
+  console.log(Constants.PRIORITY);
 
   const voteInfos = await UserVote.find({ serial_number }).select(
     "question option"
   );
-  console.log(voteInfos);
+
+  console.log("vote", vote);
   voteInfos.forEach((data) => {
     console.log("db vote", data.question, data.option);
     if (vote[data.question]) {
