@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default (serial_number) => {
+export default (props) => {
   const classes = useStyles();
+  const { serial_number } = props;
   const handleEnter = (e) => {
     if(e.keyCode === 13 && e.target.value !== '') {
         console.log();
@@ -41,6 +42,7 @@ export default (serial_number) => {
         fetch("./api/comment", requestOptions)
           .then(response => response.json())
           .then(result => {
+            console.log(result)
             e.target.value = '';
           })
           .catch(error => console.log('error', error));
