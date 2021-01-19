@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   divider: {
-    marginDown: 10,
     width: "95%",
-    borderTop: 20,
     backgroundColor: "darkblue",
   },
 }));
@@ -108,7 +106,7 @@ export default (props) => {
           {daysIdx.map(generateNum)}
         </Grid>])
     } else {
-      return ([<Divider className={classes.divider} key={row} />,
+      return ([<Divider className={classes.divider} key={row+'d'} />,
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {generateList()}
