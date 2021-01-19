@@ -23,23 +23,47 @@ const useStyles = makeStyles({
   img: {
     margin: "auto",
     display: "block",
-    maxWidth: 270,
     overflow: "hidden",
-    width: "100%",
+    height: window.innerHeight - 116,
   },
   textBox: {
-    marginLeft: 70,
-    height: 50,
+    marginTop: 10,
+    marginBottom: 10,
+    height: 30,
   },
 });
 
 const tutorialSteps = [
   {
-    text: "login 教學",
+    text: "登入畫面",
     imgPath: "/asset/img/login.gif",
   },
   {
-    text: "comment 教學",
+    text: "累計所有課程/最可能的課程/列表",
+    imgPath: "/asset/img/switch.gif",
+  },
+  {
+    text: "右邊列表輸入流水號可新增",
+    imgPath: "/asset/img/list.gif",
+  },
+  {
+    text: "在全部課程預覽可按星期展開",
+    imgPath: "/asset/img/expand.gif",
+  },
+  {
+    text: "長按刪除",
+    imgPath: "/asset/img/longpress.gif",
+  },
+  {
+    text: "點擊前往課程頁面",
+    imgPath: "/asset/img/coursego.gif",
+  },
+  {
+    text: "上方可投票加簽規則，操作頻繁會被禁止",
+    imgPath: "/asset/img/vote.gif",
+  },
+  {
+    text: "下方可留言，過多則隱藏",
     imgPath: "/asset/img/comment.gif",
   },
 ];
@@ -52,7 +76,6 @@ export default (props) => {
   const maxSteps = tutorialSteps.length;
 
   const handleClick = (e) => {
-    console.log(e.clientX, window.innerWidth);
     if (e.clientX > window.innerWidth / 2) {
       if (activeStep < maxSteps - 1)
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -92,12 +115,12 @@ export default (props) => {
       >
         {tutorialSteps.map((step, index) => (
           <div key={index}>
+            <div className={classes.textBox}>
+              <Typography align='center'>{step.text}</Typography>
+            </div>
             {Math.abs(activeStep - index) <= 2 ? (
               <img className={classes.img} src={step.imgPath} />
             ) : null}
-            <div className={classes.textBox}>
-              <Typography>{step.text}</Typography>
-            </div>
           </div>
         ))}
       </AutoPlaySwipeableViews>
