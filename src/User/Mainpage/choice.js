@@ -64,7 +64,15 @@ export default function choice(props) {
             //console.log(question)
             question==undefined ? <></> :
             Object.keys(question).map((option, index) => (
-                [ 
+                Object.values(question)[0] == 0 ?
+                [
+                  <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={option}>
+                    <FormControlLabel value={option} key={option} control={<Radio />} label={option} className={classes.option} />
+                    <div>0%</div>
+                  </Grid>,
+                  <LinearProgress variant="determinate" value={0} key={rate[index]} />
+                ]
+                :[
                   <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={option}>
                     <FormControlLabel value={option} key={option} control={<Radio />} label={option} className={classes.option} />
                     <div>{Math.round(question[option]/Object.values(question).reduce(reducer)*100)}%</div>
