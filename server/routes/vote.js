@@ -73,7 +73,7 @@ router.route("/").post(
           } else {
             const currentTime = Date.now();
 
-            if (currentTime - response["time"] < 1000 * 60) {
+            if (currentTime - response["time"] < 1000 * 10) {
               res.status(403).send({ message: "vote too often" });
               return;
             }
