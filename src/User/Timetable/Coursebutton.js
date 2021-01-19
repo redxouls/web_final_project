@@ -4,7 +4,6 @@ import {
   Paper,
   Button,
   Grid,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Dialog,
@@ -106,7 +105,6 @@ export default (props) => {
         aria-labelledby="confirmation-dialog-title"
         open={open}
       >
-        <DialogTitle id="confirmation-dialog-title">test</DialogTitle>
         <DialogContent> 確定要刪除？ </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleCancel} color="primary">
