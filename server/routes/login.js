@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Account = require("../models/account");
-
+const bcrypt = require("bcrypt");
 const router = express.Router();
 
 // Handle login post
@@ -17,7 +17,7 @@ router
         return;
       }
 
-      Account.find({ username }, (err, user) => {
+      Account.find({ username }, async (err, user) => {
         if (err) {
           res.status(400).end();
         }
@@ -25,7 +25,7 @@ router
           res.status(400).end();
           return;
         }
-        if (user[0]["password"] !== password) {
+        if (!bcrypt.compare(password, user.hash)) {
           res.status(401).end();
           return;
         }
