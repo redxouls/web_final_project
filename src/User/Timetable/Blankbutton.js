@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 3,
     padding: 1.5,
     textAlign: 'center',
-    backgroundColor: '#B5FFFF',
+    backgroundColor: '#f5f5f5',
     color: theme.palette.text.secondary,
     height: 35,
     width: "100%",
@@ -28,7 +28,7 @@ export default () => {
   const [open, setOpen] = React.useState(false);
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={0} >
         <Grid item xs>
           <div className={classes.name}></div>
         </Grid>

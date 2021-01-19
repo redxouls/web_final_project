@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 1.5,
     textAlign: 'center',
     alignItems: 'center',
-    backgroundColor: "lightblue",
+    backgroundColor: 'lightblue',
     color: theme.palette.text.secondary,
     height: 35,
     width: "100%",

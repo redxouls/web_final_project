@@ -100,13 +100,13 @@ export default (props) => {
   const generateRow = (time) => {
     row = time;
     if (day === 0) {
-      return ([<Divider className={classes.divider} key={row+'d'} />,
+      return ([//<Divider className={classes.divider} key={row+'d'} />,
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {daysIdx.map(generateNum)}
         </Grid>])
     } else {
-      return ([<Divider className={classes.divider} key={row+'d'} />,
+      return ([//<Divider className={classes.divider} key={row+'d'} />,
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {generateList()}

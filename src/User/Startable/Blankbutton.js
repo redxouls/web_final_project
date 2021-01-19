@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 3,
     padding: 1.5,
     textAlign: 'center',
-    backgroundColor: '#B5FFFF',
+    backgroundColor: 'white',
     color: theme.palette.text.secondary,
     height: 35,
     width: "100%",
