@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button, Grid, DialogTitle, DialogContent,
         DialogActions, Dialog } from '@material-ui/core';
-const useStyles = makeStyles((theme) => ({
+const color = {Mon: '#FF9c9c', Tue: '#FFCC8E', Wed: '#Fbff86', Thu: '#B5FFA7', Fri: '#85ecFF', Sat: '#89b3ff'}
+const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     flexShrink: 1,
@@ -17,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 1.5,
     textAlign: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
-    color: theme.palette.text.secondary,
+    backgroundColor: props => color[props.css_setting],
     height: 35,
     width: "100%",
     display: "flex",
@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.1,
     fontSize: 1,
   }
-}));
+});
 
 export default (props) => {
   const { onDel, name, num } = props;
-  const classes = useStyles();
+  const classes = useStyles(props);
   const [open, setOpen] = React.useState(false);
 
   const handleGotoCourse = () => {

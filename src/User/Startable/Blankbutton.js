@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button, Grid, DialogTitle, DialogContent,
         DialogActions, Dialog } from '@material-ui/core';
+const color = {Mon: '#ffebee', Tue: '#fff3e0', Wed: '#fffde7', Thu: '#f1f8e9', Fri: '#e3f2fd', Sat: '#e8eaf6'}
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -16,15 +17,14 @@ const useStyles = makeStyles((theme) => ({
     margin: 3,
     padding: 1.5,
     textAlign: 'center',
-    backgroundColor: 'white',
-    color: theme.palette.text.secondary,
+    backgroundColor: props => color[props.css_setting],
     height: 35,
     width: "100%",
   },
 }));
 
-export default () => {
-  const classes = useStyles();
+export default (props) => {
+  const classes = useStyles(props);
   const [open, setOpen] = React.useState(false);
   return (
     <div className={classes.root}>

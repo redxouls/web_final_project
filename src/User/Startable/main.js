@@ -93,7 +93,7 @@ export default (props) => {
   let row;
   const generateRow = (time) => {
     row = time;
-    return ([<Divider className={classes.divider} key={row+'d'} />,
+    return ([//<Divider className={classes.divider} key={row+'d'} />,
       <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
         <Timenum name={time} />
         {daysIdx.map(generateBlock)}
@@ -102,11 +102,11 @@ export default (props) => {
   const generateBlock = (day) => {
     const list = courses[day][row];
     if (list.length === 0)
-      return <Blankbutton key={day} />;
-    return <Coursebutton onDel={unfollowCourse} name={list[0].title} num={list[0].serial_number} key={day} />;
+      return <Blankbutton key={day} css_setting={day} css_setting={day}/>;
+    return <Coursebutton onDel={unfollowCourse} name={list[0].title} num={list[0].serial_number} key={day} css_setting={day}/>;
   }
   const generateDays = (e) => {
-    return <Dayblock key={e} name={e} click={handleClick} />
+    return <Dayblock key={e} name={e} click={handleClick} css_setting={e}/>
   }
   return (
     <div className={classes.root}>

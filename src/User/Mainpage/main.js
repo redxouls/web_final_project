@@ -3,13 +3,13 @@ import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
 import Submit from "./submit";
-import { Schedule, People, BarChart } from "@material-ui/icons";
+import { Schedule, People, BarChart} from "@material-ui/icons";
 import { useParams } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { palette } from '@material-ui/system';
 import io from "socket.io-client";
+import {Divider} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
   },
+  divider: {
+    margin: '10px',
+  }
 }));
 
 export default () => {
@@ -101,6 +104,7 @@ export default () => {
       <Dialog serial_number={serial_number} setopen={set_open} question={Vote.time} title="time" icon={<Schedule style={{ fontSize: 30 }}/> }/>
       <Dialog serial_number={serial_number} setopen={set_open} question={Vote.priority} title="priority" icon={<BarChart style={{ fontSize: 30 }}/>}/>
       <Dialog serial_number={serial_number} setopen={set_open} question={Vote.people} title="people" icon={<People style={{ fontSize: 30 }}/>}/>
+      <Divider className={classes.divider}/>
       <Comment comment={comment}/>
       <Submit serial_number={serial_number}/>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{  vertical: 'top', horizontal:'center' }}>
