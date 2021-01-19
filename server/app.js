@@ -62,7 +62,7 @@ if (NODE_ENV === "development" && protocal === "https") {
 }
 
 const io = require("socket.io")(server);
-/*
+
 const redisClient = redis.createClient({
   host: REDIS_HOST,
   port: 6379,
@@ -72,7 +72,7 @@ const redisClient = redis.createClient({
 redisClient.on("error", console.error);
 
 const RedisStore = connectRedis(session);
-*/
+
 // express app settings below
 
 const sessionOptions = {
@@ -87,10 +87,10 @@ const sessionOptions = {
   secret: uuidv4(),
   unset: "destroy",
 
-  // store: new RedisStore({
-  //   client: redisClient,
-  //   prefix: SESSION_PREFIX,
-  // }),
+  store: new RedisStore({
+    client: redisClient,
+    prefix: SESSION_PREFIX,
+  }),
 };
 
 io.use((socket, next) => {
@@ -141,7 +141,8 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Successfully connect to MongoDB!");
 
-  // sessionOptions.store.clear();
+  sessionOptions.store.clear();
+
   //
   // Course.remove({}, () => {
   //   console.log("cleared!!!");

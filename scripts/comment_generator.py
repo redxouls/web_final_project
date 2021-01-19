@@ -52,10 +52,15 @@ for username in accountInfo:
             "priority":["本系優先", "高年級優先", "抽籤"],
             "people":["1~10", "11~20", "21~30", "31~40", "40~"] 
         }
-        print("time: " + option["time"][random.randint(0, len(option["time"])-1)])
-        print("priority: " + option["priority"][random.randint(0, len(option["priority"])-1)])
-        print("people: " + option["people"][random.randint(0, len(option["people"])-1)])
-        # addVote = s.post("http://127.0.0.1:3000/api/vote", headers=headers, data=)
+        question_to_vote = question[random.randint(0, 2)]
+        option_to_vote = option[question_to_vote][random.randint(0,len(option[question_to_vote])-1)]
+        to_vote = {
+            "serial_number": serial_number_to_vote,
+            "question": question_to_vote,
+            "option": option_to_vote
+        }
+        vote_response = s.post("http://127.0.0.1:3000/api/vote", headers=headers, data=to_vote)
+        print(vote_response.text)
 
 
         # Adding course from to_follow 

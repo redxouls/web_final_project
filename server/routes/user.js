@@ -10,7 +10,6 @@ const router = express.Router();
 router.route("/:mode").get(
   asyncHandler(async (req, res, next) => {
     const mode = req.params.mode;
-    console.log("session name: ", req.session.username);
 
     if (req.session.username === undefined) {
       res.status(401).send({ message: "Not authorized request" });
@@ -64,9 +63,6 @@ router
       const { serial_number } = req.body;
       const username = req.session.username;
 
-      console.log(username, serial_number);
-      console.log("session name: ", req.session.username);
-
       if (req.session.username === undefined) {
         res.status(401).send({ message: "Not authorized request" });
         return;
@@ -103,7 +99,6 @@ router
               message: "succeddfully followed: " + serial_number,
               following,
             });
-            console.log("saved");
           });
         }
       });
@@ -114,10 +109,8 @@ router
     asyncHandler(async (req, res, next) => {
       const { serial_number } = req.body;
       const username = req.session.username;
-
-      console.log(username, serial_number);
-      console.log("session name: ", req.session.username);
       const exisist = await checkCourse(serial_number);
+
       if (req.session.username === undefined) {
         res.status(401).send({ message: "Not authorized request" });
         return;

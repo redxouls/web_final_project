@@ -57,7 +57,6 @@ router.route("/").post(
                 res.status(400).end();
                 return;
               }
-              console.log("saved for new record");
               updateVote(io, serial_number);
               res.status(200).send({
                 message:
@@ -89,7 +88,6 @@ router.route("/").post(
                 res.status(400).end();
                 return;
               }
-              console.log("saved for overwite");
               updateVote(io, serial_number);
               res.status(200).send({
                 message:

@@ -20,9 +20,7 @@ router.route("/").post(
       res.status(401).send({ message: "Not authorized request" });
       return;
     }
-    console.log(username);
     const response = await Following.find({ username });
-    console.log(response);
     if (response.length === 0) {
       res.status(400).send({ message: "DB BAOLA" });
       return;
@@ -45,13 +43,11 @@ router.route("/").post(
     const newComment = Comment(commentToAdd);
     await newComment.save((err) => {
       if (err) {
-        console.log("error");
         res.status(400).end();
+        return;
       }
-      console.log("Comment saved");
     });
     updateComment(io, serial_number, commentToAdd);
-    console.log(newComment);
     res
       .status(200)
       .send({ message: "Successfully added ", serial_number, username, body });

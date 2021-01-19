@@ -7,8 +7,6 @@ const Course = require("./models/course");
 const joinRoom = (socket) => {
   const { session } = socket.request;
   const serial_number = socket.handshake.query.serial_number;
-  console.log("serial_number: ", serial_number);
-
   const { username } = session;
 
   socket.join(serial_number);
@@ -16,28 +14,12 @@ const joinRoom = (socket) => {
 };
 
 const initialize = async (socket) => {
-  //console.log(socket.rooms);
   const serial_number = Array.from(socket.rooms)[1];
   const voteInfos = await UserVote.find({ serial_number }).select(
     "question option"
   );
   const vote = await getVoteInfo(serial_number);
   const comment = await getComment(serial_number);
-
-  console.log(vote);
-  // {
-  //   time: { 第二節: 100, 第一節: 10, 第三節: 0 },
-  //   priority: { 第一節: 80, 第二節: 10, 第三節: 0 },
-  //   people: { "1~5": 87, "6~10": 59, 全簽: 0 },
-  // },
-  // [
-  //   { username: "KFC", body: "hihi", like: 14, unlike: 2 },
-  //   { username: "KFC2", body: "haha", like: 14, unlike: 2 },
-  //   { username: "KFC3", body: "I have no girlfriend", like: 50, unlike: 0 },
-  //   { username: "KFC4", body: "我也是苗栗人ㄟ", like: 59, unlike: 1 },
-  //   { username: "KFC5", body: "煙火真好看", like: 14, unlike: 2 },
-  //   { username: "KFC6", body: "想不到ㄌ", like: 87, unlike: 0 },
-  // ],
 
   socket.emit("INITIALIZE", {
     vote,
@@ -77,16 +59,12 @@ const getVoteInfo = async (serial_number) => {
 
   vote["people"] = JSON.parse(JSON.stringify(Constants.PEOPLE));
   vote["priority"] = JSON.parse(JSON.stringify(Constants.PRIORITY));
-  console.log(Constants.PEOPLE);
-  console.log(Constants.PRIORITY);
 
   const voteInfos = await UserVote.find({ serial_number }).select(
     "question option"
   );
 
-  console.log("vote", vote);
   voteInfos.forEach((data) => {
-    console.log("db vote", data.question, data.option);
     if (vote[data.question]) {
       vote[data.question][data.option] += 1;
     }
@@ -118,7 +96,6 @@ module.exports = {
       //updateComment(socket);
 
       socket.on("disconnect", () => {
-        console.log(socket.rooms);
         console.log(`A user disconnected, id = ${socket.id}`);
       });
     });
@@ -130,7 +107,6 @@ module.exports = {
   updateVote: async (io, serial_number) => {
     const vote = await getVoteInfo(serial_number);
     io.to(serial_number).emit("UPDATE_VOTE", { vote });
-    console.log("UPDATE_VOTE", { vote });
     return;
   },
 };
