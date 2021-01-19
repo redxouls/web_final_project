@@ -75,7 +75,7 @@ export default () => {
           <Main />
         </Route>
         <Route path="/Tutorial" >
-          <Tutorial />
+          <Tutorial setLogin={setLogin} />
         </Route>
         <Redirect exact to="/Tutorial" from='/' />
       </Switch>

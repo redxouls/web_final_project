@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { MobileStepper, Paper, Typography, Button } from '@material-ui/core';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
@@ -45,6 +45,7 @@ const tutorialSteps = [
 ];
 
 export default (props) => {
+  const { setLogin } = props;
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -61,12 +62,16 @@ export default (props) => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
   };
+  useEffect(() => {
+    setLogin(false);
+  }, [])
 
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
 
   const handlego = () => {
+    setLogin(true);
     history.pushState("", "", "/#/Login");
     history.go(0);
   };
