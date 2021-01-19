@@ -29,15 +29,15 @@ export default (props) => {
   const handleEx = () => {setExpand(true);}
   return (
     <div className={classes.root}>
-      {
-      }
-      { expand ?
+      { comment.length == 0 ?
+        "No comments..."
+        :(expand ?
         comment.map((com, index) =>{
           return(
           <Paper className={classes.paper} key={index}>
               <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
-                  <Avatar>W</Avatar>
+                  <Avatar>{com.username[0]}</Avatar>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="h10" component="h3">
@@ -53,7 +53,7 @@ export default (props) => {
           <Paper className={classes.paper} key={index}>
               <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
-                  <Avatar>W</Avatar>
+                  <Avatar>{com.username[0]}</Avatar>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="h10" component="h3">
@@ -63,9 +63,9 @@ export default (props) => {
               </Grid>
               </Grid>
           </Paper>
-        )}).slice(0, 3)
+        )}).slice(0, 3))
       }
-      { expand ? [] :
+      { (expand || comment.length < 4) ? [] :
         <Button onClick={handleEx} >
           <AddIcon />
         </Button>
