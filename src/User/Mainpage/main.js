@@ -46,7 +46,7 @@ export default () => {
       .then((response) => response.json())
       .then((result) => {
         if (result.message == "Not authorized request") {
-          history.replaceState("", "", "/");
+          history.replaceState("", "", "/#/Login");
           history.go(0);
         }
         else{
