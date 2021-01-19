@@ -9,19 +9,19 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const useStyles = makeStyles({
   button: {
+    zIndex: 1,
     bottom: 50,
     right: 30,
     position: 'fixed',
   },
   root: {
-    maxWidth: 400,
+    width: '100%',
     flexGrow: 1,
     alignItems: "center",
     justify: "center",
   },
   img: {
     margin: 'auto',
-    zIndex: -1,
     display: 'block',
     maxWidth: 270,
     overflow: 'hidden',
