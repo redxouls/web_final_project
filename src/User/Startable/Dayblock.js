@@ -39,7 +39,7 @@ export default (props) => {
   }
   return (
     <div className={classes.root} onClick={handleclick}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={0}>
         <Grid item xs className={classes.grid}>
           <div>{name}</div>
         </Grid>
