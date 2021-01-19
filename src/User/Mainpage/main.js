@@ -3,20 +3,12 @@ import Title from "./title";
 import Dialog from "./dialog";
 import Comment from "./comment";
 import Submit from "./submit";
-<<<<<<< HEAD
-import Box from "@material-ui/core/Box";
-import { Schedule, People, BarChart } from "@material-ui/icons";
-import { useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { palette } from "@material-ui/system";
-=======
 import { Schedule, People, BarChart } from "@material-ui/icons";
 import { useParams } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import { palette } from '@material-ui/system';
->>>>>>> ver1
 import io from "socket.io-client";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,20 +26,9 @@ export default () => {
   const [comment, set_comment] = useState([]);
   const [Vote, set_vote] = useState({});
   const [title, set_title] = useState("");
-<<<<<<< HEAD
-  const words = [
-    "Department",
-    "Credits",
-    "Required",
-    "Teacher",
-    "Stu_limit",
-    "Location",
-  ];
-=======
   const [time, set_time] = useState([]);
   const [open, set_open] = useState(false);
   const words = ['Department', 'Credits', 'Required', 'Teacher', 'Stu_limit', 'Location'];
->>>>>>> ver1
   const fetchCourse = () => {
     const myHeaders = new Headers();
     myHeaders.append("credentials", "include");
@@ -64,14 +45,6 @@ export default () => {
         if (result.message == "Not authorized request") {
           history.replaceState("", "", "/");
           history.go(0);
-<<<<<<< HEAD
-        } else {
-          console.log(result);
-          set_title(result.title);
-          var infor = words.map((word) => [word, result[word.toLowerCase()]]);
-          console.log(infor[0][1]);
-          set_course(infor.filter((info) => info[1] != " " && info[1] != ""));
-=======
         }
         else{
           console.log(result)
@@ -80,7 +53,6 @@ export default () => {
           var infor = words.map(word => [word, result[word.toLowerCase()]])
           infor = infor.filter(info => (info[1] != ' ' && info[1] != ''))
           set_course(infor)
->>>>>>> ver1
         }
       })
       .catch((error) => console.log("error", error));
