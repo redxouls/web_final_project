@@ -21,5 +21,5 @@ RUN yarn --silent
 COPY . ./
 
 # start app
-CMD ["npm", "run", "develope"]
+CMD ["npm", "run", "dev"]
 CMD ["npm", "run", "start"]
