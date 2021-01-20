@@ -80,8 +80,6 @@ export default (props) => {
   const maxSteps = tutorialSteps.length;
 
   const handleClick = (e) => {
-    // window.location.href = document.referrer
-    return
     if (e.clientX > window.innerWidth / 2) {
       if (activeStep < maxSteps - 1)
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
