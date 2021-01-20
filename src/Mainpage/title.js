@@ -70,7 +70,7 @@ export default (props) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Divider />
         <CardContent className={classes.table}>
-          {//console.log(infor)
+          {
             (typeof infor === typeof [])?
             <Table aria-label="simple table" style={{width: '80%', alignItems: 'center'}}>
               <TableBody>

@@ -45,7 +45,6 @@ export default (props) => {
   const classes = useStyles();
   const handleEnter = (e) => {
     if(e.keyCode === 13 && e.target.value !== '') {
-        console.log(e.target.value);
         follow(e.target.value);
         e.target.value = '';
     }

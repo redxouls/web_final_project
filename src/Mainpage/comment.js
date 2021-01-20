@@ -23,9 +23,6 @@ export default (props) => {
   const classes = useStyles();
   const {comment} = props;
   const [expand, setExpand] = useState(false);
-  useEffect(() => {
-    console.log(comment);
-  });
   const handleEx = () => {setExpand(true);}
   return (
     <div className={classes.root}>

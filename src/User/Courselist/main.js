@@ -46,10 +46,8 @@ export default () => {
       .then((result) => {
         if (result.message == "Not authorized request")
           window.location.href = document.referrer + '#/Login'
-        else if (result["message"] == undefined) {
+        else if (result["message"] == undefined)
           setCourses(result);
-          console.log("fetch", result);
-        } else console.log(result["message"]);
       })
       .catch((error) => console.log("error", error));
   };
@@ -82,7 +80,6 @@ export default () => {
   };
 
   const unfollowCourse = (serial_number) => {
-    console.log(serial_number);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");

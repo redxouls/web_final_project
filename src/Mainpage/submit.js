@@ -23,7 +23,6 @@ export default (props) => {
   const { serial_number } = props;
   const handleEnter = (e) => {
     if(e.keyCode === 13 && e.target.value !== '') {
-        console.log();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         myHeaders.append("credentials", "include");
@@ -42,7 +41,6 @@ export default (props) => {
         fetch("./api/comment", requestOptions)
           .then(response => response.json())
           .then(result => {
-            console.log(result)
             e.target.value = '';
           })
           .catch(error => console.log('error', error));

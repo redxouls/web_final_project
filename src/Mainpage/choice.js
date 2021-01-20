@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, DialogTitle, DialogContent, Grid,
         DialogActions, Dialog, RadioGroup, Radio,
@@ -30,14 +29,10 @@ export default function choice(props) {
   };
 
   const handleOk = () => {
-    console.log("ok");
-    console.log(value);
     onClose(value);
   };
 
   const handleChange = (event) => {
-    console.log("change")
-    console.log(event.target);
     setValue(event.target.value);
   };
   const reducer = (a, b) => a + b;
@@ -61,7 +56,6 @@ export default function choice(props) {
           onChange={handleChange}
         >
           {
-            //console.log(question)
             question==undefined ? <></> :
             Object.keys(question).map((option, index) => (
                 Object.values(question)[0] == 0 ?

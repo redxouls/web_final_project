@@ -50,7 +50,6 @@ export default () => {
           //history.go(0);
         }
         else{
-          console.log(result)
           set_title(result.title)
           set_time(result.time)
           var infor = words.map(word => [word, result[word.toLowerCase()]])
@@ -78,10 +77,8 @@ export default () => {
     });
     socket.on("connect", (data) => {
       data;
-      console.log();
     });
     socket.on("JOIN_ROOM", (data) => {
-      console.log(data);
     });
     socket.on("INITIALIZE", (data) => {
       set_comment(data.comment);

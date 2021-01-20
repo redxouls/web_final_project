@@ -47,8 +47,6 @@ export default (props) => {
           window.location.href = document.referrer + '#/Login'
         else if (result["message"] == undefined)
           setCourses(result)
-        else
-          console.log("fetchStars", result["message"]);
       })
       .catch((error) => console.log("error", error));
   };
@@ -66,7 +64,6 @@ export default (props) => {
   },[])
 
   const unfollowCourse = (serial_number) => {
-    console.log(serial_number)
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");

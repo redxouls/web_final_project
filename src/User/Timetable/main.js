@@ -65,7 +65,6 @@ export default (props) => {
   },[])
 
   const unfollowCourse = (serial_number) => {
-    console.log(serial_number)
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");

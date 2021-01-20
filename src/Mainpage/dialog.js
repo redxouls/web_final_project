@@ -64,13 +64,11 @@ export default (props) => {
       body: urlencoded,
       redirect: "follow",
     };
-    console.log(newValue);
     if (newValue) {
       fetch("/api/vote", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          if (result.message != "vote too often") console.log(newValue);
-          else setopen(true);
+          if (result.message == "vote too often") setopen(true);
         })
         .catch((error) => console.log("error", error));
     }
