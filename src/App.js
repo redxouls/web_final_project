@@ -64,7 +64,7 @@ export default () => {
               </IconButton>
             </Route>
           </Switch>
-        <Router>
+        </Router>
         <div className={classes.title}>加簽資訊論壇</div>
       </Toolbar>
     </AppBar>
@@ -85,7 +85,7 @@ export default () => {
         </Route>
         <Redirect exact to="/Tutorial" from='/' />
       </Switch>
-    <Router>
+    </Router>
     </>
   );
 }
