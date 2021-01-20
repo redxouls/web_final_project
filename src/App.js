@@ -4,7 +4,7 @@ import { HashRouter as Router, Switch, Route, Link, Redirect } from "react-route
 import clsx from 'clsx';
 import { Toolbar, Drawer, List, ListItem, ListItemIcon, ListItemText,
         Divider, IconButton, Button, AppBar } from '@material-ui/core';
-import { KeyboardArrowUp, ArrowBack } from '@material-ui/icons';
+import { KeyboardArrowUp, ArrowBack, ExitToApp } from '@material-ui/icons';
 import User from "./User/main";
 import Main from "./User/Mainpage/main"
 import Login from "./User/Login/main"
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const classes = useStyles();
   const [login, setLogin] = React.useState(true);
+  const [logout, setLogout] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -53,9 +54,13 @@ export default () => {
     <AppBar position="fixed">
       <Toolbar>
         {
-          login ?
+          login ? logout ?
           <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
             <ArrowBack />
+          </IconButton>
+          :
+          <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
+            <ExitToApp />
           </IconButton>
           : []
         }
@@ -66,7 +71,7 @@ export default () => {
       <div className={classes.top} />
       <Switch>
         <Route path="/User">
-          <User />
+          <User setLogout={setLogout} />
         </Route>
         <Route path="/Login">
           <Login setLogin={setLogin} />
