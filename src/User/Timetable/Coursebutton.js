@@ -70,15 +70,17 @@ export default (props) => {
 
   let timeOutEvent = 0;
   const handleStart = () => {
-    if ( typeof name === 'number') {
-      click(idx);
-      return
-    }
+    if ( typeof name === 'number') return;
     timeOutEvent = setTimeout(() => {
       longPress();
     }, 1000); // 一秒內算click
   };
   const handleEnd = () => {
+    if ( typeof name === 'number') {
+      click(idx);
+      event.preventDefault()
+      return;
+    }
     clearTimeout(timeOutEvent);
     if (timeOutEvent != 0) handleGotoCourse();
   };
