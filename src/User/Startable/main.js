@@ -94,11 +94,11 @@ export default (props) => {
   let row;
   const generateRow = (time) => {
     row = time;
-    return ([//<Divider className={classes.divider} key={row+'d'} />,
+    return (
       <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
         <Timenum name={time} />
         {daysIdx.map(generateBlock)}
-      </Grid>])
+      </Grid>)
   }
   const generateBlock = (day) => {
     const list = courses[day][row];

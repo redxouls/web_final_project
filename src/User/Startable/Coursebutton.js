@@ -104,12 +104,10 @@ export default (props) => {
         <DialogContent> 確定要刪除？ </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleCancel} color="primary">
-            {" "}
-            Cancel{" "}
+            Cancel
           </Button>
           <Button onClick={handleSure} color="primary">
-            {" "}
-            Sure{" "}
+            Sure
           </Button>
         </DialogActions>
       </Dialog>

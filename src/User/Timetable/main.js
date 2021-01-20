@@ -101,17 +101,17 @@ export default (props) => {
   const generateRow = (time) => {
     row = time;
     if (day === 0) {
-      return ([//<Divider className={classes.divider} key={row+'d'} />,
+      return (
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {daysIdx.map(generateNum)}
-        </Grid>])
+        </Grid>)
     } else {
-      return ([//<Divider className={classes.divider} key={row+'d'} />,
+      return (
         <Grid container spacing={0} direction="row" justify="center" alignItems="center" key={row}>
           <Timenum name={time} />
           {generateList()}
-        </Grid>])
+        </Grid>)
     }
   }
   const generateNum = (day) => {

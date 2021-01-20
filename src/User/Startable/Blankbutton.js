@@ -4,10 +4,6 @@ import {
   Paper,
   Button,
   Grid,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Dialog,
 } from "@material-ui/core";
 const color = {
   Mon: "#ffebee",

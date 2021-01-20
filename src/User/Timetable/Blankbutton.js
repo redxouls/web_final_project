@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Button, Grid, DialogTitle, DialogContent,
-        DialogActions, Dialog } from '@material-ui/core';
+import { Paper, Button, Grid } from '@material-ui/core';
 const color = {Mon: '#ffebee', Tue: '#fff3e0', Wed: '#fffde7', Thu: '#f1f8e9', Fri: '#e3f2fd', Sat: '#e8eaf6'}
 const useStyles = makeStyles({
   root: {
