@@ -15,13 +15,15 @@ headers = {
     'content-type': 'application/x-www-form-urlencoded',
     'Accept': '*/*',
     'Sec-GPC': '1',
-    'Origin': 'http://127.0.0.1:3000',
+    'Origin': 'http://140.112.249.87',
     'Sec-Fetch-Site': 'same-origin',
     'Sec-Fetch-Mode': 'cors',
     'Sec-Fetch-Dest': 'empty',
-    'Referer': 'http://127.0.0.1:3000/',
+    'Referer': 'http://140.112.249.87',
     'Accept-Language': 'en-US,en;q=0.9',
 }
+
+url = "http://140.112.249.87"
 
 to_follow = [84599, 34256, 26732, 60240, 79134, 74023, 12001, 73087, 70941]
 
@@ -37,11 +39,11 @@ for username in accountInfo:
         }
 
         s = requests.Session()
-        s.post('http://127.0.0.1:3000/api/login', headers=headers, data=data)
+        s.post(url + '/api/login', headers=headers, data=data)
         
         # Get course informations
 
-        course_list_raw = s.get("http://127.0.0.1:3000/api/user/list", headers=headers)
+        course_list_raw = s.get(url + "/api/user/list", headers=headers)
         course_list = [course["serial_number"] for course in json.loads(course_list_raw.text)]
         print(course_list)
 
@@ -50,7 +52,7 @@ for username in accountInfo:
         option = {
             "time":["Wed 3", "Wed 4"],
             "priority":["本系優先", "高年級優先", "抽籤"],
-            "people":["1~10", "11~20", "21~30", "31~40", "40~"] 
+            "people":["1~10 人", "11~20 人", "21~30 人", "31~40 人", "40~ 人"] 
         }
         question_to_vote = question[random.randint(0, 2)]
         option_to_vote = option[question_to_vote][random.randint(0,len(option[question_to_vote])-1)]
@@ -59,7 +61,7 @@ for username in accountInfo:
             "question": question_to_vote,
             "option": option_to_vote
         }
-        vote_response = s.post("http://127.0.0.1:3000/api/vote", headers=headers, data=to_vote)
+        vote_response = s.post(url + "/api/vote", headers=headers, data=to_vote)
         print(vote_response.text)
 
 
