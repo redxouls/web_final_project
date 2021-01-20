@@ -77,7 +77,9 @@ export default function choice(props) {
                     <FormControlLabel value={option} key={option} control={<Radio />} label={option} className={classes.option} />
                     <div>{question[option]} / {Object.values(question).reduce(reducer)}</div>
                   </Grid>,
+                  <>
                   <LinearProgress variant="determinate" value={question[option]/Object.values(question)[0]*100} key={rate[index]} />
+                  </>
                 ]
               ))
           }

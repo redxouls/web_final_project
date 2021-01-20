@@ -22,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default (props) => {
-  const { setLogout } = props;
+export default () => {
   const classes = useStyles();
   const { serial_number } = useParams();
   const [course, set_course] = useState([]);
@@ -48,7 +47,7 @@ export default (props) => {
       .then((result) => {
         if (result.message == "Not authorized request") {
           history.replaceState("", "", "/#/Login");
-          history.go(0);
+          //history.go(0);
         }
         else{
           console.log(result)
@@ -68,7 +67,6 @@ export default (props) => {
 
   useEffect(() => {
     fetchCourse();
-    setLogout(true);
   }, []);
 
   useEffect(() => {
