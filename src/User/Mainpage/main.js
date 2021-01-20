@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default () => {
+export default (props) => {
+  const { setLogout } = props;
   const classes = useStyles();
   const { serial_number } = useParams();
   const [course, set_course] = useState([]);
@@ -67,6 +68,7 @@ export default () => {
 
   useEffect(() => {
     fetchCourse();
+    setLogout(true);
   }, []);
 
   useEffect(() => {

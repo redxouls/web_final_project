@@ -77,7 +77,7 @@ export default () => {
           <Login setLogin={setLogin} />
         </Route>
         <Route path="/Main/:serial_number" >
-          <Main />
+          <Main setLogout={setLogout} />
         </Route>
         <Route path="/Tutorial" >
           <Tutorial setLogin={setLogin} />
