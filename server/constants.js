@@ -18,5 +18,11 @@ module.exports = Object.freeze({
   DAY_IN_WEEK: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
   RULES: ["priority", "people", "time"],
   PRIORITY: { 本系優先: 0, 高年級優先: 0, 抽籤: 0 },
-  PEOPLE: { "1~10": 0, "11~20": 0, "21~30": 0, "31~40": 0, "40~": 0 },
+  PEOPLE: {
+    "1~10 人": 0,
+    "11~20 人": 0,
+    "21~30 人": 0,
+    "31~40 人": 0,
+    "40~ 人": 0,
+  },
 });
