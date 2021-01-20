@@ -53,6 +53,7 @@ export default () => {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("credentials", "include");
 
+    const urlencoded = new URLSearchParams();
     const requestOptions = {
       method: "DELETE",
       headers: myHeaders,
@@ -61,10 +62,6 @@ export default () => {
     };
 
     fetch("./api/login", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result)
-      })
       .catch((error) => console.log("error", error));
   }
 
