@@ -56,6 +56,7 @@ export default (props) => {
 
   const handleGotoCourse = () => {
     if ( typeof name === 'number') return;
+    event.preventDefault();
     window.location.href = document.referrer + '#/Main/' + num;
   };
 

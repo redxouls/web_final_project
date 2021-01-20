@@ -56,6 +56,7 @@ export default (props) => {
 
   const handleGotoCourse = () => {
     if (num === undefined) return;
+    event.preventDefault();
     window.location.href = document.referrer + '#/Main/' + num;
   };
 
