@@ -114,7 +114,7 @@ export default (props) => {
     const list = courses[day][row];
     if (list.length === 0)
       return <Blankbutton key={day} css_setting={day}/>;
-    return <Coursebutton onDel={onDel} name={list.length} key={day} css_setting={day}/>;
+    return <Coursebutton onDel={onDel} name={list.length} click={handleClick} idx={day} key={day} css_setting={day}/>;
   }
   const generateList = () => {
     const list = courses[day][row];

@@ -50,12 +50,11 @@ const useStyles = makeStyles({
 });
 
 export default (props) => {
-  const { onDel, name, num } = props;
+  const { onDel, name, num, click, idx } = props;
   const classes = useStyles(props);
   const [open, setOpen] = React.useState(false);
 
   const handleGotoCourse = () => {
-    if ( typeof name === 'number') return;
     event.preventDefault();
     window.location.href = document.referrer + '#/Main/' + num;
   };
@@ -71,7 +70,10 @@ export default (props) => {
 
   let timeOutEvent = 0;
   const handleStart = () => {
-    if ( typeof name === 'number') return;
+    if ( typeof name === 'number') {
+      click(idx);
+      return
+    }
     timeOutEvent = setTimeout(() => {
       longPress();
     }, 1000); // 一秒內算click
