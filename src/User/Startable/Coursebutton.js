@@ -85,16 +85,12 @@ export default (props) => {
   // onMouseDown={handleStart} onMouseUp={handleEnd}>
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Grid
-          item
-          xs
+      <Paper className={classes.paper}
           onTouchStart={handleStart}
           onTouchEnd={handleEnd}
           onMouseDown={handleStart}
-          onMouseUp={handleEnd}
-          className={classes.grid}
-        >
+          onMouseUp={handleEnd}>
+        <Grid item xs className={classes.grid} >
           <div className={classes.name}>{name}</div>
         </Grid>
       </Paper>

@@ -55,6 +55,7 @@ export default (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleGotoCourse = () => {
+    if ( typeof name === 'number') return;
     window.location.href = document.referrer + '#/Main/' + num;
   };
 
@@ -69,6 +70,7 @@ export default (props) => {
 
   let timeOutEvent = 0;
   const handleStart = () => {
+    if ( typeof name === 'number') return;
     timeOutEvent = setTimeout(() => {
       longPress();
     }, 1000); // 一秒內算click
@@ -84,16 +86,12 @@ export default (props) => {
   // onMouseDown={handleStart} onMouseUp={handleEnd}>
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Grid
-          item
-          xs
+      <Paper className={classes.paper}
           onTouchStart={handleStart}
           onTouchEnd={handleEnd}
           onMouseDown={handleStart}
-          onMouseUp={handleEnd}
-          className={classes.grid}
-        >
+          onMouseUp={handleEnd}>
+        <Grid item xs className={classes.grid}>
           <div className={classes.name}>{name}</div>
         </Grid>
       </Paper>
