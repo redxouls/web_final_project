@@ -51,10 +51,8 @@ export default (props) => {
       .then((result) => {
         if (result === "")
           alert("wrong username or password!");
-        else {
-          setLogin(true);
+        else
           window.location.href = document.referrer + '#/User'
-        }
       })
       .catch((error) => {
         alert("error");

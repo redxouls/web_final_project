@@ -44,10 +44,9 @@ export default () => {
     fetch("./api/user/list", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result.message == "Not authorized request") {
-          history.replaceState("", "", "/#/Login");
-          history.go(0);
-        } else if (result["message"] == undefined) {
+        if (result.message == "Not authorized request")
+          window.location.href = document.referrer + '#/Login'
+        else if (result["message"] == undefined) {
           setCourses(result);
           console.log("fetch", result);
         } else console.log(result["message"]);
