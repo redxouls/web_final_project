@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Divider } from '@material-ui/core';
-
 import Coursebutton from "./Coursebutton";
 import Blankbutton from "./Blankbutton";
 import Dayblock from "./Dayblock";

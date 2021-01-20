@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Timetable from "./Timetable/main"
 import Startable from "./Startable/main"
 import Courselist from "./Courselist/main"
-import Mainpage from "./Mainpage/main"
-import Login from "./Login/main"
 import Navigation from "./Navigation"
 
 const useStyles = makeStyles((theme) => ({

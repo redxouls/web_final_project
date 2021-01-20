@@ -6,9 +6,9 @@ import { Toolbar, Drawer, List, ListItem, ListItemIcon, ListItemText,
         Divider, IconButton, Button, AppBar } from '@material-ui/core';
 import { KeyboardArrowUp, ArrowBack, ExitToApp } from '@material-ui/icons';
 import User from "./User/main";
-import Main from "./User/Mainpage/main"
-import Login from "./User/Login/main"
-import Tutorial from "./User/Tutorial/main"
+import Main from "./Mainpage/main"
+import Login from "./Login/main"
+import Tutorial from "./Tutorial/main"
 
 const useStyles = makeStyles((theme) => ({
   link: {
