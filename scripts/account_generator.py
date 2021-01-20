@@ -14,10 +14,10 @@ accounts = db.accounts
 
 
 accounts_for_test = {} 
-new_account = {"username":"Lisa" , "password": "lightening_five_whips"}
-new_acount_id = accounts.insert_one(new_account).inserted_id
+# new_account = {"username":"Lisa" , "password": "lightening_five_whips"}
+# new_acount_id = accounts.insert_one(new_account).inserted_id
 
-for i in range(50):
+for i in range(500):
     if (i==0):
         username = "Lisa"
         password = "lightening_five_whips"
