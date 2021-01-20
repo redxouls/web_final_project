@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   List,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Button,
@@ -150,7 +149,6 @@ export default () => {
         aria-labelledby="confirmation-dialog-title"
         open={open}
       >
-        <DialogTitle id="confirmation-dialog-title">test</DialogTitle>
         <DialogContent> 確定要刪除？ </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleCancel} color="primary">
