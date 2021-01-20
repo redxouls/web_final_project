@@ -6,10 +6,7 @@ const router = express.Router();
 // For fetching course infomations
 router.route("/").get(
   asyncHandler((req, res, next) => {
-    if (
-      req.session.username === undefined ||
-      req.session.username === "guest"
-    ) {
+    if (!req.session.username) {
       res.status(401).send({ message: "Not authorized request" });
       return;
     }
