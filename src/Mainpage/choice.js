@@ -41,7 +41,7 @@ export default function choice(props) {
     setValue(event.target.value);
   };
   const reducer = (a, b) => a + b;
-
+  const Title = {time: "加簽時間", priority: "加簽優先序", people: "加簽人數"}
   return (
     <Dialog
       disableBackdropClick
@@ -52,7 +52,7 @@ export default function choice(props) {
       open={open}
       {...other}
     >
-      <DialogTitle id="confirmation-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="confirmation-dialog-title">{Title[title]}</DialogTitle>
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef}
