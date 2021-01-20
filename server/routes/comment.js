@@ -13,10 +13,7 @@ router.route("/").post(
     const { serial_number, body } = req.body;
     const io = req.app.get("io");
 
-    if (
-      req.session.username === undefined ||
-      req.session.username === "guest"
-    ) {
+    if (!req.session.username) {
       res.status(401).send({ message: "Not authorized request" });
       return;
     }

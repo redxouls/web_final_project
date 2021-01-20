@@ -11,7 +11,7 @@ router.route("/:mode").get(
   asyncHandler(async (req, res, next) => {
     const mode = req.params.mode;
 
-    if (req.session.username === undefined) {
+    if (!req.session.username) {
       res.status(401).send({ message: "Not authorized request" });
       return;
     }
@@ -63,7 +63,7 @@ router
       const { serial_number } = req.body;
       const username = req.session.username;
 
-      if (req.session.username === undefined) {
+      if (!req.session.username) {
         res.status(401).send({ message: "Not authorized request" });
         return;
       }
@@ -111,7 +111,7 @@ router
       const username = req.session.username;
       const exisist = await checkCourse(serial_number);
 
-      if (req.session.username === undefined) {
+      if (!req.session.username) {
         res.status(401).send({ message: "Not authorized request" });
         return;
       }

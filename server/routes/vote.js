@@ -11,7 +11,7 @@ const router = express.Router();
 router.route("/").post(
   express.urlencoded({ extended: false }),
   asyncHandler(async (req, res, next) => {
-    if (req.session.username === undefined) {
+    if (!req.session.username) {
       res.status(401).send({ message: "Not authorized request" });
       return;
     }
