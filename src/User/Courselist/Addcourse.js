@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingRight: 100,
     width: '100%',
   },
   block: {
