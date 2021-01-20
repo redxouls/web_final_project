@@ -55,10 +55,10 @@ export default (props) => {
       .then((result) => {
         if (result === "")
           alert("wrong username or password!");
-        else
-          history.pushState('', '', '/#/User');
-        setLogin(true);
-        history.go(0);
+        else {
+          setLogin(true);
+          window.location.href = document.referrer + '#/User'
+        }
       })
       .catch((error) => {
         alert("error");

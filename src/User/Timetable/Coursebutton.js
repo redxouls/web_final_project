@@ -55,8 +55,7 @@ export default (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleGotoCourse = () => {
-    history.pushState("", "", "/#/Main/" + num);
-    history.go(0);
+    window.location.href = document.referrer + '#/Main/' + num;
   };
 
   const handleCancel = () => {

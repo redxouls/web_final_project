@@ -24,8 +24,7 @@ export default (props) => {
   const { title, serial_number, unfollow } = props;
   const classes = useStyles();
   const handlego = () => {
-    history.pushState("", "", "/#/Main/" + serial_number);
-    history.go(0);
+    window.location.href = document.referrer + '#/Main/' + serial_number;
   };
   const handleunfollow = () => {
     unfollow(serial_number);

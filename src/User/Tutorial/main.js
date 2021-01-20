@@ -80,6 +80,8 @@ export default (props) => {
   const maxSteps = tutorialSteps.length;
 
   const handleClick = (e) => {
+    // window.location.href = document.referrer
+    return
     if (e.clientX > window.innerWidth / 2) {
       if (activeStep < maxSteps - 1)
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -96,9 +98,7 @@ export default (props) => {
   };
 
   const handlego = () => {
-    setLogin(true);
-    history.pushState("", "", "/#/Login");
-    history.go(0);
+    window.location.href = document.referrer + '#/Login'
   };
   return (
     <div className={classes.root} onClick={handleClick}>
