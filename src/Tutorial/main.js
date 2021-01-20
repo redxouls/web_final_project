@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { MobileStepper, Paper, Typography, Button } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
@@ -90,11 +90,32 @@ export default (props) => {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+  const [check, setCheck] = useState(false);
+
+  useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append("credentials", "include");
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "manual",
+    };
+    fetch("./api/user/list", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message != "Not authorized request")
+          window.location.href = document.referrer + '#/User';
+        else
+          setCheck(true);
+      })
+      .catch((error) => console.log("error", error));
+  }, [])
 
   const handlego = () => {
     window.location.href = document.referrer + '#/Login'
   };
   return (
+    check == true ?
     <div className={classes.root} onClick={handleClick}>
       <Button
         onClick={handlego}
@@ -121,5 +142,6 @@ export default (props) => {
         ))}
       </AutoPlaySwipeableViews>
     </div>
+    : []
   );
 };

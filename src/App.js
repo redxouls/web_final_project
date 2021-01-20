@@ -47,6 +47,26 @@ export default () => {
   const goBack = () => {
     history.go(-1);
   }
+  const logout = () => {
+    window.location.href = document.referrer + '#/Login';
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("credentials", "include");
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "manual",
+    };
+
+    fetch("./api/login", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((error) => console.log("error", error));
+  }
 
   return (<>
     <AppBar position="fixed">
@@ -54,7 +74,7 @@ export default () => {
         <Router>
           <Switch>
             <Route path="/User">
-              <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
+              <IconButton color="inherit" edge="end" onClick={logout} className={classes.icon}>
                 <ExitToApp />
               </IconButton>
             </Route>

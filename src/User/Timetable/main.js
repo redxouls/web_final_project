@@ -42,10 +42,8 @@ export default (props) => {
     fetch("./api/user/timeline", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if(result.message == "Not authorized request"){
-          history.replaceState('', '', '/#/Login');
-          history.go(0);
-        }
+        if(result.message == "Not authorized request")
+          window.location.href = document.referrer + '#/Login'
         else if (result["message"] == undefined)
           setCourses(result)
         else
