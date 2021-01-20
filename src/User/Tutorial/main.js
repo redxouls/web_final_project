@@ -120,9 +120,7 @@ export default (props) => {
             <div className={classes.textBox}>
               <Typography align='center'>{step.text}</Typography>
             </div>
-            {Math.abs(activeStep - index) <= 2 ? (
-              <img className={classes.img} src={step.imgPath} />
-            ) : null}
+            <img className={classes.img} src={step.imgPath} />
           </div>
         ))}
       </AutoPlaySwipeableViews>
