@@ -18,12 +18,8 @@ const mode = (value) => {
 }
 
 export default (props) => {
-  const { setLogout } = props;
   const classes = useStyles();
   const [value, setValue] = React.useState("star");
-  useEffect(() => {
-    setLogout(false);
-  }, [])
   return (
     <div>
       {mode(value)}

@@ -73,7 +73,6 @@ const tutorialSteps = [
 ];
 
 export default (props) => {
-  const { setLogin } = props;
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -87,9 +86,6 @@ export default (props) => {
       if (activeStep > 0) setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
   };
-  useEffect(() => {
-    setLogin(false);
-  }, []);
 
   const handleStepChange = (step) => {
     setActiveStep(step);

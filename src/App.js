@@ -35,8 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const classes = useStyles();
-  const [login, setLogin] = React.useState(true);
-  const [logout, setLogout] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -53,37 +51,41 @@ export default () => {
   return (<>
     <AppBar position="fixed">
       <Toolbar>
-        {
-          login ? logout ?
-          <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
-            <ArrowBack />
-          </IconButton>
-          :
-          <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
-            <ExitToApp />
-          </IconButton>
-          : []
-        }
+        <Router>
+          <Switch>
+            <Route path="/User">
+              <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
+                <ExitToApp />
+              </IconButton>
+            </Route>
+            <Route path="/Main/:serial_number" >
+              <IconButton color="inherit" edge="end" onClick={goBack} className={classes.icon}>
+                <ArrowBack />
+              </IconButton>
+            </Route>
+          </Switch>
+        <Router>
         <div className={classes.title}>加簽資訊論壇</div>
       </Toolbar>
     </AppBar>
+    <div className={classes.top} />
     <Router>
-      <div className={classes.top} />
       <Switch>
         <Route path="/User">
-          <User setLogout={setLogout} />
+          <User />
         </Route>
         <Route path="/Login">
-          <Login setLogin={setLogin} />
+          <Login />
         </Route>
         <Route path="/Main/:serial_number" >
-          <Main setLogout={setLogout} />
+          <Main />
         </Route>
         <Route path="/Tutorial" >
-          <Tutorial setLogin={setLogin} />
+          <Tutorial />
         </Route>
         <Redirect exact to="/Tutorial" from='/' />
       </Switch>
-    </Router></>
+    <Router>
+    </>
   );
 }
