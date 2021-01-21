@@ -60,7 +60,7 @@ for username in accountInfo:
         number_of_options = len(option[question_to_vote])-1
         index_to_vote = random.randint(0, 2 * number_of_options)
         if index_to_vote  > number_of_options:
-            option_to_vote = option[question_to_vote][0]
+            option_to_vote = option[question_to_vote][2]
         else:
             option_to_vote = option[question_to_vote][index_to_vote]
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   LinearProgress,
 } from "@material-ui/core";
 import PieChart from "./Piechart";
+import Customchart from "./Customchart";
 
 const useStyles = makeStyles((theme) => ({
   option: {
@@ -154,18 +155,24 @@ export default function choice(props) {
         <Grid
           container
           spacing={0}
-          direction="column"
+          direction="row"
           justify="center"
           alignItems="center"
         >
           {question ? (
-            <PieChart
-              data={data}
-              question={Object.keys(question).map((key) => ({
-                name: key,
-                value: question[key],
-              }))}
-            ></PieChart>
+            <Customchart
+              data={
+                window.innerWidth > 606
+                  ? Object.keys(question).map((key) => ({
+                      name: key,
+                      value: question[key],
+                    }))
+                  : Object.keys(question).map((key) => ({
+                      name: "",
+                      value: question[key],
+                    }))
+              }
+            ></Customchart>
           ) : (
             ""
           )}
