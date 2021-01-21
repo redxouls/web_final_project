@@ -1,5 +1,11 @@
 # Web Programming Final Project
 
+## 測試用帳號密碼
+| username | password |
+| -- | -- |
+| TA | i_like_web |
+| Lisa | lightening_five_whips |
+| William Moreno | yurA5zjerFDMALCqWJkr |
 ## About The Project
 
 As a student in NTU, we find it difficult to register most of the desired courses only by using the official registration system. Most students go to class in person and acquire the additional registration code instead. However, one might have more than one desired courses at the same time. Therefore, a real-time information exchange forum with correctness is necessary.
@@ -104,21 +110,6 @@ This is an example of how to list things you need to use the software and how to
    SESSION_PREFIX=
    ```
 
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-1. Login :
-
-2. Browse Followed Course :
-
-3. Follow Course :
-
-4. Unfollow Course :
-
-5. Vote for "Rules", "People", "Priority" of when registeting this course :
-
-6. Leave comment :
 
 ## File Structure
 
