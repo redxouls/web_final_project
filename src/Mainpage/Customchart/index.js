@@ -40,10 +40,14 @@ TriangleBar.propTypes = {
 
 export default (props) => {
   const data = props.data;
+  let width = window.innerWidth * 0.7;
+  if (width > 600) {
+    width = 600;
+  }
   return (
     <BarChart
-      width={window.innerWidth * 0.7}
-      height={window.innerWidth * 0.6}
+      width={width}
+      height={width * 0.6}
       data={props.data}
       margin={{ top: 30, right: 30, bottom: 5, left: 5 }}
       layout="horizontal"

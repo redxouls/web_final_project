@@ -12,7 +12,6 @@ import {
   FormControlLabel,
   LinearProgress,
 } from "@material-ui/core";
-import PieChart from "./Piechart";
 import Customchart from "./Customchart";
 
 const useStyles = makeStyles((theme) => ({
