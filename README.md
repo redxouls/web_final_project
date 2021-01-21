@@ -1,11 +1,13 @@
 # Web Programming Final Project
 
 ## 測試用帳號密碼
-| username | password |
-| -- | -- |
-| TA | i_like_web |
-| Lisa | lightening_five_whips |
-| William Moreno | yurA5zjerFDMALCqWJkr |
+
+| username       | password              |
+| -------------- | --------------------- |
+| TA             | i_like_web            |
+| Lisa           | lightening_five_whips |
+| William Moreno | yurA5zjerFDMALCqWJkr  |
+
 ## About The Project
 
 As a student in NTU, we find it difficult to register most of the desired courses only by using the official registration system. Most students go to class in person and acquire the additional registration code instead. However, one might have more than one desired courses at the same time. Therefore, a real-time information exchange forum with correctness is necessary.
@@ -43,6 +45,7 @@ This section should list any major frameworks that you built your project using.
 - [React Router](https://reactrouter.com/) - Serve different component
 - [MATERIAL-UI](https://material-ui.com/) - unify the style
 - [socket.io-client](https://www.npmjs.com/package/socket.io-client) - Realtime update for vote and comment
+- [Recharts](https://recharts.org/en-US/) - Visualizing the vote result
 
 ### Backend
 
@@ -110,7 +113,6 @@ This is an example of how to list things you need to use the software and how to
    SESSION_PREFIX=
    ```
 
-
 ## File Structure
 
 ### Root Directory
@@ -134,8 +136,8 @@ This is an example of how to list things you need to use the software and how to
 ```
 
 ### Structure
-![](https://i.imgur.com/NfvjMjd.jpg)
 
+![](https://i.imgur.com/NfvjMjd.jpg)
 
 ### Src side (frontend)
 
