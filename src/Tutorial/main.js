@@ -4,7 +4,6 @@ import { MobileStepper, Paper, Typography, Button } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-import PieChart from "./Piechart";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -140,7 +139,6 @@ export default (props) => {
           </div>
         ))}
       </AutoPlaySwipeableViews>
-      <PieChart> </PieChart>
     </div>
   ) : (
     []
