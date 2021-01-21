@@ -41,41 +41,41 @@ for username in accountInfo:
         s = requests.Session()
         s.post(url + '/api/login', headers=headers, data=data)
         
-        # # Get course informations
+        # Get course informations
 
-        # # course_list_raw = s.get(url + "/api/user/list", headers=headers)
-        # # course_list = [course["serial_number"] for course in json.loads(course_list_raw.text)]
-        # # print(course_list)
+        # course_list_raw = s.get(url + "/api/user/list", headers=headers)
+        # course_list = [course["serial_number"] for course in json.loads(course_list_raw.text)]
+        # print(course_list)
 
-        # serial_number_to_vote = "84599"
-        # question = ["time", "priority", "people"]
-        # option = {
-        #     "time":["Wed 3", "Wed 4"],
-        #     "priority":["本系優先", "高年級優先", "抽籤"],
-        #     "people":["1~10 人", "11~20 人", "21~30 人", "31~40 人", "40~ 人"] 
-        # }
-        # # question_to_vote = question[random.randint(0, 2)]
+        serial_number_to_vote = "84599"
+        question = ["time", "priority", "people"]
+        option = {
+            "time":["Wed 3", "Wed 4"],
+            "priority":["本系優先", "高年級優先", "抽籤"],
+            "people":["1~10 人", "11~20 人", "21~30 人", "31~40 人", "40~ 人"] 
+        }
+        question_to_vote = question[random.randint(0, 2)]
         # question_to_vote = question[2]
-        # number_of_options = len(option[question_to_vote])-1
-        # index_to_vote = random.randint(0, 2 * number_of_options)
-        # if index_to_vote  > number_of_options:
-        #     option_to_vote = option[question_to_vote][1]
-        # else:
-        #     option_to_vote = option[question_to_vote][index_to_vote]
+        number_of_options = len(option[question_to_vote])-1
+        index_to_vote = random.randint(0, 2 * number_of_options)
+        if index_to_vote  > number_of_options:
+            option_to_vote = option[question_to_vote][1]
+        else:
+            option_to_vote = option[question_to_vote][index_to_vote]
 
-        # to_vote = {
-        #     "serial_number": serial_number_to_vote,
-        #     "question": question_to_vote,
-        #     "option": option_to_vote
-        # }
-        # vote_response = s.post(url + "/api/vote", headers=headers, data=to_vote)
-        # print(vote_response.text)
+        to_vote = {
+            "serial_number": serial_number_to_vote,
+            "question": question_to_vote,
+            "option": option_to_vote
+        }
+        vote_response = s.post(url + "/api/vote", headers=headers, data=to_vote)
+        print(vote_response.text)
 
 
         # Adding course from to_follow 
 
-        for serial_number in to_follow:
-            add_course_response = s.post(url + "/api/user", headers=headers, data ={"serial_number":serial_number})
-            print(add_course_response.text)            
+        # for serial_number in to_follow:
+        #     add_course_response = s.post(url + "/api/user", headers=headers, data ={"serial_number":serial_number})
+        #     print(add_course_response.text)            
         
     # break
