@@ -104,18 +104,16 @@ export default (props) => {
       .then((response) => response.json())
       .then((result) => {
         if (result.message != "Not authorized request")
-          window.location.href = document.referrer + '#/User';
-        else
-          setCheck(true);
+          window.location.href = document.referrer + "#/User";
+        else setCheck(true);
       })
       .catch((error) => console.log("error", error));
-  }, [])
+  }, []);
 
   const handlego = () => {
-    window.location.href = document.referrer + '#/Login'
+    window.location.href = document.referrer + "#/Login";
   };
-  return (
-    check == true ?
+  return check == true ? (
     <div className={classes.root} onClick={handleClick}>
       <Button
         onClick={handlego}
@@ -135,13 +133,14 @@ export default (props) => {
         {tutorialSteps.map((step, index) => (
           <div key={index}>
             <div className={classes.textBox}>
-              <Typography align='center'>{step.text}</Typography>
+              <Typography align="center">{step.text}</Typography>
             </div>
             <img className={classes.img} src={step.imgPath} />
           </div>
         ))}
       </AutoPlaySwipeableViews>
     </div>
-    : []
+  ) : (
+    []
   );
 };
