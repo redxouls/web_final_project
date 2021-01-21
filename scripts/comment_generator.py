@@ -23,7 +23,8 @@ headers = {
     'Accept-Language': 'en-US,en;q=0.9',
 }
 
-url = "http://140.112.249.87"
+# url = "http://140.112.249.87"
+url = "http://127.0.0.1:3000"
 
 to_follow = [84599, 34256, 26732, 60240, 79134, 74023, 12001, 73087, 70941]
 count = 0 
@@ -54,12 +55,12 @@ for username in accountInfo:
             "priority":["本系優先", "高年級優先", "抽籤"],
             "people":["1~10 人", "11~20 人", "21~30 人", "31~40 人", "40~ 人"] 
         }
-        question_to_vote = question[random.randint(0, 2)]
-        # question_to_vote = question[2]
+        # question_to_vote = question[random.randint(0, 2)]
+        question_to_vote = question[2]
         number_of_options = len(option[question_to_vote])-1
         index_to_vote = random.randint(0, 2 * number_of_options)
         if index_to_vote  > number_of_options:
-            option_to_vote = option[question_to_vote][1]
+            option_to_vote = option[question_to_vote][2]
         else:
             option_to_vote = option[question_to_vote][index_to_vote]
 
